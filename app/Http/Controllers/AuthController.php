@@ -70,7 +70,7 @@ class AuthController extends Controller
 
             $userRoles = new UserRoles();
             $userRoles->id_user = $user->id;
-            $userRoles->id_role_namei = 1;
+            $userRoles->id_role_name = 1;
             $userRoles->save();
 
             DB::commit();
