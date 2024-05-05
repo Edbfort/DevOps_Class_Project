@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MemberKomunitas extends Model
+class Project extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class MemberKomunitas extends Model
      *
      * @var string
      */
-    protected $table = 'member_komunitas';
+    protected $table = 'project';
 
     /**
      * The primary key for the model.
@@ -29,27 +29,10 @@ class MemberKomunitas extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'id_komunitas',
-        'id_user',
-        'jabatan',
+        'detail_project',
+        'pembuat_project',
+        'judul_project',
         'waktu_buat',
         'waktu_ubah'
     ];
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-    public function idKomunitas()
-    {
-        return $this->belongsTo(Komunitas::class, 'id_komunitas', 'id');
-    }
-    public function idUser()
-    {
-        return $this->belongsTo(User::class, 'id_user', 'id');
-    }
-
 }

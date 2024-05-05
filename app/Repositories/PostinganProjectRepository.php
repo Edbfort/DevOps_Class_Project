@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\MemberKomunitas;
+use App\Models\PostinganProject;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 /**
  * Class BeritaRepository.
  */
-class MemerKomunitasRepository extends BaseRepository
+class PostinganProjectRepository extends BaseRepository
 {
     /**
      * @return string
@@ -16,11 +16,12 @@ class MemerKomunitasRepository extends BaseRepository
      */
     public function model()
     {
-        return MemberKomunitas::class;
+        return PostinganProject::class;
     }
 
     public function getAll()
     {
-        return $this->model->all();
-    }
+        return $this->model->with('idProject')->with('idPengguna')->get();
+    }    
+
 }

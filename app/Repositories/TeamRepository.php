@@ -3,13 +3,13 @@
 namespace App\Repositories;
 
 use App\Models\DataPribadi;
-use App\Models\Komunitas;
+use App\Models\Team;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 /**
  * Class BeritaRepository.
  */
-class KomunitasRepository extends BaseRepository
+class TeamRepository extends BaseRepository
 {
     /**
      * @return string
@@ -17,7 +17,7 @@ class KomunitasRepository extends BaseRepository
      */
     public function model()
     {
-        return Komunitas::class;
+        return Team::class;
     }
 
     public function getAll()
@@ -25,10 +25,10 @@ class KomunitasRepository extends BaseRepository
         return $this->model->all();
     }
 
-    public function getAllWithKomunitasOwner()
+    public function getAllWithTeamOwner()
     {
-        $query = Komunitas::select('komunitas.*','pengguna.username as Pembuat')
-            ->join('users','users.id', '=', 'komunitas.pembuat')
+        $query = Team::select('team.*','pengguna.username as Pembuat')
+            ->join('users','users.id', '=', 'team.pembuat')
             ->join('pengguna', 'pengguna.id_user', '=', 'users.id')
             ->get();
 

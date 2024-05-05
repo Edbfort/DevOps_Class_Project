@@ -3,11 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\DataPribadi;
-use App\Models\UserRoles;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 /**
- * Class BeritaRepository.
+ * Class DataPribadiRepository
  */
 class DataPribadiRepository extends BaseRepository
 {
@@ -22,10 +21,10 @@ class DataPribadiRepository extends BaseRepository
 
     public function findDataPribadiById($id)
     {
-        $query = DataPribadi::select('data_pribadi.*')
-        ->join('users', 'users.id', '=', 'data_pribadi.id_user')
-        ->where('users.id', $id)
-        ->get();
+        $query = DataPribadi::select('data_pribadi.*', 'users.nama', 'users.jenis_kelamin', 'users.email')
+            ->join('users', 'users.id', '=', 'data_pribadi.id_user')
+            ->where('users.id', $id)
+            ->first();
 
         return $query;
     }

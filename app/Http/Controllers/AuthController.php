@@ -113,9 +113,9 @@ class AuthController extends Controller
             $userId = $userInfo->getData()->id;
 
             $userRepo = new UserRolesRepository();
-            $userRoles = $userRepo->findUserRolesByUserId($userId);
+            $userRoles = $userRepo->findOneUserRolesAndNameByUserId($userId);
 
-            return response()->json($userRoles);
+            return response()->json(['message' => $userRoles], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Terjadi kesalahan saat mengambil data mohon hubungi IT Support Kami'], 500);
         }

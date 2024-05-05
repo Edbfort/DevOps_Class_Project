@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
 
-class JoinComunityRequest extends FormRequest
+class JoinTeamRequest extends FormRequest
 {
     public function authorize()
     {

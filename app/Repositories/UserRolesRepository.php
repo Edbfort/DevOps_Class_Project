@@ -21,13 +21,13 @@ class UserRolesRepository extends BaseRepository
         return UserRoles::class;
     }
 
-    public function findUserRolesByUserId($id)
+    public function findOneUserRolesAndNameByUserId($id)
     {
-        $query = UserRoles::select("role_name.nama_role")
+        $query = UserRoles::select("role_name.nama_role","users.nama","users.id")
             ->join('users', 'users.id', '=', 'user_roles.id_user')
             ->join('role_name', 'role_name.id', '=', 'user_roles.id_role_name' )
             ->where('users.id', $id)
-            ->get();
+            ->first();
 
         return $query;
     }

@@ -26,6 +26,8 @@ class SetProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            'nama' => 'string|max:30',
+            'email' => 'string|max:60',
             'nama_instagram' => 'string|max:30',
             'nama_linkedin' => 'string|max:30',
             'nama_facebook' => 'string|max:30',
