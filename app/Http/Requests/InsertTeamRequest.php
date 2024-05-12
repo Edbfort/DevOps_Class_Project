@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
 
-class InsertComunityRequest extends FormRequest
+class InsertTeamRequest extends FormRequest
 {
     public function authorize()
     {
@@ -22,8 +22,10 @@ class InsertComunityRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_komunitas' => 'required|string',
-            'deskripsi' => 'required|string'
+            'nama_team' => 'required|string',
+            'deskripsi' => 'required|string',
+            'max_team' => 'required|integer',
+            'status_collab' => 'required|boolean'
         ];
     }
 

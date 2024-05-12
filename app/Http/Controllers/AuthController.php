@@ -70,7 +70,7 @@ class AuthController extends Controller
 
             $userRoles = new UserRoles();
             $userRoles->id_user = $user->id;
-            $userRoles->id_role_name = 1;
+            $userRoles->id_role_name = request()->id_role_name;
             $userRoles->save();
 
             DB::commit();
@@ -79,7 +79,7 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
 
-            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
+            return response()->json(['error' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
         }
 
     }
@@ -113,9 +113,9 @@ class AuthController extends Controller
             $userId = $userInfo->getData()->id;
 
             $userRepo = new UserRolesRepository();
-            $userRoles = $userRepo->findUserRolesByUserId($userId);
+            $userRoles = $userRepo->findOneUserRolesAndNameByUserId($userId);
 
-            return response()->json($userRoles);
+            return response()->json(['message' => $userRoles], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Terjadi kesalahan saat mengambil data mohon hubungi IT Support Kami'], 500);
         }

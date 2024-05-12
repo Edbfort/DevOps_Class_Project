@@ -19,4 +19,9 @@ class UserRepository extends BaseRepository
     {
         return User::class;
     }
+
+    public function findOneById($id)
+    {
+        return DataPribadi::where('id', $id)->first();
+    }
 }

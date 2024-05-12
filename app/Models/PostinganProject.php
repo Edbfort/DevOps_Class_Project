@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Komunitas extends Model
+class PostinganProject extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Komunitas extends Model
      *
      * @var string
      */
-    protected $table = 'komunitas';
+    protected $table = 'postingan_project';
 
     /**
      * The primary key for the model.
@@ -29,10 +29,10 @@ class Komunitas extends Model
      * @var array
      */
     protected $fillable = [
-        'id_jenis_komunitas',
-        'nama_komunitas',
-        'pembuat',
-        'deskripsi',
+        'id_pengguna',
+        'id_project',
+        'judul_postingan',
+        'deskripsi_postingan',
         'waktu_buat',
         'waktu_ubah'
     ];
@@ -43,13 +43,13 @@ class Komunitas extends Model
      * @var bool
      */
     public $timestamps = false;
-    public function idUser()
+    public function idPengguna()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo(Pengguna::class, 'id_pengguna', 'id');
     }
-    public function idStatusPengguna()
+    public function idProject()
     {
-        return $this->belongsTo(StatusPengguna::class, 'id_status_pengguna', 'id');
+        return $this->belongsTo(Project::class, 'id_project', 'id');
     }
 
 }

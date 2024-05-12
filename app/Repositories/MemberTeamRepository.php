@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\MemberKomunitas;
+use App\Models\MemberTeam;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 /**
  * Class BeritaRepository.
  */
-class MemerKomunitasRepository extends BaseRepository
+class MemberTeamRepository extends BaseRepository
 {
     /**
      * @return string
@@ -16,7 +16,7 @@ class MemerKomunitasRepository extends BaseRepository
      */
     public function model()
     {
-        return MemberKomunitas::class;
+        return MemberTeam::class;
     }
 
     public function getAll()

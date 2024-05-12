@@ -4,19 +4,23 @@ namespace App\Interactors\Profile;
 
 use App\Models\DataPribadi;
 use App\Repositories\DataPribadiRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InsertProfileInteractor
 {
     protected $dataPribadiRepository;
+    protected $userRepository;
 
     public function __construct
     (
-        DataPribadiRepository $dataPribadiRepository
+        DataPribadiRepository $dataPribadiRepository,
+        UserRepository $userRepository
     )
     {
         $this->dataPribadiRepository = $dataPribadiRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function setProfile($request, $id)
@@ -28,9 +32,11 @@ class InsertProfileInteractor
         }
 
         $dataPribadi = $this->dataPribadiRepository->findByUserId($id);
+        $user = $this->userRepository->findOneById($id);
         if ($dataPribadi) {
             try {
                 DB::beginTransaction();
+                $user->nama = $request->nama;
                 $dataPribadi->nama_ig = 'halo';
                 $dataPribadi->save();
                 DB::commit();

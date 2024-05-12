@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\KomunitasController;
+use App\Http\Controllers\PostinganController;
+use App\Http\Controllers\TeamController;
 use App\Http\Requests\SetProfileRequest;
-use App\Http\Requests\JoinComunityRequest;
-use App\Http\Requests\InsertComunityRequest;
+use App\Http\Requests\JoinTeamRequest;
+use App\Http\Requests\InsertTeamRequest;
+use App\Http\Requests\InsertPostinganRequest;
 
 Route::middleware('jwt.auth')->group(function () {
 
@@ -17,18 +19,27 @@ Route::middleware('jwt.auth')->group(function () {
         return app()->make(ProfilController::class)->setDataPribadi($request, $id);
     });
 
-    //Comunity
-    Route::get('/get-comunity', function (){
-        return app()->make(KomunitasController::class)->getDaftarComunity();
+    //team
+    Route::get('/get-team', function (){
+        return app()->make(TeamController::class)->getDaftarTeam();
     });
-    Route::post('/join-comunity/{id}', function (JoinComunityRequest $request, $id){
-        return app()->make(KomunitasController::class)->joinComunity($request, $id);
+    Route::post('/join-team/{id}', function (JoinTeamRequest $request, $id){
+        return app()->make(TeamController::class)->joinTeam($request, $id);
     });
-    Route::post('/insert-comunity', function (InsertComunityRequest $request){
-        return app()->make(KomunitasController::class)->insertComunity($request);
+    Route::post('/insert-team', function (InsertTeamRequest $request){
+        return app()->make(TeamController::class)->insertTeam($request);
+    });
+    Route::post('/interact-team/{id}', function ($request, $id){
+        return app()->make(TeamController::class)->interactTeam($request, $id);
     });
 
-    //Team
+    //postingan
+    Route::get('/get-postingan-project', function () {
+        return app()->make(PostinganController::class)->getAllPostinganProject();
+    });
+    Route::post('/insert-postingan-project', function (InsertPostinganRequest $request) {
+        return app()->make(PostinganController::class)->insertPostinganProject($request);
+    });
 
 });
 
