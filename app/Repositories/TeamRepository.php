@@ -34,4 +34,10 @@ class TeamRepository extends BaseRepository
 
         return $query;
     }
+
+    public function findOneById($id)
+    {
+        return $this->model->find($id);
+    }
+
 }

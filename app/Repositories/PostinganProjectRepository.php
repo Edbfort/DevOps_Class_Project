@@ -22,6 +22,10 @@ class PostinganProjectRepository extends BaseRepository
     public function getAll()
     {
         return $this->model->with('idProject')->with('idPengguna')->get();
-    }    
+    }
 
+    public function findById($id)
+    {
+        return $this->model->find($id);
+    }
 }

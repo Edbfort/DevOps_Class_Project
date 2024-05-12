@@ -25,4 +25,9 @@ class TeamJoinRequestRepository extends BaseRepository
     {
         return $this->model->all();
     }
+
+    public function findOneById($id)
+    {
+        return $this->model->find($id);
+    }
 }

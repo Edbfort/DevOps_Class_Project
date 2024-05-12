@@ -38,5 +38,11 @@ class TeamController extends Controller
         $data = $this->insertTeamInteractor->joinTeam($id);
         return $data;
     }
+
+    public function interactTeam($request, $id)
+    {
+        $data = $this->insertTeamInteractor->interactTeam($request, $id);
+        return $data;
+    }
 }
 

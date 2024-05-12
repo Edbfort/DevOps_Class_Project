@@ -7,6 +7,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Requests\SetProfileRequest;
 use App\Http\Requests\JoinTeamRequest;
 use App\Http\Requests\InsertTeamRequest;
+use App\Http\Requests\InsertPostinganRequest;
 
 Route::middleware('jwt.auth')->group(function () {
 
@@ -28,10 +29,16 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('/insert-team', function (InsertTeamRequest $request){
         return app()->make(TeamController::class)->insertTeam($request);
     });
+    Route::post('/interact-team/{id}', function ($request, $id){
+        return app()->make(TeamController::class)->interactTeam($request, $id);
+    });
 
     //postingan
     Route::get('/get-postingan-project', function () {
         return app()->make(PostinganController::class)->getAllPostinganProject();
+    });
+    Route::post('/insert-postingan-project', function (InsertPostinganRequest $request) {
+        return app()->make(PostinganController::class)->insertPostinganProject($request);
     });
 
 });

@@ -102,4 +102,32 @@ class InsertTeamInteractor
             return response()->json(['error' => 'Gagal Bergabung Dengan team' . $e], 500);
         }
     }
+
+    public function interactTeam($request, $id)
+    {
+        $userId = Auth::id();
+        $idPengguna = $this->penggunaRepository->findByUserId($userId)->id;
+
+        $teamRepo = $this->teamRepository->findOneById($id);
+        if ($teamRepo->pembuat != $idPengguna)
+        {
+            return response()->json(['error' => 'Kamu tidak mempunyai akses untuk melakukan akses ini'], 400);
+        }
+        $teamJoinRequest = $this->teamJoinRequestRepository->findOneById($request->id_request_team);
+
+        try {
+            if($request->status_terima == 1) {
+                DB::beginTransaction();
+                
+            } elseif ($request->status_terima == 2) {
+                DB::beginTransaction();
+
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => 'Terjadi Kesalahan'], 500);
+        }
+        
+        return null;
+    }
 }
