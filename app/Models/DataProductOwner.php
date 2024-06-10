@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MemberTeam extends Model
+class DataProductOwner extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class MemberTeam extends Model
      *
      * @var string
      */
-    protected $table = 'member_team';
+    protected $table = 'data_product_owner';
 
     /**
      * The primary key for the model.
@@ -29,12 +29,11 @@ class MemberTeam extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'id_team',
-        'id_user',
-        'jabatan',
+        'id_pengguna',
+        'lokasi',
+        'detail_deskripsi',
         'waktu_buat',
-        'waktu_ubah'
+        'waktu_ubah',
     ];
 
     /**
@@ -43,13 +42,20 @@ class MemberTeam extends Model
      * @var bool
      */
     public $timestamps = false;
-    public function idTeam()
+
+    /**
+     * Define a relationship with the Pengguna model.
+     */
+    public function pengguna()
     {
-        return $this->belongsTo(Team::class, 'id_komunitas', 'id');
-    }
-    public function idUser()
-    {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo(Pengguna::class, 'id_pengguna', 'id');
     }
 
+    /**
+     * Define a relationship with the BatchTag model if it exists.
+     */
+//    public function batchTag()
+//    {
+//        return $this->belongsTo(BatchTag::class, 'id_batch_tag', 'id');
+//    }
 }

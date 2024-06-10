@@ -6,9 +6,9 @@ use App\Models\Project;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 /**
- * Class BeritaRepository.
+ * Class ProjectRepostory.
  */
-class ProjectRepository extends BaseRepository
+class ProjectRepositroy extends BaseRepository
 {
     /**
      * @return string

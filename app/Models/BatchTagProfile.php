@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataPribadi extends Model
+class BatchTagProfil extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class DataPribadi extends Model
      *
      * @var string
      */
-    protected $table = 'data_pribadi';
+    protected $table = 'batch_tag_profil';
 
     /**
      * The primary key for the model.
@@ -29,16 +29,8 @@ class DataPribadi extends Model
      * @var array
      */
     protected $fillable = [
-        'id_user',
-        'nama_ig',
-        'nama_linkedin',
-        'nama_facebook',
-        'nama_github',
-        'project_link',
-        'tanggal_lahir',
-        'tempat_lahir',
-        'waktu_buat',
-        'waktu_ubah'
+        'id_data_product_owner',
+        'nama_tag',
     ];
 
     /**
@@ -47,8 +39,12 @@ class DataPribadi extends Model
      * @var bool
      */
     public $timestamps = false;
-    public function idUser()
+
+    /**
+     * Define a relationship with the DataProductOwner model.
+     */
+    public function dataProductOwner()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo(DataProductOwner::class, 'id_data_product_owner', 'id');
     }
 }

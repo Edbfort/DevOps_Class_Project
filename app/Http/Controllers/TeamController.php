@@ -21,28 +21,5 @@ class TeamController extends Controller
         $this->insertTeamInteractor = $insertTeamInteractor;
     }
 
-    public function getDaftarTeam()
-    {
-        $data = $this->getTeamInteractor->getTeam();
-        return $data;
-    }
-
-    public function insertTeam(InsertTeamRequest $request)
-    {
-        $data = $this->insertTeamInteractor->insertTeam($request);
-        return $data;
-    }
-
-    public function joinTeam(JoinTeamRequest $request, $id)
-    {
-        $data = $this->insertTeamInteractor->joinTeam($id);
-        return $data;
-    }
-
-    public function interactTeam($request, $id)
-    {
-        $data = $this->insertTeamInteractor->interactTeam($request, $id);
-        return $data;
-    }
 }
 

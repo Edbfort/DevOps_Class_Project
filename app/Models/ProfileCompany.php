@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TeamJoinRequest extends Model
+class ProfileCompany extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class TeamJoinRequest extends Model
      *
      * @var string
      */
-    protected $table = 'team_join_request';
+    protected $table = 'profile_company';
 
     /**
      * The primary key for the model.
@@ -29,13 +29,14 @@ class TeamJoinRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'id_team',
-        'id_user',
-        'jabatan',
-        'status_terima',
+        'id_pengguna',
+        'nama',
+        'jumlah_working_space',
+        'nomor_telepon',
+        'alamat',
+        'website',
         'waktu_buat',
-        'waktu_ubah'
+        'waktu_ubah',
     ];
 
     /**
@@ -44,13 +45,12 @@ class TeamJoinRequest extends Model
      * @var bool
      */
     public $timestamps = false;
-    public function idTeam()
-    {
-        return $this->belongsTo(Team::class, 'id_komunitas', 'id');
-    }
+
+    /**
+     * Define a relationship with the Pengguna model.
+     */
     public function idPengguna()
     {
         return $this->belongsTo(Pengguna::class, 'id_pengguna', 'id');
     }
-
 }

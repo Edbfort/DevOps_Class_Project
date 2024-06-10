@@ -8,7 +8,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class InsertProfileInteractor
+class UpdateProfileInteractor
 {
     protected $dataPribadiRepository;
     protected $userRepository;
@@ -23,7 +23,7 @@ class InsertProfileInteractor
         $this->userRepository = $userRepository;
     }
 
-    public function setProfile($request, $id)
+    public function updateProfile($request, $id)
     {
         $userId = Auth::id();
 
