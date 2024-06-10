@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class ClientData extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Team extends Model
      *
      * @var string
      */
-    protected $table = 'team';
+    protected $table = 'client_data';
 
     /**
      * The primary key for the model.
@@ -29,13 +29,14 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'nama_team',
-        'pembuat',
-        'deskripsi',
-        'max_team',
-        'status_collab',
+        'id_pengguna',
+        'nama',
+        'nomor_telepon',
+        'nama_perusahaan',
+        'industri',
+        'cangkupan_perusahaan',
         'waktu_buat',
-        'waktu_ubah'
+        'waktu_ubah',
     ];
 
     /**
@@ -44,7 +45,21 @@ class Team extends Model
      * @var bool
      */
     public $timestamps = false;
-    public function idPengguna()
+
+    /**
+     * Set default attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'waktu_buat' => 'CURRENT_TIMESTAMP',
+        'waktu_ubah' => 'CURRENT_TIMESTAMP',
+    ];
+
+    /**
+     * Define a relationship with the Pengguna model.
+     */
+    public function pengguna()
     {
         return $this->belongsTo(Pengguna::class, 'id_pengguna', 'id');
     }

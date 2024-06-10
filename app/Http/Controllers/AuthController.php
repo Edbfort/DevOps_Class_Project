@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CreditCardInfo;
 use App\Models\DataPribadi;
+use App\Models\DataProductOwner;
 use App\Models\Pengguna;
+use App\Models\ProfileCompany;
+use App\Models\ClientData;
 use App\Models\UserRoles;
 use App\Repositories\UserRolesRepository;
 use App\Models\User;
@@ -35,7 +39,8 @@ class AuthController extends Controller
             'password' => 'required|min:8',
             'tanggal_lahir' => 'required|string',
             'jenis_kelamin' => 'required|boolean',
-            'username' => 'string|max:20'
+            'username' => 'string|max:20',
+            'id_role' => 'required|integer'
         ]);
 
         if($validator->fails()){
@@ -53,12 +58,6 @@ class AuthController extends Controller
             $user->password = bcrypt(request()->password);
             $user->save();
 
-            $dataPribadi = new DataPribadi();
-            $dataPribadi->id_user = $user->id;
-            $dataPribadi->waktu_buat = new \DateTime();
-            $dataPribadi->waktu_ubah = new \DateTime();
-            $dataPribadi->save();
-
             $pengguna = new Pengguna();
             $pengguna->id_user = $user->id;
             $pengguna->id_status_pengguna = 1;
@@ -70,16 +69,45 @@ class AuthController extends Controller
 
             $userRoles = new UserRoles();
             $userRoles->id_user = $user->id;
-            $userRoles->id_role_name = request()->id_role_name;
+            $userRoles->id_role_name = request()->id_role;
             $userRoles->save();
+
+            if (request()->id_role == 1) {
+                $profileCompany = new ProfileCompany();
+                $profileCompany->id_pengguna = $pengguna->id;
+                $profileCompany->waktu_buat = new \DateTime();
+                $profileCompany->waktu_ubah = new \DateTime();
+                $profileCompany->save();
+            } elseif (request()->id_role == 2 or request()->id_role == 3) {
+                $creditCardinfo = new CreditCardInfo();
+                $creditCardinfo->id_pengguna = $pengguna->id;
+                $creditCardinfo->waktu_buat = new \DateTime();
+                $creditCardinfo->waktu_ubah = new \DateTime();
+                $creditCardinfo->save();
+
+                if (request()->id_role == 2) {
+                    $dataProductOwner = new DataProductOwner();
+                    $dataProductOwner->id_pengguna = $pengguna->id;
+                    $dataProductOwner->waktu_buat = new \DateTime();
+                    $dataProductOwner->waktu_ubah = new \DateTime();
+                    $dataProductOwner->save();
+                } elseif (request()->id_role == 3) {
+                    $clientData = new ClientData(); 
+                    $clientData->id_pengguna = $pengguna->id;
+                    $clientData->waktu_buat = new \DateTime();
+                    $clientData->waktu_ubah = new \DateTime();
+                    $clientData->save();
+                }
+            }
+
 
             DB::commit();
 
             return response()->json(['message' => 'Akun berhasil terbuat'], 201);
         } catch (\Exception $e) {
             DB::rollback();
-
-            return response()->json(['error' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
+            return $e;
+//            return response()->json(['error' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
         }
 
     }
