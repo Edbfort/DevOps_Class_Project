@@ -47,12 +47,12 @@ class InsertProfileService
             $profileCompany->alamat = $request->alamat;
             $profileCompany->website = $request->website;
             $profileCompany->deskripsi = $request->deskripsi;
+            $profileCompany->save();
             DB::commit();
             return response()->json(['message' => 'Profile berhasil update'], 201);
         } catch (\Exception $e) {
             DB::rollBack();
-//            return response()->json(['message' => $e], 500);
-            return $e;
+            return response()->json(['message' => $e], 500);
         }
     }
 }
