@@ -6,15 +6,12 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class SetProfileRequest extends FormRequest
+class SetProfileAdminRequest extends FormRequest
 {
     public function authorize()
     {
         return $this->checkAuth([
             'Admin',
-            'Product Owner',
-            'Client',
-            'Creative Member'
         ]);
     }
 
@@ -26,15 +23,13 @@ class SetProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'string|max:30',
-            'email' => 'string|max:60',
-            'nama_instagram' => 'string|max:30',
-            'nama_linkedin' => 'string|max:30',
-            'nama_facebook' => 'string|max:30',
-            'nama_github' => 'string|max:30',
-            'nama_link' => 'string',
-            'tanggal_lahir' => 'date_format:Y-m-d H:i:s',
-            'tempat_lahir'=> 'required|string|max:30'
+            'jumlah_working_space' =>'integer',
+            'nama' => 'required|string|max:40',
+            'tag_line' => 'required|string|max:40',
+            'nomor_telepon' => 'string|max:11',
+            'alamat' => 'string|max:50',
+            'website' => 'string|max:256',
+            'deskripsi' => 'string'
         ];
     }
 

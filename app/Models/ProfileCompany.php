@@ -31,6 +31,7 @@ class ProfileCompany extends Model
     protected $fillable = [
         'id_pengguna',
         'nama',
+        'tag_line',
         'jumlah_working_space',
         'nomor_telepon',
         'alamat',

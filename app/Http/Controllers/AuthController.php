@@ -106,8 +106,8 @@ class AuthController extends Controller
             return response()->json(['message' => 'Akun berhasil terbuat'], 201);
         } catch (\Exception $e) {
             DB::rollback();
-            return $e;
-//            return response()->json(['error' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
+
+            return response()->json(['error' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
         }
 
     }

@@ -2,24 +2,19 @@
 
 namespace App\Interactors\Profile;
 
-use App\Models\DataPribadi;
-use App\Repositories\DataPribadiRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InsertProfileInteractor
 {
-    protected $dataPribadiRepository;
     protected $userRepository;
 
     public function __construct
     (
-        DataPribadiRepository $dataPribadiRepository,
         UserRepository $userRepository
     )
     {
-        $this->dataPribadiRepository = $dataPribadiRepository;
         $this->userRepository = $userRepository;
     }
 

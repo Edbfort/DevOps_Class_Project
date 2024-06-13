@@ -29,4 +29,15 @@ class ProfileCompanyRepository extends BaseRepository
     {
         return $this->model->find($id);
     }
+
+    /**
+     * Find a ProfileCompany by its ID.
+     *
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Model|object|null
+     */
+    public function findOneById($id)
+    {
+        return ProfileCompany::where('id_pengguna', $id)->first();
+    }
 }
