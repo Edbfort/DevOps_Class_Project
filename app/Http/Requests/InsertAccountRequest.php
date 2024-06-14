@@ -8,12 +8,12 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class SetProfileAdminRequest extends FormRequest
+class InsertAccountRequest extends FormRequest
 {
     public function authorize()
     {
         return $this->checkAuth([
-            'Admin',
+            'Admin'
         ]);
     }
 
@@ -43,13 +43,9 @@ class SetProfileAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'jumlah_working_space' =>'integer',
-            'nama' => 'required|string|max:40',
-            'tag_line' => 'required|string|max:40',
-            'nomor_telepon' => 'string|max:11',
-            'alamat' => 'string|max:50',
-            'website' => 'string|max:256',
-            'deskripsi' => 'string'
+            'nama_team' => 'required|string',
+            'temp_password' => 'required|string',
+            'email' => 'required|email|unique:users',
         ];
     }
 

@@ -29,13 +29,7 @@ class GetProfileService
 
     public function getProfileAdmin($id)
     {
-        $userId = Auth::id();
-//
-//        if ($id != $userId) {
-//            return response()->json(['error' => 'Anda tidak memiliki akses untuk data ini'], 401);
-//        }
-
-        $idPengguna = $this->penggunaRepository->findByUserId($userId)->id;
+        $idPengguna = $this->penggunaRepository->findByUserId($id)->id;
         $userDrofileCompany = $this->profileCompanyRepository->findOneById($idPengguna);
 
         return $userDrofileCompany;
