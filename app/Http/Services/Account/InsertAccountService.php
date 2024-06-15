@@ -4,6 +4,8 @@ namespace App\Http\Services\Account;
 
 
 use App\Models\Pengguna;
+use App\Models\ProfileTeam;
+use App\Models\TeamMember;
 use App\Models\TransaksiPembuatanAkun;
 use App\Models\User;
 use App\Models\UserRoles;
@@ -63,12 +65,17 @@ class InsertAccountService
             $userRoles->id_role_name = 4;
             $userRoles->save();
 
+            $teamProfile = new ProfileTeam();
+            $teamProfile->id_creative_hub = $penggunaId;
+            $teamProfile->nama_team = $request->nama_team;
+            $teamProfile->save();
+
             DB::commit();
             return response()->json(['message' => 'Akun Berhasil Di Buat'], 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => $e], 500);
-//            return $e;
+//            return response()->json(['message' => $e], 500);
+            return $e;
         }
 
 
