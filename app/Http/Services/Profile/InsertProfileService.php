@@ -52,7 +52,7 @@ class InsertProfileService
             return response()->json(['message' => 'Profile berhasil update'], 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => $e], 500);
+            return response()->json(['message' => 'Terjadi Kesalahan'], 500);
         }
     }
 }

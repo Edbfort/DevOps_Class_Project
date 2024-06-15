@@ -5,39 +5,47 @@ namespace App\Repositories;
 use App\Models\ProfileCompany;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
-/**
- * Class ProfileCompanyRepository.
- */
 class ProfileCompanyRepository extends BaseRepository
 {
-    /**
-     * @return string
-     * Return the model
-     */
     public function model()
     {
         return ProfileCompany::class;
     }
 
-    /**
-     * Find a ProfileCompany by its ID.
-     *
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Model|object|null
-     */
+    public function findManyBy(
+        array $columns = ['*'],
+        array $parameters = [],
+        array $orderBy = [],
+        array $groupBy = [],
+        array $specialParameters = []
+    ) {
+        $query = $this->model->select($columns);
+
+        // Apply where conditions
+        foreach ($parameters as $key => $value) {
+            $query->where($key, $value);
+        }
+
+        // Apply order by conditions
+        foreach ($orderBy as $column => $direction) {
+            $query->orderBy($column, $direction);
+        }
+
+        // Apply group by conditions
+        if (!empty($groupBy)) {
+            $query->groupBy($groupBy);
+        }
+
+        return $query->get();
+    }
+
     public function findById($id)
     {
         return $this->model->find($id);
     }
 
-    /**
-     * Find a ProfileCompany by its ID.
-     *
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Model|object|null
-     */
     public function findOneById($id)
     {
-        return ProfileCompany::where('id_pengguna', $id)->first();
+        return $this->model->where('id_pengguna', $id)->first();
     }
 }

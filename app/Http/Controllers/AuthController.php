@@ -92,7 +92,7 @@ class AuthController extends Controller
                     $dataProductOwner->waktu_ubah = new \DateTime();
                     $dataProductOwner->save();
                 } elseif (request()->id_role == 3) {
-                    $clientData = new ClientData(); 
+                    $clientData = new ClientData();
                     $clientData->id_pengguna = $pengguna->id;
                     $clientData->waktu_buat = new \DateTime();
                     $clientData->waktu_ubah = new \DateTime();

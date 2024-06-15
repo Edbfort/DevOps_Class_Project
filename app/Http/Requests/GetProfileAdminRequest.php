@@ -3,22 +3,16 @@
 namespace App\Http\Requests;
 
 use App\Repositories\UserRolesRepository;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-
-class InsertPostinganRequest extends FormRequest
+class GetProfileAdminRequest extends FormRequest
 {
     public function authorize()
     {
-        return $this->checkAuth([
-            'Admin',
-            'Product Owner',
-            'Client',
-            'Creative Member'
-        ]);
+        return true;
     }
 
     public function checkAuth($data)
@@ -42,19 +36,7 @@ class InsertPostinganRequest extends FormRequest
     public function rules()
     {
         return [
-            'judul_postingan' => 'required|string',
-            'deskripsi_postingan' => 'required|string',
+            // Define your validation rules here
         ];
     }
-
-    protected function failedValidation(Validator $validator)
-    {
-        $response = [
-            'message' => 'Validation failed',
-            'errors' => $validator->errors(),
-        ];
-
-        throw new ValidationException($validator, response()->json($response, 422));
-    }
-
 }
