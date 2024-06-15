@@ -12,6 +12,7 @@ Route::middleware('jwt.auth')->group(function () {
 
     // Account routes
     Route::post('/insert-ch-team/{id}', [AccountController::class, 'insertUserTeam']);
+    Route::get('/get-ch-team/{id}', [AccountController::class, 'getUserTeam']);
 
 });
 
