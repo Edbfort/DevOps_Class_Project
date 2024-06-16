@@ -37,21 +37,30 @@ class TransaksiPembuatanAkunReposity extends BaseRepository
 
         $query = $this->model->select($columns);
 
-        // Apply where conditions
         foreach ($parameters as $key => $value) {
             $query->where($key, $value);
         }
 
-        // Apply order by conditions
         foreach ($orderBy as $column => $direction) {
             $query->orderBy($column, $direction);
         }
 
-        // Apply group by conditions
         if (!empty($groupBy)) {
             $query->groupBy($groupBy);
         }
 
         return $query->get();
+    }
+
+    /**
+     * Get a record by user ID.
+     *
+     * @param int $userId
+     * @param array $columns
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function getOneByIdUser(int $userId, array $columns = ['*'])
+    {
+        return $this->model->select($columns)->where('id_user', $userId)->first();
     }
 }

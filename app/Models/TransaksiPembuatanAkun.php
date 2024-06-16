@@ -30,6 +30,7 @@ class TransaksiPembuatanAkun extends Model
      */
     protected $fillable = [
         'id_creative_hub',
+        'id_user',
         'nama_team',
         'temp_password',
         'status_aktif'
