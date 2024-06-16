@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\ActivationUserTeamRequest;
 use App\Http\Services\Account\GetAccountService;
 use App\Http\Services\Account\InsertAccountService;
 use App\Http\Requests\InsertAccountRequest;
@@ -26,6 +27,11 @@ class AccountController extends Controller
     public function insertUserTeam(InsertAccountRequest $request, $id)
     {
         return $this->insertAccountService->createNewUserTeam($request,$id);
+    }
+
+    public function activationUserTeam(ActivationUserTeamRequest $request, $id)
+    {
+        return $this->insertAccountService->aktifasiAkunTeam($request,$id);
     }
 
     public function getUserTeam(GetAccountTeamRequest $request, $id)

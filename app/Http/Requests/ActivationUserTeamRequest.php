@@ -8,37 +8,46 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class GetAccountTeamRequest extends FormRequest
+class ActivationUserTeamRequest extends FormRequest
 {
     public function authorize()
     {
-        return $this->checkAuth([
-            'Admin',
-        ]);
+        return $this->checkAuth(['Team']);
     }
 
-    public function checkAuth($data)
+    private function checkAuth(array $roles)
     {
         $userId = Auth::id();
         if (!$userId) {
             return false;
         }
+
         $userRepo = new UserRolesRepository();
         $userRoles = $userRepo->findUserRolesByUserId($userId);
-        $tes = [];
 
         foreach ($userRoles as $role) {
-            if(in_array($role['nama_role'],$data)) {
+            if (in_array($role['nama_role'], $roles)) {
                 return true;
             }
         }
+
         return false;
     }
 
     public function rules()
     {
         return [
-            // Define your validation rules here
+            'password' => 'required|string',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $response = [
+            'message' => 'Validation failed',
+            'errors' => $validator->errors(),
+        ];
+
+        throw new ValidationException($validator, response()->json($response, 422));
     }
 }
