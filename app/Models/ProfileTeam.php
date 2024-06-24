@@ -20,6 +20,7 @@ class ProfileTeam extends Model
 
     protected $fillable = [
         'id_creative_hub',
+        'id_pengguna',
         'deskripsi',
         'nama_team',
         'skillset',

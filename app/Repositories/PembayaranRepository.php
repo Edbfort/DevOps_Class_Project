@@ -2,14 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\MemberTeam;
+
+use App\Models\Pembayaran;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
-class MemberTeamRepository extends BaseRepository
+class PembayaranRepository extends BaseRepository
 {
     public function model()
     {
-        return MemberTeam::class;
+        return Pembayaran::class;
     }
 
     public function findManyBy(
@@ -41,9 +42,8 @@ class MemberTeamRepository extends BaseRepository
         return $this->model->find($id);
     }
 
-    public function findOneByIdProfileTeam($id)
+    public function findOneByIdPengguna($id)
     {
-        return $this->model->where('id_profile_team', $id)->first();
+        return $this->model->where('id_pengguna', $id)->first();
     }
-
 }

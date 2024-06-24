@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Requests;
 
 use App\Repositories\UserRolesRepository;
@@ -8,12 +9,12 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class SetProfileAdminRequest extends FormRequest
+class SetProfileTeamRequest extends FormRequest
 {
     public function authorize()
     {
         return $this->checkAuth([
-            'Admin',
+            'Team',
         ]);
     }
 
@@ -28,7 +29,7 @@ class SetProfileAdminRequest extends FormRequest
         $tes = [];
 
         foreach ($userRoles as $role) {
-            if(in_array($role['nama_role'],$data)) {
+            if (in_array($role['nama_role'], $data)) {
                 return true;
             }
         }
@@ -43,15 +44,9 @@ class SetProfileAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'jumlah_working_space' =>'integer',
-            'nama' => 'required|string|max:40',
-            'tag_line' => 'required|string|max:40',
-            'nomor_telepon' => 'string|max:11',
-            'alamat' => 'string|max:50',
-            'website' => 'string|max:256',
             'deskripsi' => 'string',
-            'visi_misi' => 'string',
-        ];
+            'skillset' => 'string',
+            ];
     }
 
     protected function failedValidation(Validator $validator)

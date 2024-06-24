@@ -36,6 +36,8 @@ class ProfileCompany extends Model
         'nomor_telepon',
         'alamat',
         'website',
+        'deskripsi',
+        'visi_misi',
         'waktu_buat',
         'waktu_ubah',
     ];

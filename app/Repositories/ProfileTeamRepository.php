@@ -2,14 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\MemberTeam;
+use App\Models\ProfileCompany;
+use App\Models\ProfileTeam;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
-class MemberTeamRepository extends BaseRepository
+class ProfileTeamRepository extends BaseRepository
 {
     public function model()
     {
-        return MemberTeam::class;
+        return ProfileTeam::class;
     }
 
     public function findManyBy(
@@ -41,9 +42,18 @@ class MemberTeamRepository extends BaseRepository
         return $this->model->find($id);
     }
 
-    public function findOneByIdProfileTeam($id)
+    public function findOneByIdPengguna($id)
     {
-        return $this->model->where('id_profile_team', $id)->first();
+        return $this->model->where('id_pengguna', $id)->first();
     }
 
+    public function getTeamProfileAndTeamWithIdPengguna($id_pengguna)
+    {
+        $query = ProfileTeam::select('profile_team.*', 'pengguna.*')
+            ->join('pengguna', 'profile_team.id_creative_hub', '=', 'pengguna.id')
+            ->where('profile_team.id_creative_hub', $id_pengguna)
+            ->get();
+
+        return $query;
+    }
 }
