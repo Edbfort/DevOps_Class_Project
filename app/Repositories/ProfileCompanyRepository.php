@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\ProfileCompany;
+use App\Models\ProfileTeam;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 class ProfileCompanyRepository extends BaseRepository
@@ -39,13 +40,14 @@ class ProfileCompanyRepository extends BaseRepository
         return $query->get();
     }
 
-    public function findById($id)
+    public function findOneById($id)
     {
         return $this->model->find($id);
     }
 
-    public function findOneById($id)
+    public function findByIdPeserta($idPeserta)
     {
-        return $this->model->where('id_pengguna', $id)->first();
+        return $this->model->where('id_pengguna', $idPeserta)->first();
     }
+
 }

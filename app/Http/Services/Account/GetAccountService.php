@@ -39,7 +39,7 @@ class GetAccountService
         }
 
         $penggunaId = $this->penggunaRepository->findByUserId($id)->id;
-        return $this->transaksiPembuatanAkunRepository->findManyBy(['*'],['id_creative_hub'=> $penggunaId]);
+        return $this->transaksiPembuatanAkunRepository->findManyBy(['nama_team','temp_password','status_aktif'],['id_creative_hub'=> $penggunaId]);
     }
 
 }

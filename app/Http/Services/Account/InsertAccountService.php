@@ -78,6 +78,7 @@ class InsertAccountService
 
             $teamProfile = new ProfileTeam();
             $teamProfile->id_creative_hub = $penggunaId;
+            $teamProfile->id_pengguna = $pengguna->id;
             $teamProfile->nama_team = $request->nama_team;
             $teamProfile->save();
 
@@ -115,7 +116,6 @@ class InsertAccountService
 
             return response()->json(['message' => 'Akun Berhasil Di Aktifasi'], 201);
         } catch (\Exception $e) {
-//            return $e;
             return response()->json(['error' => 'Terjadi Kesalahan mohon huubungi developer'], 500);
         }
 
