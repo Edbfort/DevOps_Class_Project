@@ -41,7 +41,7 @@ class BatchTagProfil extends Model
     public $timestamps = false;
 
     /**
-     * Define a relationship with the DataProductOwner model.
+     * Define a relationship with the DataProductOwner.php model.
      */
     public function dataProductOwner()
     {

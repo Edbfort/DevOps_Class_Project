@@ -13,7 +13,7 @@ class GetAccountTeamRequest extends FormRequest
     public function authorize()
     {
         return $this->checkAuth([
-            'Admin',
+            'creative-hub-admin',
         ]);
     }
 

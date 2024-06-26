@@ -43,4 +43,14 @@ class ProfileController extends Controller
     {
         return $this->insertProfileService->updateProfileTeam($request, $id);
     }
+
+    public function getDataProductOwner()
+    {
+        return $this->getProfileService->getDataProductOwner();
+    }
+
+    public function getAllDataProductOwner()
+    {
+        return $this->getProfileService->getAllDataProductOwner();
+    }
 }

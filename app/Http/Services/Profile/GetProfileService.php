@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Profile;
 
+use App\Models\DataProductOwner;
 use App\Models\ProfileCompany;
 use App\Repositories\PenggunaRepository;
 use App\Repositories\ProfileCompanyRepository;
@@ -49,6 +50,35 @@ class GetProfileService
     {
         $idPengguna = $this->penggunaRepository->findByUserId($id)->id;
         return $this->profileTeamRepository->getTeamProfileAndTeamWithIdPengguna($idPengguna);
+    }
+
+    public function getAllDataProductOwner()
+    {
+        try {
+            $idPengguna = $this->penggunaRepository->findByUserId(Auth::id())->id;
+            $dataProductOwner = DataProductOwner::all();
+            $data = [
+                'dataProductOwner' => $dataProductOwner
+            ];
+            return response()->json($data, 200);
+        } catch (\Exception) {
+            return response()->json(['message' => 'Terjadi Kesalahan'], 500);
+        }
+    }
+
+    public function getDataProductOwner()
+    {
+        try {
+            $idPengguna = $this->penggunaRepository->findByUserId(Auth::id())->id;
+            $dataProductOwner = DataProductOwner::where('id_pengguna', $idPengguna)->get();
+            if ($dataProductOwner[0] === null) {
+               throw new \Exception("DataProductOwner not found for id_peserta: $idPengguna");
+            }
+
+            return response()->json($dataProductOwner, 200);
+        } catch (\Exception) {
+            return response()->json(['message' => 'Terjadi Kesalahan'], 500);
+        }
     }
 }
 

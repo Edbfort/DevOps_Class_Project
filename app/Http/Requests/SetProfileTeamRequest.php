@@ -14,7 +14,7 @@ class SetProfileTeamRequest extends FormRequest
     public function authorize()
     {
         return $this->checkAuth([
-            'Team',
+            'creative-hub-team',
         ]);
     }
 

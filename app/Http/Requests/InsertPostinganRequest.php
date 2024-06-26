@@ -13,12 +13,7 @@ class InsertPostinganRequest extends FormRequest
 {
     public function authorize()
     {
-        return $this->checkAuth([
-            'Admin',
-            'Product Owner',
-            'Client',
-            'Creative Member'
-        ]);
+        return true;
     }
 
     public function checkAuth($data)

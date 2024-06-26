@@ -14,7 +14,7 @@ class StoreMemberTeamRequest extends FormRequest
     public function authorize()
     {
         return $this->checkAuth([
-            'Team',
+            'creative-hub-admin',
         ]);
     }
 

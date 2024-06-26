@@ -24,19 +24,6 @@ class DataProductOwner extends Model
     protected $primaryKey = 'id';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'id_pengguna',
-        'lokasi',
-        'detail_deskripsi',
-        'waktu_buat',
-        'waktu_ubah',
-    ];
-
-    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
@@ -44,18 +31,26 @@ class DataProductOwner extends Model
     public $timestamps = false;
 
     /**
-     * Define a relationship with the Pengguna model.
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
-    public function pengguna()
-    {
-        return $this->belongsTo(Pengguna::class, 'id_pengguna', 'id');
-    }
+    protected $fillable = [
+        'id_pengguna',
+        'nama',
+        'lokasi',
+        'detail_deskripsi',
+        'waktu_buat',
+        'waktu_ubah',
+    ];
 
     /**
-     * Define a relationship with the BatchTag model if it exists.
+     * Set default attributes.
+     *
+     * @var array
      */
-//    public function batchTag()
-//    {
-//        return $this->belongsTo(BatchTag::class, 'id_batch_tag', 'id');
-//    }
+    protected $attributes = [
+        'waktu_buat' => 'CURRENT_TIMESTAMP',
+        'waktu_ubah' => 'CURRENT_TIMESTAMP',
+    ];
 }

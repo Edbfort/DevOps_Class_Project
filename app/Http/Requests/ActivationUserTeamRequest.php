@@ -12,7 +12,7 @@ class ActivationUserTeamRequest extends FormRequest
 {
     public function authorize()
     {
-        return $this->checkAuth(['Team']);
+        return $this->checkAuth(['creative-hub-team']);
     }
 
     private function checkAuth(array $roles)
