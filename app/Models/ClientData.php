@@ -44,23 +44,31 @@ class ClientData extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = false; // Tidak mengaktifkan timestamp default Laravel
 
     /**
-     * Set default attributes.
+     * The model's default values for attributes.
      *
      * @var array
      */
     protected $attributes = [
-        'waktu_buat' => 'CURRENT_TIMESTAMP',
-        'waktu_ubah' => 'CURRENT_TIMESTAMP',
+        // Tidak perlu mengatur default untuk waktu_buat dan waktu_ubah karena diatur oleh database
     ];
 
     /**
-     * Define a relationship with the Pengguna model.
+     * Boot the model.
      */
-    public function pengguna()
+    protected static function boot()
     {
-        return $this->belongsTo(Pengguna::class, 'id_pengguna', 'id');
+        parent::boot();
+
+        static::creating(function ($model) {
+            // Di sini, tidak perlu mengatur waktu_buat karena sudah diatur oleh database
+        });
+
+        static::updating(function ($model) {
+            // Di sini, mengatur waktu_ubah karena sudah diatur oleh database
+            $model->waktu_ubah = $model->freshTimestamp();
+        });
     }
 }

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccountController;
+use \App\Http\Controllers\ClientController;
+use \App\Http\Controllers\CreativeHubTeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +50,19 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('/insert-ch-team/{id}', [AccountController::class, 'insertUserTeam']);
     Route::post('/activate-team/{id}', [AccountController::class, 'activationUserTeam']);
     Route::get('/get-ch-team/{id}', [AccountController::class, 'getUserTeam']);
+
+    // Client Routes
+    Route::group([
+        'prefix' => 'client'
+    ], function ($router) {
+        Route::get('/get-profile/{id}',[ClientController::class, 'getProfile']);
+        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
+    });
+
+    Route::group([
+        'prefix' => 'creative-hub-team'
+    ], function ($router) {
+        Route::get('/get-profile/{id}',[CreativeHubTeamController::class, 'getProfile']);
+//        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
+    });
 });
