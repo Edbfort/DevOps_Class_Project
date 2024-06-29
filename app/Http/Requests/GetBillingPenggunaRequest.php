@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Requests;
 
 use App\Repositories\UserRolesRepository;
@@ -9,12 +8,14 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class SetProfileTeamRequest extends FormRequest
+class GetBillingPenggunaRequest extends FormRequest
 {
     public function authorize()
     {
         return $this->checkAuth([
-            'creative-hub-team',
+            'client',
+            'controller',
+            'creative-hub-team'
         ]);
     }
 
@@ -29,7 +30,7 @@ class SetProfileTeamRequest extends FormRequest
         $tes = [];
 
         foreach ($userRoles as $role) {
-            if (in_array($role['nama_role'], $data)) {
+            if(in_array($role['nama_role'],$data)) {
                 return true;
             }
         }
@@ -44,9 +45,8 @@ class SetProfileTeamRequest extends FormRequest
     public function rules()
     {
         return [
-            'deskripsi' => 'string',
-            'skillset' => 'string',
-            ];
+            'id_user' => 'required|string',
+        ];
     }
 
     protected function failedValidation(Validator $validator)

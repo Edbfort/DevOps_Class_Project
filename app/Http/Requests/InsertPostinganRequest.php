@@ -45,7 +45,7 @@ class InsertPostinganRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $response = [
-            'message' => 'Validation failed',
+            'message' => 'Validasi gagal',
             'errors' => $validator->errors(),
         ];
 

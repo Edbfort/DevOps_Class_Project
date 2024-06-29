@@ -10,6 +10,13 @@ class Pengguna extends Model
     use HasFactory;
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * The table associated with the model.
      *
      * @var string
@@ -30,23 +37,17 @@ class Pengguna extends Model
      */
     protected $fillable = [
         'id_user',
-        'id_status_pengguna',
-        'uid',
-        'username',
+        'nomor_telepon',
+        'status',
         'waktu_buat',
         'waktu_ubah'
     ];
 
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
     public function idUser()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
+
     public function idStatusPengguna()
     {
         return $this->belongsTo(StatusPengguna::class, 'id_status_pengguna', 'id');

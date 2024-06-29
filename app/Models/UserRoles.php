@@ -10,6 +10,13 @@ class UserRoles extends Model
     use HasFactory;
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * The table associated with the model.
      *
      * @var string
@@ -31,23 +38,16 @@ class UserRoles extends Model
     protected $fillable = [
         'id',
         'id_user',
-        'id_role_name'
+        'id_role'
     ];
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
 
     public function idUser()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
-    public function roleName()
+
+    public function idRole()
     {
-        return $this->belongsTo(RoleName::class, 'id_role_name');
+        return $this->belongsTo(RoleName::class, 'id_role');
     }
 }
