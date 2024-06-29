@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccountController;
-use \App\Http\Controllers\ClientController;
-use \App\Http\Controllers\CreativeHubTeamController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CreativeHubTeamController;
+use App\Http\Controllers\KotaController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +22,8 @@ use \App\Http\Controllers\CreativeHubTeamController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/kota', [KotaController::class, 'getKota'])->name('kota');
 
 Route::group([
 
@@ -55,14 +57,21 @@ Route::middleware('jwt.auth')->group(function () {
     Route::group([
         'prefix' => 'client'
     ], function ($router) {
-        Route::get('/get-profile/{id}',[ClientController::class, 'getProfile']);
-        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
+        Route::get('/get-profile/{id}', [ClientController::class, 'getProfile']);
+        Route::patch('/update-profile/{id}', [ClientController::class, 'updateProfile']);
     });
 
     Route::group([
         'prefix' => 'creative-hub-team'
     ], function ($router) {
-        Route::get('/get-profile/{id}',[CreativeHubTeamController::class, 'getProfile']);
+        Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
+//        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
+    });
+
+    Route::group([
+        'prefix' => 'creative-hub-team'
+    ], function ($router) {
+        Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
 //        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
     });
 });
