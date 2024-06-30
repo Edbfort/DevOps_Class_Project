@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CreativeHubTeamController;
 use App\Http\Controllers\KotaController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,24 +41,28 @@ Route::group([
 Route::middleware('jwt.auth')->group(function () {
 
     // Profile routes
-    Route::get('/get-profile-admin/{id}', [ProfileController::class, 'getProfileAdmin']);
-    Route::get('/get-profile-team/{id}', [ProfileController::class, 'getProfileTeam']);
-    Route::get('/get-data-product-owner', [ProfileController::class, 'getDataProductOwner']);
-    Route::get('/get-all-data-product-owner', [ProfileController::class, 'getAllDataProductOwner']);
-    Route::post('/update-profile-admin/{id}', [ProfileController::class, 'updateProfileAdmin']);
-    Route::post('/update-profile-team/{id}', [ProfileController::class, 'updateProfileTeam']);
+//    Route::get('/get-profile-admin/{id}', [ProfileController::class, 'getProfileAdmin']);
+//    Route::get('/get-profile-team/{id}', [ProfileController::class, 'getProfileTeam']);
+//    Route::get('/get-data-product-owner', [ProfileController::class, 'getDataProductOwner']);
+//    Route::get('/get-all-data-product-owner', [ProfileController::class, 'getAllDataProductOwner']);
+//    Route::post('/update-profile-admin/{id}', [ProfileController::class, 'updateProfileAdmin']);
+//    Route::post('/update-profile-team/{id}', [ProfileController::class, 'updateProfileTeam']);
+//
+//    // Account routes
+//    Route::post('/insert-ch-team/{id}', [AccountController::class, 'insertUserTeam']);
+//    Route::post('/activate-team/{id}', [AccountController::class, 'activationUserTeam']);
+//    Route::get('/get-ch-team/{id}', [AccountController::class, 'getUserTeam']);
 
-    // Account routes
-    Route::post('/insert-ch-team/{id}', [AccountController::class, 'insertUserTeam']);
-    Route::post('/activate-team/{id}', [AccountController::class, 'activationUserTeam']);
-    Route::get('/get-ch-team/{id}', [AccountController::class, 'getUserTeam']);
+
+    Route::get('/get-profile/{id}', [PublicController::class, 'getProfile']);
+    Route::patch('/get-profile', [PublicController::class, 'updateProfile']);
 
     // Client Routes
     Route::group([
         'prefix' => 'client'
     ], function ($router) {
-        Route::get('/get-profile/{id}', [ClientController::class, 'getProfile']);
-        Route::patch('/update-profile/{id}', [ClientController::class, 'updateProfile']);
+//        Route::get('/get-profile/{id}', [ClientController::class, 'getProfile']);
+//        Route::patch('/update-profile/{id}', [ClientController::class, 'updateProfile']);
         Route::get('/billing',[ClientController::class, 'getBilling']);
         Route::patch('/billing',[ClientController::class, 'updateBilling']);
     });
@@ -66,14 +70,14 @@ Route::middleware('jwt.auth')->group(function () {
     Route::group([
         'prefix' => 'creative-hub-team'
     ], function ($router) {
-        Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
-        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
+//        Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
+//        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
     });
 
     Route::group([
         'prefix' => 'creative-hub-team'
     ], function ($router) {
-        Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
-        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
+//        Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
+//        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
     });
 });

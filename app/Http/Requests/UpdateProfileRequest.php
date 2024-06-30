@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class UpdateBillingClientReuqest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     public function authorize()
     {
@@ -44,14 +44,11 @@ class UpdateBillingClientReuqest extends FormRequest
     public function rules()
     {
         return [
-            'nomor_kartu' => 'string',
-            'nama_depan' => 'string',
-            'dama_belakang' => 'string',
-            'habis_berlaku' => 'string',
-            'cvv' => 'string',
-            'alamat' => 'string',
-            'kota' => 'string',
-            'kode_zip' => 'string',
+            'nomor_telepon' =>'string|max:12',
+            'alamat' =>'string',
+            'profil_detail' =>'string',
+            'website' =>'string',
+            'tag_line'=>'string'
         ];
     }
 

@@ -38,7 +38,10 @@ class Pengguna extends Model
     protected $fillable = [
         'id_user',
         'nomor_telepon',
-        'status',
+        'alamat',
+        'profil_detail',
+        'website',
+        'tag_line',
         'waktu_buat',
         'waktu_ubah'
     ];

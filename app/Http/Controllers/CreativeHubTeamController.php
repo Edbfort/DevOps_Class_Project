@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GetProfileRequest;
 use App\Http\Requests\UpdateClientDataRequest;
 use App\Http\Services\CreativeHubTeam\GetProfileService;
-use App\Http\Services\client\UpdateProfileService;
+use App\Http\Services\Public\UpdateProfileService;
 
 class CreativeHubTeamController extends Controller
 {
