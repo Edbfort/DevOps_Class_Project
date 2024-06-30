@@ -59,19 +59,21 @@ Route::middleware('jwt.auth')->group(function () {
     ], function ($router) {
         Route::get('/get-profile/{id}', [ClientController::class, 'getProfile']);
         Route::patch('/update-profile/{id}', [ClientController::class, 'updateProfile']);
+        Route::get('/billing',[ClientController::class, 'getBilling']);
+        Route::patch('/billing',[ClientController::class, 'updateBilling']);
     });
 
     Route::group([
         'prefix' => 'creative-hub-team'
     ], function ($router) {
         Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
-//        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
+        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
     });
 
     Route::group([
         'prefix' => 'creative-hub-team'
     ], function ($router) {
         Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
-//        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
+        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
     });
 });
