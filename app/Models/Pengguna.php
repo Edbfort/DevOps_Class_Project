@@ -42,6 +42,7 @@ class Pengguna extends Model
         'profil_detail',
         'website',
         'tag_line',
+        'status',
         'waktu_buat',
         'waktu_ubah'
     ];

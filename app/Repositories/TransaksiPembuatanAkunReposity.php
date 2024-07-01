@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\TransaksiPembuatanAkun;
+use App\Models\TransaksiPembuatanTeam;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 /**
@@ -16,7 +16,7 @@ class TransaksiPembuatanAkunReposity extends BaseRepository
      */
     public function model()
     {
-        return TransaksiPembuatanAkun::class;
+        return TransaksiPembuatanTeam::class;
     }
 
     public function getAll()

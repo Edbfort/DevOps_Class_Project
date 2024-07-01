@@ -3,10 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Repositories\UserRolesRepository;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class GetProfileRequest extends FormRequest
 {
@@ -26,7 +24,7 @@ class GetProfileRequest extends FormRequest
         $tes = [];
 
         foreach ($userRoles as $role) {
-            if(in_array($role['nama_role'],$data)) {
+            if (in_array($role['nama'], $data)) {
                 return true;
             }
         }

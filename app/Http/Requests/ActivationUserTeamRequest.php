@@ -26,7 +26,7 @@ class ActivationUserTeamRequest extends FormRequest
         $userRoles = $userRepo->findUserRolesByUserId($userId);
 
         foreach ($userRoles as $role) {
-            if (in_array($role['nama_role'], $roles)) {
+            if (in_array($role['nama'], $roles)) {
                 return true;
             }
         }

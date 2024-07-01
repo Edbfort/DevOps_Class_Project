@@ -48,6 +48,6 @@ class UserRoles extends Model
 
     public function idRole()
     {
-        return $this->belongsTo(RoleName::class, 'id_role');
+        return $this->belongsTo(Role::class, 'id_role');
     }
 }

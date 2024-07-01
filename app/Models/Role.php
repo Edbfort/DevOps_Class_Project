@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RoleName extends Model
+class Role extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class RoleName extends Model
      *
      * @var string
      */
-    protected $table = 'role_name';
+    protected $table = 'role';
 
     /**
      * The primary key for the model.
@@ -29,7 +29,7 @@ class RoleName extends Model
      * @var array
      */
     protected $fillable = [
-        'nama_role',
+        'nama',
     ];
 
     /**

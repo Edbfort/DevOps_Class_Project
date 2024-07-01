@@ -8,24 +8,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Pembayaran extends Model
 {
     use HasFactory;
-    protected $table = 'pembayaran';
 
-    protected $primaryKey = 'id';
+    protected $table = 'pembayaran';
 
 
     protected $fillable = [
-        'id',
         'id_pengguna',
-        'status_bayar'.
         'status_pembayaran'.
         'kode_pembayaran',
-        'deskripsi'
-    ];
-
-    protected $dates = [
+        'deskripsi',
         'waktu_buat',
         'waktu_ubah'
     ];
+
     public $timestamps = false;
 
     protected $casts = [
@@ -33,7 +28,20 @@ class Pembayaran extends Model
         'waktu_ubah' => 'datetime',
     ];
 
-    public $incrementing = true;
+    /**
+     * Boot the model.
+     */
+    protected static function boot()
+    {
+        parent::boot();
 
-    protected $keyType = 'int';
+        static::creating(function ($model) {
+            // Di sini, tidak perlu mengatur waktu_buat karena sudah diatur oleh database
+        });
+
+        static::updating(function ($model) {
+            // Di sini, mengatur waktu_ubah karena sudah diatur oleh database
+            $model->waktu_ubah = $model->freshTimestamp();
+        });
+    }
 }
