@@ -23,9 +23,9 @@ class UserRolesRepository extends BaseRepository
 
     public function findOneUserRolesAndNameByUserId($id)
     {
-        $query = UserRoles::select("role_name.nama_role","users.nama","users.id")
+        $query = UserRoles::select('role.nama','users.nama','users.id')
             ->join('users', 'users.id', '=', 'user_roles.id_user')
-            ->join('role_name', 'role_name.id', '=', 'user_roles.id_role_name' )
+            ->join('role', 'role.id', '=', 'user_roles.id_role' )
             ->where('users.id', $id)
             ->first();
 
@@ -34,9 +34,9 @@ class UserRolesRepository extends BaseRepository
 
     public function findUserRolesByUserId($id)
     {
-        $query = UserRoles::select("role_name.nama_role")
+        $query = UserRoles::select('role.nama')
             ->join('users', 'users.id', '=', 'user_roles.id_user')
-            ->join('role_name', 'role_name.id', '=', 'user_roles.id_role_name' )
+            ->join('role', 'role.id', '=', 'user_roles.id_role' )
             ->where('users.id', $id)
             ->get();
 
