@@ -17,13 +17,6 @@ class BillingClient extends Model
     protected $table = 'billing_client';
 
     /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -36,8 +29,6 @@ class BillingClient extends Model
         'habis_berlaku',
         'cvv',
         'alamat',
-        'kota',
-        'kode_zip',
         'waktu_buat',
         'waktu_ubah',
     ];

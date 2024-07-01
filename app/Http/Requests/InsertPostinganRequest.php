@@ -27,7 +27,7 @@ class InsertPostinganRequest extends FormRequest
         $tes = [];
 
         foreach ($userRoles as $role) {
-            if(in_array($role['nama_role'],$data)) {
+            if(in_array($role['nama'],$data)) {
                 return true;
             }
         }

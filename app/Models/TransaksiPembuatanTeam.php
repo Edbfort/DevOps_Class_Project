@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TransaksiPembuatanAkun extends Model
+class TransaksiPembuatanTeam extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,7 @@ class TransaksiPembuatanAkun extends Model
      *
      * @var string
      */
-    protected $table = 'transaksi_pembuatan_akun';
-
-    /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id';
+    protected $table = 'transaksi_pembuatan_team';
 
     /**
      * The attributes that are mass assignable.
@@ -29,11 +22,8 @@ class TransaksiPembuatanAkun extends Model
      * @var array
      */
     protected $fillable = [
-        'id_creative_hub',
         'id_user',
-        'nama_team',
         'temp_password',
-        'status_aktif'
     ];
 
     /**
@@ -63,7 +53,6 @@ class TransaksiPembuatanAkun extends Model
      * @var array
      */
     protected $casts = [
-        'status_aktif' => 'boolean',
         'waktu_buat' => 'datetime',
         'waktu_ubah' => 'datetime',
     ];

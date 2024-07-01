@@ -3,11 +3,11 @@
 namespace App\Http\Services\Account;
 
 
-use App\Models\CreditCardInfo;
+use App\Models\BillingPengguna;
 use App\Models\Pengguna;
 use App\Models\ProfileTeam;
 use App\Models\TeamMember;
-use App\Models\TransaksiPembuatanAkun;
+use App\Models\TransaksiPembuatanTeam;
 use App\Models\User;
 use App\Models\UserRoles;
 use App\Repositories\PenggunaRepository;
@@ -53,7 +53,7 @@ class InsertAccountService
             $user->save();
 
             $penggunaId = $this->penggunaRepository->findByUserId($authId)->id;
-            $newTransaksiCreateUser = new TransaksiPembuatanAkun();
+            $newTransaksiCreateUser = new TransaksiPembuatanTeam();
             $newTransaksiCreateUser->id_creative_hub = $penggunaId;
             $newTransaksiCreateUser->id_user = $user->id;
             $newTransaksiCreateUser->nama_team = $request->nama_team;
@@ -82,9 +82,9 @@ class InsertAccountService
             $teamProfile->nama_team = $request->nama_team;
             $teamProfile->save();
 
-            $creditCardInfo = new CreditCardInfo();
-            $creditCardInfo->id_pengguna = $pengguna->id;
-            $creditCardInfo->save();
+            $billingPengguna = new BillingPengguna();
+            $billingPengguna->id_pengguna = $pengguna->id;
+            $billingPengguna->save();
 
             DB::commit();
             return response()->json(['message' => 'Akun Berhasil Di Buat'], 201);

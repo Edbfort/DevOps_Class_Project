@@ -58,6 +58,7 @@ class AuthController extends Controller
             $user->email = request()->email;
             $user->password = bcrypt(request()->password);
             $user->lokasi = request()->lokasi;
+            $user->status = 1;
             $user->save();
 
             $pengguna = new Pengguna();
@@ -102,7 +103,13 @@ class AuthController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'Akun berhasil terbuat'], 201);
+            $credentials = request(['email', 'password']);
+
+            if (!$token = auth()->attempt($credentials)) {
+                return response()->json(['errors' => 'Unauthorized'], 401);
+            }
+
+            return $this->respondWithToken($token);
         } catch (Exception $e) {
             DB::rollback();
 

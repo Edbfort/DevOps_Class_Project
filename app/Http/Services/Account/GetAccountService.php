@@ -3,17 +3,9 @@
 namespace App\Http\Services\Account;
 
 
-use App\Models\Pengguna;
-use App\Models\ProfileTeam;
-use App\Models\TeamMember;
-use App\Models\TransaksiPembuatanAkun;
-use App\Models\User;
-use App\Models\UserRoles;
 use App\Repositories\PenggunaRepository;
-use App\Repositories\ProfileCompanyRepository;
 use App\Repositories\TransaksiPembuatanAkunReposity;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class GetAccountService
 {
@@ -23,7 +15,7 @@ class GetAccountService
     public function __construct
     (
         TransaksiPembuatanAkunReposity $transaksiPembuatanAkunRepository,
-        PenggunaRepository $penggunaRepository,
+        PenggunaRepository             $penggunaRepository,
     )
     {
         $this->transaksiPembuatanAkunRepository = $transaksiPembuatanAkunRepository;
@@ -39,7 +31,7 @@ class GetAccountService
         }
 
         $penggunaId = $this->penggunaRepository->findByUserId($id)->id;
-        return $this->transaksiPembuatanAkunRepository->findManyBy(['nama_team','temp_password','status_aktif'],['id_creative_hub'=> $penggunaId]);
+        return $this->transaksiPembuatanAkunRepository->findManyBy(['nama_team', 'temp_password', 'status_aktif'], ['id_creative_hub' => $penggunaId]);
     }
 
 }
