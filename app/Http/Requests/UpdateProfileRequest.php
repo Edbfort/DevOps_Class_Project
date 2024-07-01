@@ -13,9 +13,6 @@ class UpdateProfileRequest extends FormRequest
     public function authorize()
     {
         return true;
-//        return $this->checkAuth([
-//            'client'
-//        ]);
     }
 
     public function checkAuth($data)

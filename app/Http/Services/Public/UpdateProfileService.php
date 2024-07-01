@@ -13,7 +13,7 @@ class UpdateProfileService
         $parameter = $request->all();
         $pengguna = Pengguna::where('id_user', Auth::id())->first();
 
-        $pengguna->update($parameter);
+        $pengguna->update(array_merge($parameter, ['status' => 1]));
 
         return response()->json(['message' => 'Profile berhasil di update'], 200);
     }

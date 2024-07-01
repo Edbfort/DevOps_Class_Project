@@ -12,7 +12,7 @@ class GetProfileService
         $idPengguna = Pengguna::where('id_user', $id)->first();
 
         if (!$idPengguna) {
-            return response()->json(['message' => 'Client tidak di temukan'], 404);
+            return response()->json(['message' => 'Pengguna tidak di temukan'], 404);
         }
         $status_boleh_edit = 0;
         if ($id == Auth::id()) {

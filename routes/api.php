@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CreativeHubTeamController;
+use App\Http\Controllers\CreativeHubAdminController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -75,8 +76,9 @@ Route::middleware('jwt.auth')->group(function () {
     });
 
     Route::group([
-        'prefix' => 'creative-hub-team'
+        'prefix' => 'creative-hub-admin'
     ], function ($router) {
+        Route::post('/insert-new-team',[CreativeHubAdminController::class, 'insertNewTeam'])
 //        Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
 //        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
     });

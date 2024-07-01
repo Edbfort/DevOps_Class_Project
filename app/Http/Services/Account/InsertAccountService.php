@@ -3,7 +3,6 @@
 namespace App\Http\Services\Account;
 
 
-use App\Models\BillingPengguna;
 use App\Models\Pengguna;
 use App\Models\ProfileTeam;
 use App\Models\TeamMember;
@@ -47,18 +46,15 @@ class InsertAccountService
             $user = new User;
             $user->nama = $request->nama_team;
             $user->email = $request->email;
-            $user->tanggal_lahir = new \DateTime();
-            $user->jenis_kelamin = 3;
             $user->password = bcrypt($request->temp_password);
             $user->save();
 
             $penggunaId = $this->penggunaRepository->findByUserId($authId)->id;
             $newTransaksiCreateUser = new TransaksiPembuatanTeam();
-            $newTransaksiCreateUser->id_creative_hub = $penggunaId;
+            $newTransaksiCreateUser->id_pengguna_cha = $penggunaId;
             $newTransaksiCreateUser->id_user = $user->id;
             $newTransaksiCreateUser->nama_team = $request->nama_team;
             $newTransaksiCreateUser->temp_password = $request->temp_password;
-            $newTransaksiCreateUser->status_aktif = 0;
             $newTransaksiCreateUser->save();
 
 
@@ -66,25 +62,15 @@ class InsertAccountService
             $pengguna->id_user = $user->id;
             $pengguna->id_status_pengguna = 1;
             $pengguna->username = $request->nama_team;
-            $pengguna->uid = 800 . $user->id;
             $pengguna->waktu_buat = new \DateTime();
             $pengguna->waktu_ubah = new \DateTime();
             $pengguna->save();
 
             $userRoles = new UserRoles();
             $userRoles->id_user = $user->id;
-            $userRoles->id_role_name = 4;
+            $userRoles->id_role = 4;
             $userRoles->save();
 
-            $teamProfile = new ProfileTeam();
-            $teamProfile->id_creative_hub = $penggunaId;
-            $teamProfile->id_pengguna = $pengguna->id;
-            $teamProfile->nama_team = $request->nama_team;
-            $teamProfile->save();
-
-            $billingPengguna = new BillingPengguna();
-            $billingPengguna->id_pengguna = $pengguna->id;
-            $billingPengguna->save();
 
             DB::commit();
             return response()->json(['message' => 'Akun Berhasil Di Buat'], 201);
