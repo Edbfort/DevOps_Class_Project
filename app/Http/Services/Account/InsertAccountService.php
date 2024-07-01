@@ -39,7 +39,7 @@ class InsertAccountService
         $authId = Auth::id();
 
         if ($id != $authId) {
-            return response()->json(['error' => 'Anda tidak memiliki akses untuk data ini'], 401);
+            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
         }
         try {
             DB::beginTransaction();
@@ -100,12 +100,12 @@ class InsertAccountService
         $transaksiPembuatanAkun = $this->transaksiPembuatanAkunRepository->getOneByIdUser($id);
         $user = $this->userRepository->getById($id);
         if ($id != $authId) {
-            return response()->json(['error' => 'Anda tidak memiliki akses untuk data ini'], 401);
+            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
         }
 
 
         if (!$transaksiPembuatanAkun) {
-            return response()->json(['error' => 'Tidak di temukan mohon hubungi developer'], 404);
+            return response()->json(['errors' => 'Tidak di temukan mohon hubungi developer'], 404);
         }
 
         try {
@@ -116,7 +116,7 @@ class InsertAccountService
 
             return response()->json(['message' => 'Akun Berhasil Di Aktifasi'], 201);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi Kesalahan mohon huubungi developer'], 500);
+            return response()->json(['errors' => 'Terjadi Kesalahan mohon huubungi developer'], 500);
         }
 
     }

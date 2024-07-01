@@ -8,11 +8,10 @@ use App\Models\UserRoles;
 use App\Repositories\UserRolesRepository;
 use DateTime;
 use Exception;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-
-//use Validator;
+use Illuminate\Validation\ValidationException;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -43,7 +42,12 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
+            $response = [
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors(),
+            ];
+
+            throw new ValidationException($validator, response()->json($response, 422));
         }
 
         try {
@@ -102,7 +106,7 @@ class AuthController extends Controller
         } catch (Exception $e) {
             DB::rollback();
 
-            return response()->json(['error' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
+            return response()->json(['errors' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
         }
     }
 
@@ -114,10 +118,24 @@ class AuthController extends Controller
      */
     public function login()
     {
+        $validator = Validator::make(request()->all(), [
+            'email' => 'required|string',
+            'password' => 'required|min:8|string',
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors(),
+            ];
+
+            throw new ValidationException($validator, response()->json($response, 422));
+        }
+
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['errors' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
