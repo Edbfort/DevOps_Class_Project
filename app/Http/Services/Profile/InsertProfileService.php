@@ -41,7 +41,7 @@ class InsertProfileService
         $userId = Auth::id();
 
         if ($id != $userId) {
-            return response()->json(['error' => 'Anda tidak memiliki akses untuk data ini'], 401);
+            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
         }
 
         $idPengguna = $this->penggunaRepository->findByUserId($userId);
@@ -71,7 +71,7 @@ class InsertProfileService
         $userId = Auth::id();
 
         if ($id != $userId) {
-            return response()->json(['error' => 'Anda tidak memiliki akses untuk data ini'], 401);
+            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
         }
 
         $idPengguna = $this->penggunaRepository->findByUserId($userId)->id;
@@ -98,7 +98,7 @@ class InsertProfileService
         $userId = Auth::id();
 
         if ($id != $userId) {
-            return response()->json(['error' => 'Anda tidak memiliki akses untuk data ini'], 401);
+            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
         }
 
         $idPengguna = $this->penggunaRepository->findByUserId($userId)->id;
@@ -143,7 +143,7 @@ class InsertProfileService
         $userId = Auth::id();
 
         if ($id != $userId) {
-            return response()->json(['error' => 'Anda tidak memiliki akses untuk data ini'], 401);
+            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
         }
 
         $member = MemberTeam::find($id);
@@ -173,7 +173,7 @@ class InsertProfileService
         $userId = Auth::id();
 
         if ($id != $userId) {
-            return response()->json(['error' => 'Anda tidak memiliki akses untuk data ini'], 401);
+            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
         }
 
         $member = MemberTeam::find($id);

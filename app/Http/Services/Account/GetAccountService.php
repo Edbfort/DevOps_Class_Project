@@ -35,7 +35,7 @@ class GetAccountService
         $authId = Auth::id();
 
         if ($id != $authId) {
-            return response()->json(['error' => 'Anda tidak memiliki akses untuk data ini'], 401);
+            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
         }
 
         $penggunaId = $this->penggunaRepository->findByUserId($id)->id;
