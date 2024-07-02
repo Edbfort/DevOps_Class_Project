@@ -33,13 +33,10 @@ class InsertAccountService
         $this->transaksiPembuatanAkunRepository = $transaksiPembuatanAkunRepository;
     }
 
-    public function createNewUserTeam($request,$id)
+    public function handle($request)
     {
         $authId = Auth::id();
 
-        if ($id != $authId) {
-            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
-        }
         try {
             DB::beginTransaction();
 
@@ -51,17 +48,15 @@ class InsertAccountService
 
             $penggunaId = $this->penggunaRepository->findByUserId($authId)->id;
             $newTransaksiCreateUser = new TransaksiPembuatanTeam();
-            $newTransaksiCreateUser->id_pengguna_cha = $penggunaId;
             $newTransaksiCreateUser->id_user = $user->id;
-            $newTransaksiCreateUser->nama_team = $request->nama_team;
             $newTransaksiCreateUser->temp_password = $request->temp_password;
+            $newTransaksiCreateUser->id_pengguna_cha = $penggunaId;
             $newTransaksiCreateUser->save();
 
 
             $pengguna = new Pengguna();
             $pengguna->id_user = $user->id;
-            $pengguna->id_status_pengguna = 1;
-            $pengguna->username = $request->nama_team;
+            $pengguna->status = 0;
             $pengguna->waktu_buat = new \DateTime();
             $pengguna->waktu_ubah = new \DateTime();
             $pengguna->save();
@@ -76,7 +71,8 @@ class InsertAccountService
             return response()->json(['message' => 'Akun Berhasil Di Buat'], 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => 'Terjadi Kesalahan'], 500);
+//            return response()->json(['errors' => 'Terjadi Kesalahan'], 500);
+            return $e;
         }
     }
 

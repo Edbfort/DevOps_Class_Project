@@ -26,8 +26,8 @@ class CreativeHubAdminController extends Controller
      * @param InsertAccountService $service
      */
 
-    public function insertNewTeam(InsertAccountRequest $request, InsertAccountService $service, $id)
+    public function insertNewTeam(InsertAccountRequest $request, InsertAccountService $service)
     {
-        return $service->handle($request, $id);
+        return $service->handle($request);
     }
 }
