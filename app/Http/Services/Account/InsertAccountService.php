@@ -53,7 +53,6 @@ class InsertAccountService
             $newTransaksiCreateUser->id_pengguna_cha = $penggunaId;
             $newTransaksiCreateUser->save();
 
-
             $pengguna = new Pengguna();
             $pengguna->id_user = $user->id;
             $pengguna->status = 0;
@@ -66,41 +65,12 @@ class InsertAccountService
             $userRoles->id_role = 4;
             $userRoles->save();
 
-
             DB::commit();
-            return response()->json(['message' => 'Akun Berhasil Di Buat'], 201);
+            return response()->json(['message' => 'Akun Berhasil Di Buat'], 200);
         } catch (\Exception $e) {
             DB::rollBack();
-//            return response()->json(['errors' => 'Terjadi Kesalahan'], 500);
-            return $e;
+            return response()->json(['errors' => 'Terjadi Kesalahan'], 500);
         }
-    }
-
-    public function aktifasiAkunTeam($request, $id)
-    {
-        $authId = Auth::id();
-        $transaksiPembuatanAkun = $this->transaksiPembuatanAkunRepository->getOneByIdUser($id);
-        $user = $this->userRepository->getById($id);
-        if ($id != $authId) {
-            return response()->json(['errors' => 'Anda tidak memiliki akses untuk data ini'], 401);
-        }
-
-
-        if (!$transaksiPembuatanAkun) {
-            return response()->json(['errors' => 'Tidak di temukan mohon hubungi developer'], 404);
-        }
-
-        try {
-            $user->password = bcrypt($request->password);
-            $user->save();
-            $transaksiPembuatanAkun->status_aktif = 1;
-            $transaksiPembuatanAkun->save();
-
-            return response()->json(['message' => 'Akun Berhasil Di Aktifasi'], 201);
-        } catch (\Exception $e) {
-            return response()->json(['errors' => 'Terjadi Kesalahan mohon huubungi developer'], 500);
-        }
-
     }
 }
 

@@ -20,17 +20,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
 Route::get('/kota', [KotaController::class, 'getKota'])->name('kota');
 
 Route::group([
-
     'middleware' => 'api',
     'prefix' => 'auth'
-
 ], function ($router) {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -54,16 +52,13 @@ Route::middleware('jwt.auth')->group(function () {
 //    Route::post('/activate-team/{id}', [AccountController::class, 'activationUserTeam']);
 //    Route::get('/get-ch-team/{id}', [AccountController::class, 'getUserTeam']);
 
-
-    Route::get('/get-profile/{id}', [PublicController::class, 'getProfile']);
-    Route::patch('/get-profile', [PublicController::class, 'updateProfile']);
+    Route::get('/profile/{id}', [PublicController::class, 'getProfile']);
+    Route::patch('/profile', [PublicController::class, 'updateProfile']);
 
     // Client Routes
     Route::group([
         'prefix' => 'client'
     ], function ($router) {
-//        Route::get('/get-profile/{id}', [ClientController::class, 'getProfile']);
-//        Route::patch('/update-profile/{id}', [ClientController::class, 'updateProfile']);
         Route::get('/billing',[ClientController::class, 'getBilling']);
         Route::patch('/billing',[ClientController::class, 'updateBilling']);
     });
@@ -71,15 +66,11 @@ Route::middleware('jwt.auth')->group(function () {
     Route::group([
         'prefix' => 'creative-hub-team'
     ], function ($router) {
-//        Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
-//        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
     });
 
     Route::group([
         'prefix' => 'creative-hub-admin'
     ], function ($router) {
         Route::post('/insert-new-team',[CreativeHubAdminController::class, 'insertNewTeam']);
-//        Route::get('/get-profile/{id}', [CreativeHubTeamController::class, 'getProfile']);
-//        Route::patch('/update-profile/{id}',[ClientController::class, 'updateProfile']);
     });
 });

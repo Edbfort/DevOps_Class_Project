@@ -10,6 +10,6 @@ class KotaController extends Controller
     {
         $kotaArray = Kota::select(['id', 'nama'])->distinct()->get();
 
-        return response()->json(['data' => $kotaArray]);
+        return response()->json(['data' => $kotaArray], 200);
     }
 }

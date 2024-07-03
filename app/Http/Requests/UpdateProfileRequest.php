@@ -46,12 +46,15 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            'nama' => 'string',
+            'email' => 'string|unique:users',
+            'password' => 'min:8|string',
+            'lokasi' => 'string',
             'nomor_telepon' =>'string|max:12',
             'alamat' =>'string',
             'profil_detail' =>'string',
             'website' =>'string',
             'tag_line'=>'string',
-            ''
         ];
     }
 
