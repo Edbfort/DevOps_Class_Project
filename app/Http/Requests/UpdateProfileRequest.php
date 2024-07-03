@@ -12,7 +12,12 @@ class UpdateProfileRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        return $this->checkAuth([
+            'creative-hub-admin',
+            'controller',
+            'client',
+            'creative-hub-team'
+        ]);
     }
 
     public function checkAuth($data)
@@ -41,11 +46,15 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            'nama' => 'string',
+            'email' => 'string|unique:users',
+            'password' => 'min:8|string',
+            'lokasi' => 'string',
             'nomor_telepon' =>'string|max:12',
             'alamat' =>'string',
             'profil_detail' =>'string',
             'website' =>'string',
-            'tag_line'=>'string'
+            'tag_line'=>'string',
         ];
     }
 

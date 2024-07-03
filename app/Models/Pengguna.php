@@ -51,10 +51,4 @@ class Pengguna extends Model
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
-
-    public function idStatusPengguna()
-    {
-        return $this->belongsTo(StatusPengguna::class, 'id_status_pengguna', 'id');
-    }
-
 }

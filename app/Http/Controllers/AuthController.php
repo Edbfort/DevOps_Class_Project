@@ -72,34 +72,6 @@ class AuthController extends Controller
             $userRoles->id_user = $user->id;
             $userRoles->id_role = request()->id_role;
             $userRoles->save();
-//
-//            if (request()->id_role == 1) {
-//                $profileCompany = new ProfileCompany();
-//                $profileCompany->id_pengguna = $pengguna->id;
-//                $profileCompany->waktu_buat = new \DateTime();
-//                $profileCompany->waktu_ubah = new \DateTime();
-//                $profileCompany->save();
-//            } elseif (request()->id_role == 2 or request()->id_role == 3) {
-//                $creditCardinfo = new CreditCardInfo();
-//                $creditCardinfo->id_pengguna = $pengguna->id;
-//                $creditCardinfo->waktu_buat = new \DateTime();
-//                $creditCardinfo->waktu_ubah = new \DateTime();
-//                $creditCardinfo->save();
-//
-//                if (request()->id_role == 2) {
-//                    $dataProductOwner = new DataProductOwner();
-//                    $dataProductOwner->id_pengguna = $pengguna->id;
-//                    $dataProductOwner->waktu_buat = new \DateTime();
-//                    $dataProductOwner->waktu_ubah = new \DateTime();
-//                    $dataProductOwner->save();
-//                } elseif (request()->id_role == 3) {
-//                    $clientData = new ClientData();
-//                    $clientData->id_pengguna = $pengguna->id;
-//                    $clientData->waktu_buat = new \DateTime();
-//                    $clientData->waktu_ubah = new \DateTime();
-//                    $clientData->save();
-//                }
-//            }
 
             DB::commit();
 
@@ -109,7 +81,7 @@ class AuthController extends Controller
                 return response()->json(['errors' => 'Unauthorized'], 401);
             }
 
-            return $this->respondWithToken($token);
+            return response()->json(['data' => $this->respondWithToken($token)->original], 200);
         } catch (Exception $e) {
             DB::rollback();
 
@@ -145,7 +117,7 @@ class AuthController extends Controller
             return response()->json(['errors' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return response()->json(['data' => $this->respondWithToken($token)->original], 200);
     }
 
     /**
