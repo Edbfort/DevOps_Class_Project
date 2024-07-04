@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Services\Account;
+namespace App\Http\Services\creativeHubTeam;
 
 
 use App\Models\Pengguna;
-use App\Models\ProfileTeam;
-use App\Models\TeamMember;
 use App\Models\TransaksiPembuatanTeam;
 use App\Models\User;
 use App\Models\UserRoles;
@@ -15,7 +13,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class InsertAccountService
+class InsertTeamService
 {
     protected $userRepository;
     protected $penggunaRepository;

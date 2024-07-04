@@ -29,36 +29,53 @@ class UpdateProfileService
             unset($parameter['nomor_telepon']);
         }
 
+        $validasi = [
+            'nama' => 'required',
+            'password' => 'required',
+            'lokasi' => 'required'
+        ];
+
         $userRepo = new UserRolesRepository();
         $userRoles = $userRepo->findOneUserRolesAndNameByUserId($id);
         if ($userRoles) {
-            $transaksiPembuatanTeam = TransaksiPembuatanTeam::where('id_user', $id)->first();
-            if ($transaksiPembuatanTeam->status_ganti_password) {
+            if ($userRoles->nama_role == 'creative-hub-team') {
+                $transaksiPembuatanTeam = TransaksiPembuatanTeam::where('id_user', $id)->first();
+                if ($transaksiPembuatanTeam->status_ganti_password) {
+                    unset($parameter['password']);
+                    $cha = Pengguna::where('id_user', $transaksiPembuatanTeam->id_cha)->first();
+                    $parameter['alamat'] = $cha->alamat;
+                }
+            } else {
                 unset($parameter['password']);
             }
-        } else {
-            unset($parameter['password']);
-        }
 
-        $statusPengguna = $pengguna->id_status_pengguna;
-        if ($statusPengguna == 1 || $statusPengguna == 4) {
-            $statusPengguna = (int)$statusPengguna + 1;
+            if ($userRoles->nama_role != 'controller') {
+                $validasi['alamat'] = 'required';
+            }
+
+            if ($userRoles->nama_role == 'creative-hub-admin') {
+                $validasi['website'] = 'required';
+            }
         }
 
         $user->update($parameter);
-        $pengguna->update(array_merge($parameter, ['id_status_pengguna' => $statusPengguna]));
+        $pengguna->update($parameter);
 
-        $user = User::where('id', $id)->first();
-        $pengguna = Pengguna::where('id_user', $id)->first();
-        $transaksiPembuatanTeam = TransaksiPembuatanTeam::where('id_user', $id)->first();
+        $result = Pengguna::select(['*'])
+            ->join('users', 'users.id', '=', 'pengguna.id_user')
+            ->where('id_user', $id)
+            ->first()->toArray();
 
-
-        $validator = Validator::make([], [
-            'nama' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'lokasi' => 'required',
-        ]);
+        if (!is_null($result['email']) || !is_null($result['nomor_telepon'])) {
+            $validator = Validator::make($result, $validasi);
+            if (!$validator->fails()) {
+                $statusPengguna = $result['id_status_pengguna'];
+                if ($statusPengguna == 1 || $statusPengguna == 4) {
+                    $statusPengguna = (int)$statusPengguna + 1;
+                }
+                $pengguna->update(['id_status_pengguna' => $statusPengguna]);
+            }
+        }
 
         return response()->json(['message' => 'Profile berhasil di update'], 200);
     }

@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GetProfileRequest;
-use App\Http\Requests\InsertAccountRequest;
-use App\Http\Services\Account\GetAccountService;
-use App\Http\Services\Account\InsertAccountService;
-use App\Http\Services\creativeHubTeam\GetProfileService;
+use App\Http\Requests\GetTeamRequest;
+use App\Http\Requests\InsertTeamRequest;
+use App\Http\Services\creativeHubTeam\GetTeamService;
+use App\Http\Services\creativeHubTeam\InsertTeamService;
+use http\Exception\InvalidArgumentException;
 
 class CreativeHubAdminController extends Controller
 {
-    protected $getAccountService;
-    public function __construct
-    (
-        GetAccountService $getAccountService
-    )
+    /**
+     * Handle incoming request
+     *
+     * @param InsertTeamRequest $request
+     * @param InsertTeamService $service
+     */
+    public function insertTeam(InsertTeamRequest $request, InsertTeamService $service)
     {
-        $this->getAccountService = $getAccountService;
+        return $service->handle($request);
     }
 
     /**
      * Handle incoming request
      *
-     * @param InsertAccountRequest $request
-     * @param InsertAccountService $service
+     * @param GetTeamRequest $request
+     * @param GetTeamService $service
      */
-
-    public function insertNewTeam(InsertAccountRequest $request, InsertAccountService $service)
+    public function getTeam(GetTeamRequest $request, GetTeamService $service, $id)
     {
-        return $service->handle($request);
+        return $service->handle($id);
     }
 }

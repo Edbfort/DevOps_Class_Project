@@ -72,5 +72,6 @@ Route::middleware('jwt.auth')->group(function () {
         'prefix' => 'creative-hub-admin'
     ], function ($router) {
         Route::post('/insert-new-team',[CreativeHubAdminController::class, 'insertNewTeam']);
+        Route::get('/team/{id}',[CreativeHubAdminController::class, 'getTeam']);
     });
 });

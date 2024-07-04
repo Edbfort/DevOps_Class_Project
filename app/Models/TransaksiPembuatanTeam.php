@@ -57,4 +57,14 @@ class TransaksiPembuatanTeam extends Model
         'waktu_buat' => 'datetime',
         'waktu_ubah' => 'datetime',
     ];
+
+    public function idUser()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function idCha()
+    {
+        return $this->belongsTo(User::class, 'id_cha', 'id');
+    }
 }
