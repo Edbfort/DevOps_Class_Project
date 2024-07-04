@@ -54,6 +54,8 @@ Route::middleware('jwt.auth')->group(function () {
 
     Route::get('/profile/{id}', [PublicController::class, 'getProfile']);
     Route::patch('/profile', [PublicController::class, 'updateProfile']);
+    Route::get('/rekening', [PublicController::class, 'getRekening']);
+    Route::post('/rekening', [PublicController::class, 'createOrUpdateRekening']);
 
     // Client Routes
     Route::group([
