@@ -47,7 +47,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'nama' => 'string',
-            'email' => 'string|unique:users',
+            'email' => 'string',
             'password' => 'min:8|string',
             'lokasi' => 'string',
             'nomor_telepon' =>'string|max:12',
@@ -55,6 +55,7 @@ class UpdateProfileRequest extends FormRequest
             'profil_detail' =>'string',
             'website' =>'string',
             'tag_line'=>'string',
+            'spesialisasi' => 'string'
         ];
     }
 

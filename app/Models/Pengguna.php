@@ -42,7 +42,8 @@ class Pengguna extends Model
         'profil_detail',
         'website',
         'tag_line',
-        'status',
+        'spesialisasi',
+        'id_status_pengguna',
         'waktu_buat',
         'waktu_ubah'
     ];
@@ -50,5 +51,10 @@ class Pengguna extends Model
     public function idUser()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function idStatusPengguna()
+    {
+        return $this->belongsTo(StatusPengguna::class, 'id_status_pengguna', 'id');
     }
 }

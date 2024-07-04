@@ -23,6 +23,7 @@ class TransaksiPembuatanTeam extends Model
      */
     protected $fillable = [
         'id_user',
+        'id_cha',
         'temp_password',
     ];
 
