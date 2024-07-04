@@ -30,6 +30,6 @@ class StatusPengguna extends Model
      */
     protected $fillable = [
         'status',
-        'keterangan_status'
+        'keterangan'
     ];
 }

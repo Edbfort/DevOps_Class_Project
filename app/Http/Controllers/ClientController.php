@@ -12,16 +12,9 @@ use App\Http\Services\Public\UpdateProfileService;
 
 class ClientController extends Controller
 {
-    /**
-     * Handle incoming request
-     *
-     * @param GetProfileRequest $request
-     * @param GetProfileService $service
-     */
-
-    public function getProfile(GetProfileRequest $request, GetProfileService $service, $id)
+    public function insertProyek(InsertProyekRequest $request, InsertProyekService $service)
     {
-        return $service->handle($request, $id);
+        return $service->handle($request);
     }
 
     /**

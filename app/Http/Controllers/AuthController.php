@@ -58,12 +58,17 @@ class AuthController extends Controller
             $user->email = request()->email;
             $user->password = bcrypt(request()->password);
             $user->lokasi = request()->lokasi;
-            $user->status = 1;
             $user->save();
 
             $pengguna = new Pengguna();
             $pengguna->id_user = $user->id;
-            $pengguna->status = 0;
+
+            if (request()->id_role == 1 || request()->id_role == 4) {
+                $pengguna->id_status_pengguna = 4;
+            } else {
+                $pengguna->id_status_pengguna = 1;
+            }
+
             $pengguna->waktu_buat = new DateTime();
             $pengguna->waktu_ubah = new DateTime();
             $pengguna->save();
