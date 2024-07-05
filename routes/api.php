@@ -64,11 +64,13 @@ Route::middleware('jwt.auth')->group(function () {
         Route::get('/billing',[ClientController::class, 'getBilling']);
         Route::patch('/billing',[ClientController::class, 'updateBilling']);
         Route::post('/proyek',[ClientController::class, 'insertProyek']);
+        Route::get('/controller-list',[ClientController::class, 'getControllerList']);
     });
 
     Route::group([
         'prefix' => 'creative-hub-team'
     ], function ($router) {
+        Route::get('/member', [CreativeHubTeamController::class, 'getMember']);
     });
 
     Route::group([

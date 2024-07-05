@@ -6,7 +6,6 @@ use App\Http\Requests\GetTeamRequest;
 use App\Http\Requests\InsertTeamRequest;
 use App\Http\Services\creativeHubTeam\GetTeamService;
 use App\Http\Services\creativeHubTeam\InsertTeamService;
-use http\Exception\InvalidArgumentException;
 
 class CreativeHubAdminController extends Controller
 {
@@ -31,4 +30,6 @@ class CreativeHubAdminController extends Controller
     {
         return $service->handle($id);
     }
+
+
 }
