@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\ActivationUserTeamRequest;
-use App\Http\Services\Account\GetAccountService;
-use App\Http\Services\Account\InsertAccountService;
-use App\Http\Requests\InsertAccountRequest;
 use App\Http\Requests\GetAccountTeamRequest;
-use App\Http\Services\Profile\GetProfileService;
+use App\Http\Requests\InsertTeamRequest;
+use App\Http\Services\Account\GetAccountService;
+use App\Http\Services\creativeHubTeam\InsertTeamService;
 
 class AccountController extends Controller
 {
@@ -16,7 +15,7 @@ class AccountController extends Controller
     protected $insertAccountService;
     public function __construct
     (
-        InsertAccountService $insertAccountService,
+        InsertTeamService $insertAccountService,
         GetAccountService $getAccountService
     )
     {
@@ -24,7 +23,7 @@ class AccountController extends Controller
         $this->getAccountService = $getAccountService;
     }
 
-    public function insertUserTeam(InsertAccountRequest $request, $id)
+    public function insertUserTeam(InsertTeamRequest $request, $id)
     {
         return $this->insertAccountService->createNewUserTeam($request,$id);
     }

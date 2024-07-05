@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class InsertAccountRequest extends FormRequest
+class InsertTeamRequest extends FormRequest
 {
     public function authorize()
     {

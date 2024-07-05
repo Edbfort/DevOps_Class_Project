@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GetProfileRequest;
 use App\Http\Requests\UpdateClientDataRequest;
-use App\Http\Services\CreativeHubTeam\GetProfileService;
+use App\Http\Services\CreativeHubTeam\GetTeamService;
 use App\Http\Services\Public\UpdateProfileService;
 
 class CreativeHubTeamController extends Controller
@@ -13,10 +13,10 @@ class CreativeHubTeamController extends Controller
      * Handle incoming request
      *
      * @param GetProfileRequest $request
-     * @param GetProfileService $service
+     * @param GetTeamService $service
      */
 
-    public function getProfile(GetProfileRequest $request, GetProfileService $service, $id)
+    public function getProfile(GetProfileRequest $request, GetTeamService $service, $id)
     {
         return $service->handle($request, $id);
     }
