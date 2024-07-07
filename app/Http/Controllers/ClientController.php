@@ -11,6 +11,7 @@ use App\Http\Services\client\GetBillingClientService;
 use App\Http\Services\client\GetControllerListService;
 use App\Http\Services\client\InsertProyekService;
 use App\Http\Services\client\UpdateBillingClientService;
+use App\Http\Services\creativeHubTeam\GetProyekService;
 use App\Http\Services\Public\GetProfileService;
 use App\Http\Services\Public\UpdateProfileService;
 

@@ -3,14 +3,18 @@
 namespace App\Http\Requests;
 
 use App\Repositories\UserRolesRepository;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
-class GetTeamRequest extends FormRequest
+class GetProyekRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        return $this->checkAuth([
+            'creative-hub-team'
+        ]);
     }
 
     public function checkAuth($data)
@@ -34,8 +38,18 @@ class GetTeamRequest extends FormRequest
     public function rules()
     {
         return [
-            'rentang_harga' =>  'int|required',
-            'kategori' => 'string|required'
+            'rentang_harga' => 'int',
+            'kategori' => 'string'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $response = [
+            'message' => 'Validasi gagal',
+            'errors' => $validator->errors(),
+        ];
+
+        throw new ValidationException($validator, response()->json($response, 422));
     }
 }

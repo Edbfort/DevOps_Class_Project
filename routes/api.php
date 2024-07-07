@@ -71,12 +71,13 @@ Route::middleware('jwt.auth')->group(function () {
         'prefix' => 'creative-hub-team'
     ], function ($router) {
         Route::get('/member', [CreativeHubTeamController::class, 'getMember']);
+        Route::get('/proyek',[CreativeHubTeamController::class, 'getProyek']);
     });
 
     Route::group([
         'prefix' => 'creative-hub-admin'
     ], function ($router) {
-        Route::post('/insert-new-team',[CreativeHubAdminController::class, 'insertNewTeam']);
+        Route::post('/insert-new-team',[CreativeHubAdminController::class, 'insertTeam']);
         Route::get('/team/{id}',[CreativeHubAdminController::class, 'getTeam']);
     });
 });

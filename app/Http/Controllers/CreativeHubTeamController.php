@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GetMemberRequest;
 use App\Http\Requests\GetProfileRequest;
+use App\Http\Requests\GetProyekRequest;
 use App\Http\Requests\UpdateClientDataRequest;
 use App\Http\Services\creativeHubTeam\GetMemberService;
+use App\Http\Services\creativeHubTeam\GetProyekService;
 use App\Http\Services\CreativeHubTeam\GetTeamService;
 use App\Http\Services\Public\UpdateProfileService;
 
@@ -46,4 +48,12 @@ class CreativeHubTeamController extends Controller
     {
         return $service->handle($request, $id);
     }
+
+
+    public function getProyek(GetProyekRequest $request, GetProyekService $service)
+    {
+        return $service->handle($request);
+    }
+
+
 }
