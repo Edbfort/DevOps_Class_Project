@@ -8,16 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class MemberTeam extends Model
 {
     use HasFactory;
+
     protected $table = 'member_team';
 
-    protected $primaryKey = 'id';
-
-
     protected $fillable = [
-        'id_profile_team',
+        'id_team',
         'nama',
-        'peran_team',
         'jabatan',
+        'role_team',
         'waktu_buat',
         'waktu_ubah'
     ];
@@ -32,8 +30,4 @@ class MemberTeam extends Model
         'waktu_buat' => 'datetime',
         'waktu_ubah' => 'datetime',
     ];
-
-    public $incrementing = true;
-
-    protected $keyType = 'int';
 }

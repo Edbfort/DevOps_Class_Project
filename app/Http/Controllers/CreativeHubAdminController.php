@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GetTeamRequest;
 use App\Http\Requests\InsertTeamRequest;
-use App\Http\Services\creativeHubTeam\GetTeamService;
-use App\Http\Services\creativeHubTeam\InsertTeamService;
+use App\Http\Services\CreativeHubAdmin\InsertTeamService;
+use App\Http\Services\Public\GetTeamService;
 
 class CreativeHubAdminController extends Controller
 {
@@ -19,17 +19,4 @@ class CreativeHubAdminController extends Controller
     {
         return $service->handle($request);
     }
-
-    /**
-     * Handle incoming request
-     *
-     * @param GetTeamRequest $request
-     * @param GetTeamService $service
-     */
-    public function getTeam(GetTeamRequest $request, GetTeamService $service, $id)
-    {
-        return $service->handle($id);
-    }
-
-
 }

@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Services\creativeHubTeam;
-
+namespace App\Http\Services\CreativeHubAdmin;
 
 use App\Models\Pengguna;
 use App\Models\TransaksiPembuatanTeam;
@@ -48,12 +47,12 @@ class InsertTeamService
             $newTransaksiCreateUser = new TransaksiPembuatanTeam();
             $newTransaksiCreateUser->id_user = $user->id;
             $newTransaksiCreateUser->temp_password = $request->temp_password;
-            $newTransaksiCreateUser->id_pengguna_cha = $penggunaId;
+            $newTransaksiCreateUser->id_cha = $penggunaId;
             $newTransaksiCreateUser->save();
 
             $pengguna = new Pengguna();
             $pengguna->id_user = $user->id;
-            $pengguna->status = 0;
+            $pengguna->status = 1;
             $pengguna->waktu_buat = new \DateTime();
             $pengguna->waktu_ubah = new \DateTime();
             $pengguna->save();

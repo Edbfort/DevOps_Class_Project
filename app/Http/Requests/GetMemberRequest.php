@@ -11,6 +11,9 @@ class GetMemberRequest extends FormRequest
     public function authorize()
     {
         return $this->checkAuth([
+            'creative-hub-admin',
+            'client',
+            'controller',
             'creative-hub-team'
         ]);
     }
