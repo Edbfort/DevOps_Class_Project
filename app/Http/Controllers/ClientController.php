@@ -34,20 +34,16 @@ class ClientController extends Controller
      * @param UpdateClientDataRequest $request
      * @param UpdateProfileService $service
      */
-
     public function updateProfile(UpdateClientDataRequest $request, UpdateProfileService $service, $id)
     {
         return $service->handle($request, $id);
     }
-
-
 
     /**
      * Handle incoming request
      *
      * @param GetBillingClientService $service
      */
-
     public function getBilling(GetBillingClientService $service)
     {
         return $service->handle();
@@ -59,7 +55,6 @@ class ClientController extends Controller
      * @param UpdateBillingClientRequest $request
      * @param UpdateBillingClientService $service
      */
-
     public function updateBilling(UpdateBillingClientRequest $request, UpdateBillingClientService $service)
     {
         return $service->handle($request);

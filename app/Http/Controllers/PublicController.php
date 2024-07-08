@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetDetailProyekRequest;
 use App\Http\Requests\CreateOrUpdateBillingRekeningRequest;
 use App\Http\Requests\GetBillingRekening;
 use App\Http\Requests\GetBillingRekeningRequest;
@@ -9,6 +10,7 @@ use App\Http\Requests\GetMemberRequest;
 use App\Http\Requests\GetTeamRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\UpdateProfileReuqest;
+use App\Http\Services\client\GetDetailProyekService;
 use App\Http\Services\creativeHubTeam\GetMemberService;
 use App\Http\Services\Public\CreateOrUpdateBillingRekeningService;
 use App\Http\Services\Public\GetBillingRekeningService;
@@ -81,6 +83,11 @@ class PublicController extends Controller
      */
 
     public function getMember(GetMemberRequest $request, GetMemberService $service, $id)
+    {
+        return $service->handle($id);
+    }
+
+    public function getDetailProyek(GetDetailProyekRequest $request, GetDetailProyekService $service, $id)
     {
         return $service->handle($id);
     }

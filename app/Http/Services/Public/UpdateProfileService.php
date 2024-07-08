@@ -58,6 +58,8 @@ class UpdateProfileService
             }
         }
 
+        $parameter['waktu_ubah'] = new \DateTime();
+
         $user->update($parameter);
         $pengguna->update($parameter);
 

@@ -7,6 +7,7 @@ use App\Models\ClientData;
 use App\Models\Pengguna;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use function PHPUnit\Framework\isEmpty;
 
 class UpdateBillingClientService
 {
@@ -16,6 +17,7 @@ class UpdateBillingClientService
         $idPengguna = Pengguna::where('id_user', Auth::id())->first()->id;
 
         $billingClient = BillingClient::where('id_pengguna', $idPengguna)->first();
+        if (isEmpty())
 
         $billingClient->update(array_merge(['id_pengguna', $idPengguna], $parameters));
 
