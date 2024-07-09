@@ -34,6 +34,8 @@ class InsertTeamService
     {
         $authId = Auth::id();
 
+        $pengguna = $this->penggunaRepository->findByUserId($authId);
+
         try {
             DB::beginTransaction();
 
@@ -41,9 +43,10 @@ class InsertTeamService
             $user->nama = $request->nama_team;
             $user->email = $request->email;
             $user->password = bcrypt($request->temp_password);
+            $user->lokasi = $pengguna->lokasi;
             $user->save();
 
-            $penggunaId = $this->penggunaRepository->findByUserId($authId)->id;
+            $penggunaId = $pengguna->id;
             $newTransaksiCreateUser = new TransaksiPembuatanTeam();
             $newTransaksiCreateUser->id_user = $user->id;
             $newTransaksiCreateUser->temp_password = $request->temp_password;
