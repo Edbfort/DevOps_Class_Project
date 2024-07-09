@@ -11,6 +11,7 @@ use App\Http\Services\client\GetBillingClientService;
 use App\Http\Services\client\GetControllerListService;
 use App\Http\Services\client\InsertProyekService;
 use App\Http\Services\client\UpdateBillingClientService;
+use App\Http\Services\creativeHubTeam\GetProyekService;
 use App\Http\Services\Public\GetProfileService;
 use App\Http\Services\Public\UpdateProfileService;
 
@@ -33,20 +34,16 @@ class ClientController extends Controller
      * @param UpdateClientDataRequest $request
      * @param UpdateProfileService $service
      */
-
     public function updateProfile(UpdateClientDataRequest $request, UpdateProfileService $service, $id)
     {
         return $service->handle($request, $id);
     }
-
-
 
     /**
      * Handle incoming request
      *
      * @param GetBillingClientService $service
      */
-
     public function getBilling(GetBillingClientService $service)
     {
         return $service->handle();
@@ -58,7 +55,6 @@ class ClientController extends Controller
      * @param UpdateBillingClientRequest $request
      * @param UpdateBillingClientService $service
      */
-
     public function updateBilling(UpdateBillingClientRequest $request, UpdateBillingClientService $service)
     {
         return $service->handle($request);

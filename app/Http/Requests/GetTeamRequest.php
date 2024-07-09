@@ -34,7 +34,8 @@ class GetTeamRequest extends FormRequest
     public function rules()
     {
         return [
-            // Define your validation rules here
+            'rentang_harga' =>  'int|required',
+            'kategori' => 'string|required'
         ];
     }
 }

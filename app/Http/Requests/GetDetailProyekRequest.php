@@ -6,7 +6,7 @@ use App\Repositories\UserRolesRepository;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class GetMemberRequest extends FormRequest
+class GetDetailProyekRequest extends FormRequest
 {
     public function authorize()
     {
@@ -39,7 +39,7 @@ class GetMemberRequest extends FormRequest
     public function rules()
     {
         return [
-            // Define your validation rules here
+
         ];
     }
 }

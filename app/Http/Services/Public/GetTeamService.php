@@ -1,12 +1,8 @@
 <?php
 
-namespace App\Http\Services\creativeHubTeam;
+namespace App\Http\Services\Public;
 
-use App\Models\ClientData;
-use App\Models\Pengguna;
-use App\Models\ProfileTeam;
 use App\Models\TransaksiPembuatanTeam;
-use App\Models\User;
 use App\Repositories\UserRolesRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,9 +13,9 @@ class GetTeamService
         $userRepo = new UserRolesRepository();
         $userRoles = $userRepo->findOneUserRolesAndNameByUserId($id);
         if (!$userRoles) {
-            return response()->json(['message' => 'Data tidak di  bang'], 404);
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
         } elseif ($userRoles->nama_role != 'creative-hub-admin') {
-            return response()->json(['message' => 'Data tidak di temukan tai'], 404);
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
         }
 
         $select = [
