@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GetControllerListRequest;
-use App\Http\Requests\GetProfileRequest;
 use App\Http\Requests\InsertProyekRequest;
 use App\Http\Requests\UpdateBillingClientRequest;
 use App\Http\Requests\UpdateClientDataRequest;
@@ -11,8 +10,6 @@ use App\Http\Services\client\GetBillingClientService;
 use App\Http\Services\client\GetControllerListService;
 use App\Http\Services\client\InsertProyekService;
 use App\Http\Services\client\UpdateBillingClientService;
-use App\Http\Services\creativeHubTeam\GetProyekService;
-use App\Http\Services\Public\GetProfileService;
 use App\Http\Services\Public\UpdateProfileService;
 
 class ClientController extends Controller

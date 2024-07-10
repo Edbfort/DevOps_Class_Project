@@ -58,6 +58,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('/rekening', [PublicController::class, 'createOrUpdateRekening']);
     Route::get('/team/member/{id}', [PublicController::class, 'getMember']);
     Route::get('/team/{id}',[PublicController::class, 'getTeam']);
+    Route::get('/proyek',[PublicController::class, 'getProyekList']);
     Route::get('/proyek/{id}', [PublicController::class, 'getDetailProyek']);
 
     // Client Routes
@@ -74,7 +75,7 @@ Route::middleware('jwt.auth')->group(function () {
         'prefix' => 'creative-hub-team'
     ], function ($router) {
         Route::get('/member', [CreativeHubTeamController::class, 'getMember']);
-        Route::get('/proyek',[CreativeHubTeamController::class, 'getProyek']);
+
     });
 
     Route::group([

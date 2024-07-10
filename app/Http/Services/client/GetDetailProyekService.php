@@ -24,9 +24,6 @@ class GetDetailProyekService
         ])
             ->where('id', $id)->first();
 
-        $result['proyek'] = $proyek->toArray();
-        unset($result['proyek']);
-
         $result = [];
 
         $userRepo = new UserRolesRepository();
@@ -37,18 +34,24 @@ class GetDetailProyekService
             $result['controller'] = Pengguna::select(['id_user', 'spesialisasi'])->where('id_user', $proyek->id_controller)->get()->toArray();
         }
 
-        $result['lamaran_proyek'] = LamaranProyek::select([
-            'ut.id as id_team',
-            'ut.nama as nama_team',
-            'ucha.id as id_cha',
-            'ucha.nama as nama_cha',
-            'ucha.lokasi as lokasi_team',
-        ])
-            ->join('users as ut', 'ut.id', '=', 'lamaran_proyek.id_team')
-            ->join('pengguna as pt', 'pt.id_user', '=', 'ut.id')
-            ->join('transaksi_pembuatan_team as tpt', 'tpt.id_user', '=', 'ut.id')
-            ->join('users as ucha', 'ucha.id', '=', 'tpt.id_cha')
-            ->where('id_proyek', $id)->get()->toArray();
+        $result['proyek'] = $proyek->toArray();
+        unset($result['proyek']['id_controller']);
+
+        if ($userRoles->nama_role == 'controller' && $proyek->id_team == null) {
+            $result['lamaran_proyek'] = LamaranProyek::select([
+                'ut.id as team_id',
+                'ut.nama as team_nama',
+                'ucha.id as cha_id',
+                'ucha.nama as cha_nama',
+                'ucha.lokasi as team_lokasi',
+            ])
+                ->join('users as ut', 'ut.id', '=', 'lamaran_proyek.id_team')
+                ->join('pengguna as pt', 'pt.id_user', '=', 'ut.id')
+                ->join('transaksi_pembuatan_team as tpt', 'tpt.id_user', '=', 'ut.id')
+                ->join('users as ucha', 'ucha.id', '=', 'tpt.id_cha')
+                ->where(['id_proyek' => $id, 'lamaran_proyek.status' => 0])->get()->toArray();
+        }
+
 
         return response()->json(['data' => $result, 'message' => 'Data berhasil di ambil'], 200);
     }

@@ -8,11 +8,13 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class GetProyekRequest extends FormRequest
+class GetProyekListRequest extends FormRequest
 {
     public function authorize()
     {
         return $this->checkAuth([
+            'client',
+            'controller',
             'creative-hub-team'
         ]);
     }
@@ -38,8 +40,9 @@ class GetProyekRequest extends FormRequest
     public function rules()
     {
         return [
-            'rentang_harga' => 'int',
-            'kategori' => 'string'
+            'keyword' => 'string|nullable',
+            'anggaran' => 'string|nullable',
+            'spesialisasi' => 'string|nullable'
         ];
     }
 
