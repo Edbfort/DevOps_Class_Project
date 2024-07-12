@@ -3,7 +3,6 @@
 namespace App\Http\Services\Public;
 
 use App\Models\FilterSpesialisasi;
-use App\Models\Pengguna;
 use App\Models\Proyek;
 use App\Repositories\UserRolesRepository;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +17,10 @@ class GetProyekListService
             'ucl.nama as client_nama',
             'uco.nama as controller_nama',
             'ut.nama as team_nama',
-            'p.id_status_proyek',
+            'p.id_status_proyek as proyek_status_proyek',
             'p.perkembangan as proyek_perkembangan',
-            'p.tanggal_tegat as proyek_tanggal_tegat'
+            'p.tanggal_tegat as proyek_tanggal_tegat',
+            'p.anggaran as proyek_anggaran',
         ];
 
         $userRepo = new UserRolesRepository();
@@ -28,37 +28,77 @@ class GetProyekListService
         if (!$userRoles) {
             return response()->json(['message' => 'Data tidak di temukan'], 404);
         }
-        if ($userRoles->nama_role == 'creative-hub-team') {
+
+        if ($userRoles->nama_role == 'creative-hub-team' && !$request->has('id_user')) {
             $select = array_merge($select, [
-
-
-
                 'uco.lokasi as controller_lokasi',
-                'p.anggaran as proyek_anggaran',
                 'p.deskripsi_proyek as proyek_deskripsi_proyek',
                 'p.spesialisasi as proyek_spesialisasi'
             ]);
+        } else {
+            $select = array_merge($select, [
+                'db.'
+            ]);
         }
+
         $proyekQuery = Proyek::query();
         $proyekQuery->select($select);
+        if ($request->has('id_user')) {
+            if ($request->id_user != Auth::id()) {
+                return response()->json(['message' => 'Data tidak di temukan'], 404);
+            }
 
-        if ($request->has('keyword')) {
-            $proyekQuery->where('spesialisasi', 'like', '%' . $request->kategori . '%', 'or');
-        }
+            $proyekQuery->whereRaw($request->id_user . ' IN (p.id_client, p.id_controller, p.id_team)');
+        } else {
+            if ($request->has('keyword')) {
+                $proyekQuery->whereRaw(
+                    "(ucl.nama like '%" . $request->keyword .
+                    "% OR uco.nama like '%" . $request->keyword .
+                    "% OR ut.nama like '%" . $request->keyword .
+                    "% OR p.spesialisasi like '%" . $request->keyword .
+                    "% OR p.judul_proyek like '%" . $request->keyword .
+                    "% OR p.deskripsi_proyek like '%" . $request->keyword .
+                    "% OR uco.lokasi like '%" . $request->keyword . ")"
+                );
+            }
 
-        if ($request->rentang_harga == 1) {
-            $proyekQuery->where('anggaran', '<', 50000);
-        } elseif ($request->rentang_harga == 2) {
-            $proyekQuery->whereBetween('anggaran', [50000, 300000]);
-        } elseif ($request->rentang_harga == 3) {
-            $proyekQuery->where('anggaran', '>', 300000);
+            if ($request->has('anggaran')) {
+                $anggaranArray = json_decode($request->anggaran);
+
+                $operatorArray = [
+                    'lte' => '<=',
+                    'gte' => '>=',
+                ];
+                foreach ($anggaranArray as $anggaran) {
+                    $anggaran = explode('|', $anggaran);
+
+                    if (count($anggaran) > 2) {
+                        $anggaran = [(int)$anggaran[0], (int)$anggaran[2]];
+                        sort($anggaran);
+
+                        $proyekQuery->orWhereBetween('p.anggaran', $anggaran);
+                    } else {
+                        if (!is_null($operatorArray[$anggaran[1]])) {
+                            $proyekQuery->orWhere('p.anggaran', $operatorArray[$anggaran[1]], (int)$anggaran[0]);
+                        }
+                    }
+                }
+            }
+
+            if ($request->has('spesialisasi')) {
+                $spesialisasiArray = json_decode($request->spesialisasi);
+
+                foreach ($spesialisasiArray as $spesialisasi) {
+                    $proyekQuery->orWhere('p.spesialisasi', 'like', $spesialisasi);
+                }
+            }
         }
 
         $proyek = $proyekQuery->get();
 
         $result = [
-            'data_proyek' => $proyek->toArray(),
-            'data_spesialisasi' => FilterSpesialisasi::all()->toArray(),
+            'proyek' => $proyek->toArray(),
+            'spesialisasi' => FilterSpesialisasi::all()->toArray(),
         ];
 
         return response()->json(['data' => $result, 'message' => 'Data berhasil diambil'], 200);

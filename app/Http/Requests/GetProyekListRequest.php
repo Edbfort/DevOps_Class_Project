@@ -40,6 +40,7 @@ class GetProyekListRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_user' => 'int|nullable',
             'keyword' => 'string|nullable',
             'anggaran' => 'string|nullable',
             'spesialisasi' => 'string|nullable'
