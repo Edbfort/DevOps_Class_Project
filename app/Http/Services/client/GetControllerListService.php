@@ -17,7 +17,8 @@ class GetControllerListService
             ->where([
                 ['pengguna.id_status_pengguna', '=', '6'],
                 ['user_roles.id_role', '=', '2']
-            ])->get();
+            ])
+            ->get();
 
         $result = [
             'list_controller' => $controllerList->toArray()
