@@ -19,7 +19,8 @@ class GetProfileService
             'lokasi',
             'profil_detail',
             'website',
-            'tag_line'
+            'tag_line',
+            'fee'
         ];
 
         $userRepo = new UserRolesRepository();

@@ -21,6 +21,7 @@ class GetProyekListService
             'proyek.perkembangan as proyek_perkembangan',
             'proyek.tanggal_tegat as proyek_tanggal_tegat',
             'proyek.anggaran as proyek_anggaran',
+            'pco.fee as controller_fee'
         ];
 
         $where = [];
@@ -60,6 +61,7 @@ class GetProyekListService
         $proyekQuery->select($select)
             ->join('users as ucl', 'ucl.id', '=', 'proyek.id_client')
             ->leftJoin('users as uco', 'uco.id', '=', 'proyek.id_controller')
+            ->leftJoin('pengguna as pco', 'pco.id_user', '=', 'uco.id')
             ->leftJoin('users as ut', 'ut.id', '=', 'proyek.id_team')
             ->leftJoin('design_breif as db', 'db.id_proyek', '=', 'proyek.id')
             ->where($where);

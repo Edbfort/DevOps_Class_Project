@@ -17,13 +17,6 @@ class FilterSpesialisasi  extends Model
     protected $table = 'filter_spesialisasi';
 
     /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array

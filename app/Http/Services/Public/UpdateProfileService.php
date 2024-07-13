@@ -51,6 +51,8 @@ class UpdateProfileService
 
             if ($userRoles->nama_role != 'controller') {
                 $validasi['alamat'] = 'required';
+            } else {
+                $validasi['fee'] = 'required';
             }
 
             if ($userRoles->nama_role == 'creative-hub-admin') {
