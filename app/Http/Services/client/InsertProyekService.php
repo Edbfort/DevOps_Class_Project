@@ -11,16 +11,22 @@ class InsertProyekService
 {
     public function handle($request)
     {
-        $parameter = $request->all();
+        $parameter['judul_proyek'] = $request->judul_proyek;
 
-        $user = User::find(Auth::id());
 
-        $pengguna = Pengguna::where('id_user', $user->id)->first();
-
-        $parameter['id_client'] = $pengguna->id;
 
         // Create the Proyek record
-        Proyek::create($parameter);
+        Proyek::create([
+            'id_client' => Auth::id(),
+            'judul_proyek' => $request->judul_proyek,
+            'deskripsi_proyek' => $request->deskripsi_proyek,
+            'spesialisasi' => $request->spesialisasi,
+            'anggaran' => $request->anggaran,
+            'tanggal_tegat' => $request->tanggal_tegat,
+            'lokasi_dokumen' => $request->lokasi_dokumen,
+            'waktu_buat' => new \DateTime(),
+            'waktu_ubah' => new \DateTime(),
+        ]);
 
         return response()->json(['message' => 'Project berhasil di insert'], 200);
     }

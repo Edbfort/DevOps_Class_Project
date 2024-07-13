@@ -14,8 +14,6 @@ class GetTeamService
         $userRoles = $userRepo->findOneUserRolesAndNameByUserId($id);
         if (!$userRoles) {
             return response()->json(['message' => 'Data tidak ditemukan'], 404);
-        } elseif ($userRoles->nama_role != 'creative-hub-admin') {
-            return response()->json(['message' => 'Data tidak ditemukan'], 404);
         }
 
         $select = [

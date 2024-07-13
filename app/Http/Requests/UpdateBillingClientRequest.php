@@ -12,10 +12,9 @@ class UpdateBillingClientRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
-//        return $this->checkAuth([
-//            'client'
-//        ]);
+        return $this->checkAuth([
+            'client'
+        ]);
     }
 
     public function checkAuth($data)
@@ -44,14 +43,11 @@ class UpdateBillingClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'nomor_kartu' => 'string',
-            'nama_depan' => 'string',
-            'dama_belakang' => 'string',
-            'habis_berlaku' => 'string',
-            'cvv' => 'string',
-            'alamat' => 'string',
-            'kota' => 'string',
-            'kode_zip' => 'string',
+            'nomor_kartu' => 'required|string',
+            'nama_depan' => 'required|string',
+            'nama_belakang' => 'required|string',
+            'habis_berlaku' => 'required|string',
+            'cvv' => 'required|string',
         ];
     }
 

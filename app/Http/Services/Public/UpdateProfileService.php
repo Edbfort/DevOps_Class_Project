@@ -29,6 +29,10 @@ class UpdateProfileService
             unset($parameter['nomor_telepon']);
         }
 
+        if ($pengguna->fee) {
+            unset($parameter['fee']);
+        }
+
         $validasi = [
             'nama' => 'required',
             'password' => 'required',
@@ -45,11 +49,17 @@ class UpdateProfileService
                     $cha = Pengguna::where('id_user', $transaksiPembuatanTeam->id_cha)->first();
                     $parameter['alamat'] = $cha->alamat;
                 }
+
+                $validasi['fee'] = 'required';
             } else {
                 unset($parameter['password']);
             }
 
             if ($userRoles->nama_role != 'controller') {
+                if ($userRoles->nama_role != 'creative-hub-team') {
+                    unset($parameter['fee']);
+                }
+
                 $validasi['alamat'] = 'required';
             } else {
                 $validasi['fee'] = 'required';

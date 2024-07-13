@@ -13,8 +13,8 @@ class CreateOrUpdateBillingRekeningRequest extends FormRequest
     public function authorize()
     {
         return $this->checkAuth([
-            'creative-hub-team',
-            'controller'
+            'controller',
+            'creative-hub-team'
         ]);
     }
 
@@ -46,7 +46,7 @@ class CreateOrUpdateBillingRekeningRequest extends FormRequest
         return [
             'id_bank' => 'required|int',
             'nomor_rekening' => 'required|string',
-            'nama_pemilik' => 'required',
+            'nama_pemilik' => 'required|string',
         ];
     }
 

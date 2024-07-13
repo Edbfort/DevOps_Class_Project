@@ -13,15 +13,29 @@ class UpdateBillingClientService
 {
     public function handle($request)
     {
-        $parameters = $request->all();
-        $idPengguna = Pengguna::where('id_user', Auth::id())->first()->id;
+        $billingClient = BillingClient::where('id_user', Auth::id())->first();
 
-        $billingClient = BillingClient::where('id_pengguna', $idPengguna)->first();
-        if (isEmpty())
-
-        $billingClient->update(array_merge(['id_pengguna', $idPengguna], $parameters));
+        if (!$billingClient) {
+            BillingClient::create([
+                'id_user' => Auth::id(),
+                'nomor_kartu' => $request->nomor_kartu,
+                'nama_depan' => $request->nama_depan,
+                'nama_belakang' => $request->nama_belakang,
+                'habis_berlaku' => $request->habis_berlaku,
+                'cvv' => $request->cvv,
+                'waktu_buat' => new \DateTime(),
+                'waktu_ubah' => new \DateTime(),
+            ]);
+        } else {
+            $billingClient->update([
+                'nomor_kartu' => $request->nomor_kartu,
+                'nama_depan' => $request->nama_depan,
+                'nama_belakang' => $request->nama_belakang,
+                'habis_berlaku' => $request->habis_berlaku,
+                'waktu_ubah' => new \DateTime(),
+            ]);
+        }
 
         return response()->json(['message' => 'Billing info berhasil di update'], 200);
     }
-
 }

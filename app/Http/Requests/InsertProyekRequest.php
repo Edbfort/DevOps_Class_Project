@@ -39,8 +39,6 @@ class InsertProyekRequest extends FormRequest
         return [
             'judul_proyek' => 'required|string|max:128',
             'deskripsi_proyek' => 'required|string',
-            'id_controller' => 'nullable|integer',
-            'id_team' => 'nullable|integer',
             'spesialisasi' => 'required|string|max:516',
             'anggaran' => 'required|integer',
             'tanggal_tegat' => 'required|date',
