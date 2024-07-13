@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Public;
 
+use App\Models\FilterSpesialisasi;
 use App\Models\Pengguna;
 use App\Models\TransaksiPembuatanTeam;
 use App\Models\User;
@@ -20,6 +21,7 @@ class GetProfileService
             'profil_detail',
             'website',
             'tag_line',
+            'spesialisasi',
             'fee'
         ];
 
@@ -59,6 +61,8 @@ class GetProfileService
         $data = array_merge($data, $pengguna->toArray());
 
         $result['data_pengguna'] = $data;
+
+        $result['spesialisasi'] = FilterSpesialisasi::select('nama')->get()->toArray();
 
         $result['status_boleh_edit'] = isset($data['id_status_pengguna']);
 

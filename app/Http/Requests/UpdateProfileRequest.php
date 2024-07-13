@@ -46,16 +46,17 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'string',
-            'email' => 'string',
+            'nama' => 'string|required',
+            'email' => 'string|required',
             'password' => 'min:8|string',
-            'lokasi' => 'string',
-            'nomor_telepon' =>'string|max:12',
+            'lokasi' => 'nullable',
+            'nomor_telepon' =>'nullable|max:12',
             'alamat' =>'string',
-            'profil_detail' =>'string',
-            'website' =>'string',
-            'tag_line'=>'string',
-            'spesialisasi' => 'string'
+            'profil_detail' =>'nullable',
+            'website' =>'nullable',
+            'tag_line'=>'nullable',
+            'fee'=> 'int',
+            'spesialisasi' => 'nullable'
         ];
     }
 
