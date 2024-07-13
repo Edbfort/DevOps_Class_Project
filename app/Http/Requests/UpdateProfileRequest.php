@@ -47,16 +47,16 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'nama' => 'string|required',
-            'email' => 'string|required',
+            'email' => 'nullable|string',
             'password' => 'min:8|string',
-            'lokasi' => 'nullable',
-            'nomor_telepon' =>'nullable|max:12',
-            'alamat' =>'string',
-            'profil_detail' =>'nullable',
-            'website' =>'nullable',
-            'tag_line'=>'nullable',
-            'fee'=> 'int',
-            'spesialisasi' => 'nullable'
+            'lokasi' => 'string',
+            'nomor_telepon' =>'nullable|string|max:12',
+            'alamat' =>'nullable|string',
+            'profil_detail' =>'nullable|string',
+            'website' =>'nullable|string',
+            'tag_line'=>'nullable|string',
+            'fee'=> 'nullable|int',
+            'spesialisasi' => 'nullable|string'
         ];
     }
 

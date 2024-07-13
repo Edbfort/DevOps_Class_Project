@@ -29,6 +29,9 @@ class UpdateProfileService
             unset($parameter['nomor_telepon']);
         }
 
+        if ($pengguna->fee) {
+            unset($parameter['fee']);
+        }
 
         $validasi = [
             'nama' => 'required',
