@@ -11,17 +11,17 @@ class EmailController extends Controller
     {
         $mj = new Client(env('MAILJET_APIKEY'), env('MAILJET_SECRETKEY'), true, ['version' => 'v3']);
         $body = [
-            'FromEmail' => "pilot@mailjet.com",
-            'FromName' => "Your Mailjet Pilot",
+            'FromEmail' => "vivoglobal011@gmail.com",
+            'FromName' => "Kolab aja",
             'Recipients' => [
                 [
                     'Email' => "williamalim410@gmail.com",
                     'Name' => "Passenger 1"
                 ]
             ],
-            'Subject' => "Your email flight plan!",
-            'Text-part' => "Dear passenger, welcome to Mailjet! May the delivery force be with you!",
-            'Html-part' => "<h3>Dear passenger, welcome to Mailjet!</h3><br />May the delivery force be with you!"
+            'Subject' => "Dana sudah di terima!",
+            'Text-part' => "Dana anda sudah masuk berikut adalah recivenya!",
+            'Html-part' => "<h3>1.000.000 rb!</h3>"
         ];
         $response = $mj->post(Resources::$Email, ['body' => $body]);
 
