@@ -34,6 +34,21 @@ return [
     */
 
     'mailers' => [
+        'mailjet' => [
+        'transport' => 'mailjet',
+        'host' => 'in-v3.mailjet.com',
+        'port' => 587,
+        'encryption' => 'tls',
+        'username' => env('MAILJET_APIKEY'),
+        'password' => env('MAILJET_SECRETKEY'),
+        'stream' => [
+            'ssl' => [
+                'allow_self_signed' => true,
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+            ],
+        ],
+    ],
         'smtp' => [
             'transport' => 'smtp',
             'host' => env('MAIL_HOST', 'smtp.mailgun.org'),

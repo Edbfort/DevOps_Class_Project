@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CreativeHubTeamController;
 use App\Http\Controllers\CreativeHubAdminController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/kota', [KotaController::class, 'getKota'])->name('kota');
+Route::get('/send-email', [EmailController::class, 'sendEmail']);
 
 Route::group([
     'middleware' => 'api',
