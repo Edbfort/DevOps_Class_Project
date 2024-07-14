@@ -84,7 +84,7 @@ class UpdateProfileService
             $validator = Validator::make($result, $validasi);
             if (!$validator->fails()) {
                 $statusPengguna = $result['id_status_pengguna'];
-                if ($statusPengguna == 1 || $statusPengguna == 4) {
+                if ($statusPengguna == 1 || $statusPengguna == 3) {
                     $statusPengguna = (int)$statusPengguna + 1;
                 }
                 $pengguna->update(['id_status_pengguna' => $statusPengguna]);

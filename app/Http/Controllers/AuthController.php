@@ -63,8 +63,8 @@ class AuthController extends Controller
             $pengguna = new Pengguna();
             $pengguna->id_user = $user->id;
 
-            if (request()->id_role == 1 || request()->id_role == 4) {
-                $pengguna->id_status_pengguna = 4;
+            if (request()->id_role == 1) {
+                $pengguna->id_status_pengguna = 3;
             } else {
                 $pengguna->id_status_pengguna = 1;
             }
