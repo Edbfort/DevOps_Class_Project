@@ -62,7 +62,7 @@ class GetProfileService
 
         $result['data_pengguna'] = $data;
 
-        $result['spesialisasi'] = FilterSpesialisasi::select('nama')->get()->toArray();
+        $result['spesialisasi'] = Spesialisasi::select('nama')->get()->toArray();
 
         $result['status_boleh_edit'] = isset($data['id_status_pengguna']);
 
