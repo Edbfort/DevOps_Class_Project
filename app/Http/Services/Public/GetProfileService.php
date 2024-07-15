@@ -2,8 +2,8 @@
 
 namespace App\Http\Services\Public;
 
-use App\Models\FilterSpesialisasi;
 use App\Models\Pengguna;
+use App\Models\Spesialisasi;
 use App\Models\TransaksiPembuatanTeam;
 use App\Models\User;
 use App\Repositories\UserRolesRepository;
@@ -42,7 +42,6 @@ class GetProfileService
             ]);
 
             if ($userRoles->nama_role == 'creative-hub-team') {
-                if (User::where('id', $id)->first()->password)
                 $data['temp_password'] = TransaksiPembuatanTeam::where('id_user', $id)
                     ->first()
                     ->temp_password;

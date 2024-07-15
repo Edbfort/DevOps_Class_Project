@@ -13,8 +13,6 @@ class InsertProyekService
     {
         $parameter['judul_proyek'] = $request->judul_proyek;
 
-
-
         // Create the Proyek record
         Proyek::create([
             'id_client' => Auth::id(),

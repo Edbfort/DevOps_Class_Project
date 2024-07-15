@@ -56,7 +56,7 @@ class UpdateProfileRequest extends FormRequest
             'website' =>'nullable|string',
             'tag_line'=>'nullable|string',
             'fee'=> 'nullable|int',
-            'spesialisasi' => 'nullable|string'
+            'spesialisasi' => 'nullable|array'
         ];
     }
 
