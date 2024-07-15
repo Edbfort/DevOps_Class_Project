@@ -45,6 +45,11 @@ class GetProfileService
                 $data['temp_password'] = TransaksiPembuatanTeam::where('id_user', $id)
                     ->first()
                     ->temp_password;
+
+                    $data['creative_hub_admin'] = TransaksiPembuatanTeam::select('users.nama as nama')->where('id_user', $id)
+                    ->join('users','transaksi_pembuatan_team.id_cha', '=', 'users.id')
+                    ->first()
+                    ->nama;
             }
         }
 
