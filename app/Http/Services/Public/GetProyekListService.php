@@ -85,48 +85,31 @@ class GetProyekListService
             }
 
             if ($request->has('anggaran')) {
-//                $anggaranArray = json_decode($request->anggaran);
-//
-//                $operatorArray = [
-//                    'lte' => '<=',
-//                    'gte' => '>=',
-//                ];
-//
-//                $parameterAnggaran = '(';
-//
-//                foreach ($anggaranArray as $anggaran) {
-//                    $anggaran = explode('|', $anggaran);
-//
-//                    if (count($anggaran) > 2) {
-//                        $anggaran = [(int)$anggaran[0], (int)$anggaran[2]];
-//                        sort($anggaran);
-//
-//                        $proyekQuery->orWhereBetween('proyek.anggaran', $anggaran);
-//                    } else {
-//                        if (!is_null($operatorArray[$anggaran[1]])) {
-//                            $proyekQuery->orWhere('proyek.anggaran', $operatorArray[$anggaran[1]], (int)$anggaran[0]);
-//                        }
-//                    }
-//
-//                    $parameterAnggaran = $parameterAnggaran . " proyek.anggaran LIKE '%" . $anggaran . "%' OR";
-//                }
-//
-//                $parameterAnggaran = substr($parameterAnggaran, 0, strlen($parameterAnggaran) - 2)  . ' )';
-//
-//                foreach ($anggaranArray as $anggaran) {
-//                    $anggaran = explode('|', $anggaran);
-//
-//                    if (count($anggaran) > 2) {
-//                        $anggaran = [(int)$anggaran[0], (int)$anggaran[2]];
-//                        sort($anggaran);
-//
-//                        $proyekQuery->orWhereBetween('proyek.anggaran', $anggaran);
-//                    } else {
-//                        if (!is_null($operatorArray[$anggaran[1]])) {
-//                            $proyekQuery->orWhere('proyek.anggaran', $operatorArray[$anggaran[1]], (int)$anggaran[0]);
-//                        }
-//                    }
-//                }
+                $anggaranArray = json_decode($request->anggaran);
+
+                $operatorArray = [
+                    'lte' => '<=',
+                    'gte' => '>=',
+                ];
+
+                $parameterAnggaran = '(';
+
+                foreach ($anggaranArray as $anggaran) {
+                    $anggaran = explode('|', $anggaran);
+
+                    if (count($anggaran) > 2) {
+                        $anggaran = [(int)$anggaran[0], (int)$anggaran[2]];
+                        sort($anggaran);
+
+                        $anggaran = (int)$anggaran[0] . " AND " . (int)$anggaran[2];
+
+                        $parameterAnggaran = $parameterAnggaran . " (proyek.anggaran BETWEEN " . $anggaran . ") OR";
+                    } else {
+                        if (!is_null($operatorArray[$anggaran[1]])) {
+                            $parameterAnggaran = $parameterAnggaran . " (proyek.anggaran " . $operatorArray[$anggaran[1]] . " " . $anggaran . ") OR";
+                        }
+                    }
+                }
             }
 
             if ($request->has('spesialisasi')) {
