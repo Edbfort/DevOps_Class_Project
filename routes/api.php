@@ -8,6 +8,7 @@ use App\Http\Controllers\CreativeHubAdminController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\SmsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/kota', [KotaController::class, 'getKota'])->name('kota');
 Route::get('/send-email', [EmailController::class, 'sendEmail']);
+Route::get('/send-sms', [SmsController::class, 'sendSms']);
+
 
 Route::group([
     'middleware' => 'api',
@@ -62,6 +65,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('/team/{id}',[PublicController::class, 'getTeam']);
     Route::get('/proyek',[PublicController::class, 'getProyekList']);
     Route::get('/proyek/{id}', [PublicController::class, 'getDetailProyek']);
+
 
     // Client Routes
     Route::group([

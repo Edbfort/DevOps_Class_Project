@@ -22,6 +22,7 @@ class GetProfileService
             'website',
             'tag_line',
             'spesialisasi',
+            'media_sosial',
             'fee'
         ];
 
