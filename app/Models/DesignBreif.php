@@ -14,14 +14,14 @@ class DesignBreif extends Model
      *
      * @var string
      */
-    protected $table = 'member_team';
+    protected $table = 'design_breif';
 
     /**
-     * The primary key for the model.
+     * Indicates if the model should be timestamped.
      *
-     * @var string
+     * @var bool
      */
-    protected $primaryKey = 'id';
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -29,9 +29,11 @@ class DesignBreif extends Model
      * @var array
      */
     protected $fillable = [
-        'id_pengguna',
-        'status_verifikasi',
-        'id_project',
+        'id_controller',
+        'id_proyek',
+        'link_meeting',
+        'lokasi_dokumen',
+        'status',
         'waktu_buat',
         'waktu_ubah'
     ];

@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ActivationUserTeamRequest;
 use App\Http\Requests\GetAccountTeamRequest;
 use App\Http\Requests\InsertTeamRequest;
-use App\Http\Services\Account\GetAccountService;
+use App\Http\Services\Controller\GetAccountService;
 use App\Http\Services\CreativeHubAdmin\InsertTeamService;
 
 class AccountController extends Controller

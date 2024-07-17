@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ControllerController;
 use App\Http\Controllers\CreativeHubTeamController;
 use App\Http\Controllers\CreativeHubAdminController;
 use App\Http\Controllers\EmailController;
@@ -65,7 +66,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('/team/{id}',[PublicController::class, 'getTeam']);
     Route::get('/proyek',[PublicController::class, 'getProyekList']);
     Route::get('/proyek/{id}', [PublicController::class, 'getDetailProyek']);
-
+    Route::get('/design-brief', [PublicController::class, 'getDesignBrief']);
 
     // Client Routes
     Route::group([
@@ -75,6 +76,12 @@ Route::middleware('jwt.auth')->group(function () {
         Route::patch('/billing',[ClientController::class, 'updateBilling']);
         Route::post('/proyek',[ClientController::class, 'insertProyek']);
         Route::get('/controller-list',[ClientController::class, 'getControllerList']);
+    });
+
+    Route::group([
+        'prefix' => 'controller'
+    ], function ($router) {
+        Route::post('/design-brief',[ControllerController::class, 'updateDesignBrief']);
     });
 
     Route::group([

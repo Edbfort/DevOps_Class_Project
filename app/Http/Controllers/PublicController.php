@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GetDetailProyekRequest;
 use App\Http\Requests\CreateOrUpdateBillingRekeningRequest;
-use App\Http\Requests\GetBillingRekening;
 use App\Http\Requests\GetBillingRekeningRequest;
+use App\Http\Requests\GetDesignBriefRequest;
+use App\Http\Requests\GetDetailProyekRequest;
 use App\Http\Requests\GetMemberRequest;
 use App\Http\Requests\GetProyekListRequest;
 use App\Http\Requests\GetTeamRequest;
 use App\Http\Requests\UpdateProfileRequest;
-use App\Http\Requests\UpdateProfileReuqest;
 use App\Http\Services\client\GetDetailProyekService;
 use App\Http\Services\creativeHubTeam\GetMemberService;
 use App\Http\Services\Public\CreateOrUpdateBillingRekeningService;
 use App\Http\Services\Public\GetBillingRekeningService;
+use App\Http\Services\Public\GetDesignBriefService;
 use App\Http\Services\Public\GetProfileService;
 use App\Http\Services\Public\GetProyekListService;
 use App\Http\Services\Public\GetTeamService;
@@ -95,6 +95,11 @@ class PublicController extends Controller
     }
 
     public function getProyekList(GetProyekListRequest $request, GetProyekListService $service)
+    {
+        return $service->handle($request);
+    }
+
+    public function getDesignBrief(GetDesignBriefRequest $request, GetDesignBriefService $service)
     {
         return $service->handle($request);
     }
