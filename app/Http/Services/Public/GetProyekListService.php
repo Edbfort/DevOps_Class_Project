@@ -101,15 +101,19 @@ class GetProyekListService
                         $anggaran = [(int)$anggaran[0], (int)$anggaran[2]];
                         sort($anggaran);
 
-                        $anggaran = (int)$anggaran[0] . " AND " . (int)$anggaran[2];
+                        $anggaran = (int)$anggaran[0] . " AND " . (int)$anggaran[1];
 
                         $parameterAnggaran = $parameterAnggaran . " (proyek.anggaran BETWEEN " . $anggaran . ") OR";
                     } else {
                         if (!is_null($operatorArray[$anggaran[1]])) {
-                            $parameterAnggaran = $parameterAnggaran . " (proyek.anggaran " . $operatorArray[$anggaran[1]] . " " . $anggaran . ") OR";
+                            $parameterAnggaran = $parameterAnggaran . " (proyek.anggaran " . $operatorArray[$anggaran[1]] . " " . $anggaran[0] . ") OR";
                         }
                     }
                 }
+
+                $parameterAnggaran = substr($parameterAnggaran, 0, strlen($parameterAnggaran) - 2)  . ' )';
+
+                $proyekQuery->whereRaw($parameterAnggaran);
             }
 
             if ($request->has('spesialisasi')) {
