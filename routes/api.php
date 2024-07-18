@@ -76,6 +76,8 @@ Route::middleware('jwt.auth')->group(function () {
         Route::patch('/billing',[ClientController::class, 'updateBilling']);
         Route::post('/proyek',[ClientController::class, 'insertProyek']);
         Route::get('/controller-list',[ClientController::class, 'getControllerList']);
+        Route::get('/payment',[ClientController::class, 'getPaymentProyek']);
+        Route::post('/payment',[ClientController::class, 'updatePaymentProyek']);
     });
 
     Route::group([

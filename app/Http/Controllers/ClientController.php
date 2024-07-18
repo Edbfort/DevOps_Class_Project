@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GetControllerListRequest;
+use App\Http\Requests\GetPaymentProyekRequest;
 use App\Http\Requests\InsertProyekRequest;
 use App\Http\Requests\UpdateBillingClientRequest;
 use App\Http\Requests\UpdateClientDataRequest;
+use App\Http\Requests\UpdatePaymentProyekRequest;
 use App\Http\Services\client\GetBillingClientService;
 use App\Http\Services\client\GetControllerListService;
+use App\Http\Services\client\GetPaymentProyekService;
 use App\Http\Services\client\InsertProyekService;
 use App\Http\Services\client\UpdateBillingClientService;
+use App\Http\Services\client\UpdatePaymentProyekService;
 use App\Http\Services\Public\UpdateProfileService;
 
 class ClientController extends Controller
@@ -54,6 +58,14 @@ class ClientController extends Controller
      */
 
     public function getControllerList(GetControllerListRequest $request, GetControllerListService $service)
+    {
+        return $service->handle($request);
+    }
+    public function getPaymentProyek(GetPaymentProyekRequest $request, GetPaymentProyekService $service)
+    {
+        return $service->handle($request);
+    }
+    public function updatePaymentProyek(UpdatePaymentProyekRequest $request, UpdatePaymentProyekService $service)
     {
         return $service->handle($request);
     }

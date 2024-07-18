@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Services\client;
+namespace App\Http\Services\Public;
 
 use App\Models\LamaranProyek;
 use App\Models\Pengguna;
 use App\Models\Proyek;
-use App\Models\User;
 use App\Repositories\UserRolesRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,7 +50,6 @@ class GetDetailProyekService
                 ->join('users as ucha', 'ucha.id', '=', 'tpt.id_cha')
                 ->where(['id_proyek' => $id, 'lamaran_proyek.status' => 0])->get()->toArray();
         }
-
 
         return response()->json(['data' => $result, 'message' => 'Data berhasil di ambil'], 200);
     }
