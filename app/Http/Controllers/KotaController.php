@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kota;
+use App\Models\Milestone;
 
 class KotaController extends Controller
 {
     public function getKota()
     {
-        $kotaArray = Kota::select(['id', 'nama'])->distinct()->get();
+        $kotaArray = Milestone::select(['id', 'nama'])->distinct()->get();
 
         return response()->json(['data' => $kotaArray], 200);
     }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kota extends Model
+class Milestone extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Kota extends Model
      *
      * @var string
      */
-    protected $table = 'kota';
+    protected $table = 'milestone';
 
     /**
      * The attributes that are mass assignable.
@@ -22,9 +22,13 @@ class Kota extends Model
      * @var array
      */
     protected $fillable = [
-        'kode',
-        'nama',
-        'status_aktif',
+        'id_proyek',
+        'topik',
+        'deskripsi',
+        'tautan',
+        'persentase',
+        'tanggal_tegat',
+        'status',
         'waktu_buat',
         'waktu_ubah',
     ];
