@@ -45,7 +45,7 @@ class UpdateBillingClientRequest extends FormRequest
         return [
             'nomor_kartu' => 'required|string',
             'nama_depan' => 'required|string',
-            'nama_belakang' => 'required|string',
+            'nama_belakang' => 'nullable|string',
             'habis_berlaku' => 'required|string',
             'cvv' => 'required|string',
         ];

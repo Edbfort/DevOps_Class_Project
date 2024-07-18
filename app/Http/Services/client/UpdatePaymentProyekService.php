@@ -37,13 +37,12 @@ class UpdatePaymentProyekService
             ->join('users as ut', 'ut.id', '=', 'proyek.id_team')
             ->join('pengguna as pco', 'pco.id_user', '=', 'uco.id')
             ->join('pengguna as pt', 'pt.id_user', '=', 'ut.id')
-            ->get()->toArray();
+            ->get()->toArray()[0];
 
         $proyek->update([
             'controller_fee' => floor((int)$data['anggaran'] * (int)$data['controller_fee'] / 100),
             'team_fee' => (int)$data['team_fee'],
             'anggaran' => floor(((int)$data['anggaran'] * (int)$data['controller_fee'] / 100) + (int)$data['team_fee']),
-            'id_status_pengguna' => 4,
             'waktu_ubah' => new DateTime(),
         ]);
 
@@ -61,7 +60,8 @@ class UpdatePaymentProyekService
         ]);
 
         $proyek->update([
-            'status_lunas' => 1
+            'status_lunas' => 1,
+            'id_status_proyek' => 4,
         ]);
 
         return response()->json(['message' => 'Payment berhasil dilakukan'], 200);

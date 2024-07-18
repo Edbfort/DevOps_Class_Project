@@ -42,12 +42,16 @@ class GetPaymentProyekService
             ->join('pengguna as pt', 'pt.id_user', '=', 'ut.id')
             ->join('users as ucl', 'ucl.id', '=', 'proyek.id_client')
             ->join('billing_client as bc', 'bc.id_user', '=', 'ucl.id')
-            ->get()->toArray();
- dd($data);
+            ->get()->toArray()[0];
+
         $result = [
             'nominal' => floor(((int)$data['anggaran'] * (int)$data['controller_fee'] / 100) + (int)$data['team_fee']),
-            'nomor_kartu' => substr($data['nomor_kartu'], 0, 4) . ('*' * (strlen($data['nomor_kartu']) - 4)),
-            'nama' => substr($data['nama_depan'], 0, 3) . ('*' * (strlen($data['nama_depan']) - 3)) . ' ' . ('*' * (strlen($data['nama_belakang']) - 3)) . substr($data['nama_depan'], strlen($data['nama_belakang']) - 4, 3)
+            'nomor_kartu' => substr($data['nomor_kartu'], 0, 4) . (str_repeat('*',max(0, (strlen($data['nomor_kartu'])) - 4))),
+            'nama' => substr($data['nama_depan'], 0, 3) .
+                (str_repeat('*', max(0, (strlen($data['nama_depan']) - 3)))) .
+                '*' .
+                (str_repeat('*', max(0, (strlen($data['nama_belakang']) - 3)))) .
+                substr($data['nama_belakang'], strlen($data['nama_belakang']) - 4, 3)
         ];
 
         return response()->json(['data' => $result, 'message' => 'Payment berhasil dilakukan'], 200);

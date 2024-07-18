@@ -22,13 +22,12 @@ class BillingClient extends Model
      * @var array
      */
     protected $fillable = [
-        'id_pengguna',
+        'id_user',
         'nomor_kartu',
         'nama_depan',
         'nama_belakang',
         'habis_berlaku',
         'cvv',
-        'alamat',
         'waktu_buat',
         'waktu_ubah',
     ];

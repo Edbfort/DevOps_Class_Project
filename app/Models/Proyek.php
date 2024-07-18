@@ -35,6 +35,8 @@ class Proyek extends Model
         'judul_proyek',
         'deskripsi_proyek',
         'spesialisasi',
+        'controller_fee',
+        'team_fee',
         'anggaran',
         'tanggal_tegat',
         'lokasi_dokumen',
