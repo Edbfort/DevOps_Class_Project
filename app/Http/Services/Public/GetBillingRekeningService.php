@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Public;
 
+use App\Models\Bank;
 use App\Models\BillingRekening;
 use App\Models\Pengguna;
 use App\Models\User;
@@ -14,13 +15,18 @@ class GetBillingRekeningService
     {
         $parameter = $request->all();
 
-        $user = User::find(Auth::id());
+        $user = Auth::id();
 
-        $pengguna = Pengguna::where('id_user', $user->id)->first();
+        $bank = Bank::all();
 
         // find the billing rekening
-        $billingRekening = BillingRekening::select(['id_bank','nomor_rekening','nama_pemilik'])->where(['id_pengguna' => $pengguna->id])->first();
+        $billingRekening = BillingRekening::select(['id_bank','nomor_rekening','nama_pemilik'])->where(['id_user' => $user])->first();
 
-        return response()->json(['data' => $billingRekening->toArray(),'message' => 'Data Billing Rekening berhasil di ambil'], 200);
+        $result = [
+            'bank' => $bank->toArray(),
+            'bill_rekening' =>$billingRekening ? $billingRekening->toArray(): null
+        ];
+
+        return response()->json(['data' => $result,'message' => 'Data Billing Rekening berhasil di ambil'], 200);
     }
 }
