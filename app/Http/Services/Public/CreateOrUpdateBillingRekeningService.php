@@ -10,12 +10,15 @@ class CreateOrUpdateBillingRekeningService
     public function handle($request)
     {
         // Update or create the billing rekening
+        \Log::info('Authenticated user ID: ' . Auth::id());
+
         BillingRekening::updateOrCreate(
             ['id_user' => Auth::id()],
             [
                 'id_bank' => $request->id_bank,
                 'nomor_rekening' => $request->nomor_rekening,
-                'nama_pemilik' => $request->nama_pemilik
+                'nama_pemilik' => $request->nama_pemilik,
+
             ]
         );
 
