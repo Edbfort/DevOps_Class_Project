@@ -18,6 +18,7 @@ class GetProyekListService
             'uco.nama as controller_nama',
             'ut.nama as team_nama',
             'proyek.id_status_proyek as proyek_status_proyek',
+            'sp.nama as status_proyek_nama',
             'proyek.perkembangan as proyek_perkembangan',
             'proyek.tanggal_tegat as proyek_tanggal_tegat',
             'proyek.anggaran as proyek_anggaran',
@@ -64,6 +65,7 @@ class GetProyekListService
             ->leftJoin('pengguna as pco', 'pco.id_user', '=', 'uco.id')
             ->leftJoin('users as ut', 'ut.id', '=', 'proyek.id_team')
             ->leftJoin('design_breif as db', 'db.id_proyek', '=', 'proyek.id')
+            ->join('status_proyek as sp', 'sp.id', '=', 'proyek.id_status_proyek')
             ->where($where);
         if ($request->has('id_user')) {
             if ($request->id_user != Auth::id()) {
