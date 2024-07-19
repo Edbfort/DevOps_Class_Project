@@ -40,11 +40,11 @@ class UpdateDesignBriefService
                         'waktu_ubah' => new DateTime(),
                     ]);
                 } else {
-                    return response()->json(['message' => 'Design Brief tidak dapat di update'], 200);
+                    return response()->json(['message' => 'Design Brief tidak dapat di update'], 422);
                 }
             }
         } else {
-            return response()->json(['message' => 'Proyek tidak ditemukan'], 200);
+            return response()->json(['message' => 'Proyek tidak ditemukan'], 404);
         }
 
         return response()->json(['message' => 'Design Brief berhasil di update'], 200);

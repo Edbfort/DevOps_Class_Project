@@ -20,7 +20,7 @@ class GetPaymentProyekService
         ])->first();
 
         if (!$proyek) {
-            return response()->json(['message' => 'Payment tidak ditemukan'], 200);
+            return response()->json(['message' => 'Payment tidak ditemukan'], 404);
         }
 
         $data = Proyek::select([
@@ -54,6 +54,6 @@ class GetPaymentProyekService
                 substr($data['nama_belakang'], strlen($data['nama_belakang']) - 4, 3)
         ];
 
-        return response()->json(['data' => $result, 'message' => 'Payment berhasil dilakukan'], 200);
+        return response()->json(['data' => $result, 'message' => 'Data berhasil di ambil'], 200);
     }
 }

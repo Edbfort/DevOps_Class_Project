@@ -20,7 +20,7 @@ class UpdatePaymentProyekService
         ])->first();
 
         if (!$proyek) {
-            return response()->json(['message' => 'Gagal melakukan payment'], 200);
+            return response()->json(['message' => 'Gagal melakukan payment'], 422);
         }
 
         $data = Proyek::select([
