@@ -15,8 +15,8 @@ class SmsController extends Controller
                 'api_key' => env('VONAGE_KEY'),
                 'api_secret' => env('VONAGE_SECRET'),
                 'from' => 'Kolab Aja',
-                'to' => '6282391397268',
-                'text' => 'Hello World!'
+                'to' => '6281262118454',
+                'text' => 'Selamat kamu memenangkan hadiah vocher beli 2 gratis aku!'
             ]
         ]);
 

@@ -29,7 +29,7 @@ class BillingRekening extends Model
      * @var array
      */
     protected $fillable = [
-        'id_pengguna',
+        'id_user',
         'id_bank',
         'nomor_rekening',
         'nama_pemilik',
@@ -44,6 +44,7 @@ class BillingRekening extends Model
      */
     public $timestamps = false;
 
+
     /**
      * Boot the model.
      */
@@ -51,14 +52,17 @@ class BillingRekening extends Model
     {
         parent::boot();
 
+        // Handle before saving the model, which covers both creating and updating
         static::saving(function ($model) {
-            if ($model->exists) {
-                // Set waktu_ubah to the current timestamp when updating a record
-                $model->waktu_ubah = $model->freshTimestamp();
-            } else {
-                // Set waktu_buat to the current timestamp when creating a new record
-                $model->waktu_buat = $model->freshTimestamp();
+            $currentTimestamp = $model->freshTimestamp();
+
+            if (!$model->exists) {
+                // This is a new model instance (creating)
+                $model->waktu_buat = $currentTimestamp;
             }
+
+            // Always update 'waktu_ubah' when saving (updating)
+            $model->waktu_ubah = $currentTimestamp;
         });
     }
 }
