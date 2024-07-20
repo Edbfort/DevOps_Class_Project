@@ -2,9 +2,7 @@
 
 namespace App\Http\Services\Public;
 
-use App\Models\LamaranProyek;
 use App\Models\Milestone;
-use App\Models\Pengguna;
 use App\Models\Proyek;
 use App\Repositories\UserRolesRepository;
 use Illuminate\Support\Facades\Auth;
@@ -49,8 +47,11 @@ class GetMilestoneService
             'milestone.topik as milestone_topik',
             'milestone.deskripsi as milestone_deskripsi',
             'milestone.persentase as milestone_persentase',
-            'milestone.tanggal_tegat as milestone_tanggal_tegat'
+            'milestone.tanggal_tegat as milestone_tanggal_tegat',
+            'FLOOR(pro.team_fee * milestone.persentase / 100) as payment',
+            'milestone.status as milestone_status'
         ])
+            ->join('proyek as pro', 'pro.id', '=', 'milestone.id_proyek')
             ->where([
                 'id_proyek' => $request->id_proyek
             ])

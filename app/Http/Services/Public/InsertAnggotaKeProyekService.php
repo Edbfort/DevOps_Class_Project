@@ -5,6 +5,7 @@ namespace App\Http\Services\Public;
 use App\Models\Pengguna;
 use App\Models\Proyek;
 use App\Repositories\UserRolesRepository;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 
 class InsertAnggotaKeProyekService
@@ -29,14 +30,20 @@ class InsertAnggotaKeProyekService
                 'id_user',
                 'id_status_pengguna'
             ])
-                ->where('id_user', $proyek->id_user)
+                ->join('user_roles as ur', 'ur.id', '=', 'pengguna.id_user')
+                ->where([
+                    'id_user' => $proyek->id_user,
+                    'id_role' => 2
+                ])
                 ->get()->first()->toArray();
 
             $proyek->update([
-                'id_controller' => $pengguna['id']
+                'id_controller' => $pengguna['id_user'],
+                'waktu_ubah' => new DateTime(),
             ]);
 
             $roleUser = 'Controller';
+
         } elseif ($userRoles->nama_role == 'controller') {
             $pengguna = Pengguna::select([
                 'id_user',
@@ -46,7 +53,8 @@ class InsertAnggotaKeProyekService
                 ->get()->first()->toArray();
 
             $proyek->update([
-                'id_team' => $pengguna['id']
+                'id_team' => $pengguna['id_user'],
+                'waktu_ubah' => new DateTime(),
             ]);
 
             $roleUser = 'Team';
