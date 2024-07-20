@@ -32,6 +32,7 @@ class UpdateBillingClientService
                 'nama_depan' => $request->nama_depan,
                 'nama_belakang' => $request->nama_belakang,
                 'habis_berlaku' => $request->habis_berlaku,
+                'cvv' => $request->cvv,
                 'waktu_ubah' => new \DateTime(),
             ]);
         }
