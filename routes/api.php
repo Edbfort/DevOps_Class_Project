@@ -66,6 +66,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('/proyek', [PublicController::class, 'getProyekList']);
     Route::post('/proyek/tambah-anggota', [PublicController::class, 'insertAnggotaKeProyek']);
     Route::get('/proyek/milestone', [PublicController::class, 'getMilestone']);
+    Route::get('/proyek/milestone/selesai', [PublicController::class, 'updateSelesaiMilestone']);
     Route::get('/proyek/{id}', [PublicController::class, 'getDetailProyek']);
     Route::get('/design-brief', [PublicController::class, 'getDesignBrief']);
 
@@ -93,7 +94,6 @@ Route::middleware('jwt.auth')->group(function () {
         'prefix' => 'creative-hub-team'
     ], function ($router) {
         Route::get('/member', [CreativeHubTeamController::class, 'getMember']);
-
     });
 
     Route::group([

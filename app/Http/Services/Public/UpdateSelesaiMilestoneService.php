@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\creativeHubTeam;
+namespace App\Http\Services\Public;
 
 use App\Models\Milestone;
 use App\Models\Proyek;
