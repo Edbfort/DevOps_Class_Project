@@ -50,7 +50,7 @@ class InsertBuatMilestoneService
             $milestone->where([
                 'id_proyek' => $request->id_proyek
             ])
-                ->orderBy('id')
+                ->orderBy('tanggal_tegat')
                 ->first()
                 ->update([
                     'status' => 1

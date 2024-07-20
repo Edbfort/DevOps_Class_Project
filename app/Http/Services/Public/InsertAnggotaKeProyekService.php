@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Services\client;
+namespace App\Http\Services\Public;
 
-use App\Models\Pembayaran;
 use App\Models\Pengguna;
 use App\Models\Proyek;
 use App\Repositories\UserRolesRepository;
-use DateTime;
 use Illuminate\Support\Facades\Auth;
 
 class InsertAnggotaKeProyekService
@@ -19,7 +17,7 @@ class InsertAnggotaKeProyekService
             'id' => $request->id_proyek,
             'id_status_proyek' => 1
         ])
-            ->whereRaw($request->id_user . ' IN (proyek.id_client, proyek.id_controller)')
+            ->whereRaw($id . ' IN (proyek.id_client, proyek.id_controller)')
             ->first();
 
         $userRepo = new UserRolesRepository();
@@ -31,7 +29,7 @@ class InsertAnggotaKeProyekService
                 'id_user',
                 'id_status_pengguna'
             ])
-                ->where('id_user', $proyek->id_controller)
+                ->where('id_user', $proyek->id_user)
                 ->get()->first()->toArray();
 
             $proyek->update([
@@ -44,7 +42,7 @@ class InsertAnggotaKeProyekService
                 'id_user',
                 'id_status_pengguna'
             ])
-                ->where('id_user', $proyek->id_team)
+                ->where('id_user', $proyek->id_user)
                 ->get()->first()->toArray();
 
             $proyek->update([

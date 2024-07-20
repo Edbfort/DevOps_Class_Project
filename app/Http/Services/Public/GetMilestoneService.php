@@ -26,7 +26,7 @@ class GetMilestoneService
             ->where([
                 'proyek.id' => $request->id_proyek
             ])
-            ->whereRaw($request->id_user . ' IN (proyek.id_client, proyek.id_controller, proyek.id_team)')
+            ->whereRaw(Auth::id() . ' IN (proyek.id_client, proyek.id_controller, proyek.id_team)')
             ->whereRaw(
                 '(proyek.id_status_proyek = 5 ' .
                 'OR proyek.id_status_proyek = 6)'
@@ -54,8 +54,8 @@ class GetMilestoneService
             ->where([
                 'id_proyek' => $request->id_proyek
             ])
-            ->orderBy('id')
-            ->all();
+            ->orderBy('tanggal_tegat')
+            ->get();
 
         $proyek['milestone'] = $milestoneArray;
 

@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ControllerController;
-use App\Http\Controllers\CreativeHubTeamController;
 use App\Http\Controllers\CreativeHubAdminController;
+use App\Http\Controllers\CreativeHubTeamController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\PublicController;
@@ -63,8 +62,10 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('/rekening', [PublicController::class, 'getRekening']);
     Route::post('/rekening', [PublicController::class, 'createOrUpdateRekening']);
     Route::get('/team/member/{id}', [PublicController::class, 'getMember']);
-    Route::get('/team/{id}',[PublicController::class, 'getTeam']);
-    Route::get('/proyek',[PublicController::class, 'getProyekList']);
+    Route::get('/team/{id}', [PublicController::class, 'getTeam']);
+    Route::get('/proyek', [PublicController::class, 'getProyekList']);
+    Route::post('/proyek/tambah-anggota', [PublicController::class, 'insertAnggotaKeProyek']);
+    Route::get('/proyek/milestone', [PublicController::class, 'getMilestone']);
     Route::get('/proyek/{id}', [PublicController::class, 'getDetailProyek']);
     Route::get('/design-brief', [PublicController::class, 'getDesignBrief']);
 
@@ -72,18 +73,20 @@ Route::middleware('jwt.auth')->group(function () {
     Route::group([
         'prefix' => 'client'
     ], function ($router) {
-        Route::get('/billing',[ClientController::class, 'getBilling']);
-        Route::patch('/billing',[ClientController::class, 'updateBilling']);
-        Route::post('/proyek',[ClientController::class, 'insertProyek']);
-        Route::get('/controller-list',[ClientController::class, 'getControllerList']);
-        Route::get('/payment',[ClientController::class, 'getPaymentProyek']);
-        Route::post('/payment',[ClientController::class, 'updatePaymentProyek']);
+        Route::get('/billing', [ClientController::class, 'getBilling']);
+        Route::patch('/billing', [ClientController::class, 'updateBilling']);
+        Route::post('/proyek', [ClientController::class, 'insertProyek']);
+        Route::get('/controller-list', [ClientController::class, 'getControllerList']);
+        Route::get('/payment', [ClientController::class, 'getPaymentProyek']);
+        Route::post('/payment', [ClientController::class, 'updatePaymentProyek']);
     });
 
     Route::group([
         'prefix' => 'controller'
     ], function ($router) {
-        Route::post('/design-brief',[ControllerController::class, 'updateDesignBrief']);
+        Route::post('/design-brief', [ControllerController::class, 'updateDesignBrief']);
+        Route::get('/tambah-milestone', [ControllerController::class, 'getBuatMilestone']);
+        Route::post('/tambah-milestone', [ControllerController::class, 'insertBuatMilestone']);
     });
 
     Route::group([
@@ -96,6 +99,6 @@ Route::middleware('jwt.auth')->group(function () {
     Route::group([
         'prefix' => 'creative-hub-admin'
     ], function ($router) {
-        Route::post('/insert-team',[CreativeHubAdminController::class, 'insertTeam']);
+        Route::post('/insert-team', [CreativeHubAdminController::class, 'insertTeam']);
     });
 });

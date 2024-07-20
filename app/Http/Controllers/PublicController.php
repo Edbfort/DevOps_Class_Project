@@ -7,17 +7,21 @@ use App\Http\Requests\GetBillingRekeningRequest;
 use App\Http\Requests\GetDesignBriefRequest;
 use App\Http\Requests\GetDetailProyekRequest;
 use App\Http\Requests\GetMemberRequest;
+use App\Http\Requests\GetMilestoneRequest;
 use App\Http\Requests\GetProyekListRequest;
 use App\Http\Requests\GetTeamRequest;
+use App\Http\Requests\InsertAnggotaKeProyekRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Services\creativeHubTeam\GetMemberService;
 use App\Http\Services\Public\CreateOrUpdateBillingRekeningService;
 use App\Http\Services\Public\GetBillingRekeningService;
 use App\Http\Services\Public\GetDesignBriefService;
 use App\Http\Services\Public\GetDetailProyekService;
+use App\Http\Services\Public\GetMilestoneService;
 use App\Http\Services\Public\GetProfileService;
 use App\Http\Services\Public\GetProyekListService;
 use App\Http\Services\Public\GetTeamService;
+use App\Http\Services\Public\InsertAnggotaKeProyekService;
 use App\Http\Services\Public\UpdateProfileService;
 
 class PublicController extends Controller
@@ -100,6 +104,16 @@ class PublicController extends Controller
     }
 
     public function getDesignBrief(GetDesignBriefRequest $request, GetDesignBriefService $service)
+    {
+        return $service->handle($request);
+    }
+
+    public function insertAnggotaKeProyek(InsertAnggotaKeProyekRequest $request, InsertAnggotaKeProyekService $service)
+    {
+        return $service->handle($request);
+    }
+
+    public function getMilestone(GetMilestoneRequest $request, GetMilestoneService $service)
     {
         return $service->handle($request);
     }
