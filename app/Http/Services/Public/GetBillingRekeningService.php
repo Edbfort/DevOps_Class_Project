@@ -24,7 +24,7 @@ class GetBillingRekeningService
             ->get()->toArray();
 
         if (count($billingRekening)) {
-            $billingRekening = $billingRekening->first();
+            $billingRekening = $billingRekening[0];
         }
 
         $result = [
