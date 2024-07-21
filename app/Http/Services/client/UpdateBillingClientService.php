@@ -15,13 +15,16 @@ class UpdateBillingClientService
     {
         $billingClient = BillingClient::where('id_user', Auth::id())->first();
 
+        $bulan = (string)$request->bulan;
+        $habisBerlaku = $request->tahun . "-" . (str_repeat('0', max(0, 2 - strlen($bulan)))) . $bulan;
+
         if (!$billingClient) {
             BillingClient::create([
                 'id_user' => Auth::id(),
                 'nomor_kartu' => $request->nomor_kartu,
                 'nama_depan' => $request->nama_depan,
                 'nama_belakang' => $request->nama_belakang,
-                'habis_berlaku' => $request->habis_berlaku,
+                'habis_berlaku' => $habisBerlaku,
                 'cvv' => $request->cvv,
                 'waktu_buat' => new \DateTime(),
                 'waktu_ubah' => new \DateTime(),
@@ -31,7 +34,7 @@ class UpdateBillingClientService
                 'nomor_kartu' => $request->nomor_kartu,
                 'nama_depan' => $request->nama_depan,
                 'nama_belakang' => $request->nama_belakang,
-                'habis_berlaku' => $request->habis_berlaku,
+                'habis_berlaku' => $habisBerlaku,
                 'cvv' => $request->cvv,
                 'waktu_ubah' => new \DateTime(),
             ]);
