@@ -12,8 +12,7 @@ class GetBillingClientService
 {
     public function handle()
     {
-        $idPengguna = Pengguna::where('id_user', Auth::id())->first()->id;
-        $billingClient = BillingClient::where('id_pengguna', $idPengguna)->first();
+        $billingClient = BillingClient::where('id_user', Auth::id())->first();
 
         $result = [
             'data_client' => $billingClient->toArray()
