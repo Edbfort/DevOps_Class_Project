@@ -13,7 +13,7 @@ use App\Http\Requests\GetTeamRequest;
 use App\Http\Requests\InsertAnggotaKeProyekRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\UpdateSelesaiMilestoneRequest;
-use App\Http\Services\creativeHubTeam\GetMemberService;
+use App\Http\Services\CreativeHubTeam\GetMemberService;
 use App\Http\Services\Public\CreateOrUpdateBillingRekeningService;
 use App\Http\Services\Public\GetBillingRekeningService;
 use App\Http\Services\Public\GetDesignBriefService;

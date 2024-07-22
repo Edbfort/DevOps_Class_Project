@@ -3,16 +3,13 @@
 namespace App\Http\Services\Client;
 
 use App\Models\BillingClient;
-use App\Models\ClientData;
-use App\Models\Pengguna;
 use Illuminate\Support\Facades\Auth;
-use function Termwind\renderUsing;
 
 class GetBillingClientService
 {
     public function handle()
     {
-        $result = BillingClient::where('id_user', Auth::id())->toArray();
+        $result = BillingClient::select('*')->where('id_user', Auth::id())->get()->toArray();
 
         if (count($result)) {
             $result = $result[0];
