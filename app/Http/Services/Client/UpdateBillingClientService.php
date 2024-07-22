@@ -15,6 +15,8 @@ class UpdateBillingClientService
     {
         $billingClient = BillingClient::where('id_user', Auth::id())->first();
 
+        $pengguna = Pengguna::where('id_user', Auth::id())->first();
+
         $bulan = (string)$request->bulan;
         $habisBerlaku = $request->tahun . "-" . (str_repeat('0', max(0, 2 - strlen($bulan)))) . $bulan;
 
@@ -37,6 +39,12 @@ class UpdateBillingClientService
                 'habis_berlaku' => $habisBerlaku,
                 'cvv' => $request->cvv,
                 'waktu_ubah' => new \DateTime(),
+            ]);
+        }
+
+        if ($pengguna->id_status_pengguna == 2) {
+            $pengguna->update([
+               'id_status_pengguna' => 4
             ]);
         }
 

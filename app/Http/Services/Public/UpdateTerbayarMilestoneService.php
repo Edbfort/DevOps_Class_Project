@@ -7,7 +7,7 @@ use App\Models\Proyek;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateAcceptMilestoneService
+class UpdateTerbayarMilestoneService
 {
     public function handle($request)
     {
@@ -26,15 +26,16 @@ class UpdateAcceptMilestoneService
         $milestone = Milestone::where([
             'id' => $request->id_milestone,
             'id_proyek' => $request->id_proyek,
-            'status' => 2
+            'status' => 1
         ])
             ->first();
 
         $milestone->update([
-            'status' => 3,
+            'info_perkembangan' => $request->info_perkembangan,
+            'status' => 2,
             'waktu_ubah' => new DateTime(),
         ]);
 
-        return response()->json(['message' => 'Milestone berhasil diganti ke accepted'], 200);
+        return response()->json(['message' => 'Milestone berhasil diganti ke terbayar'], 200);
     }
 }
