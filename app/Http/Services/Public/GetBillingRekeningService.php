@@ -29,7 +29,7 @@ class GetBillingRekeningService
 
         $result = [
             'bank' => $bank,
-            'bill_rekening' => $billingRekening
+            'billing_rekening' => $billingRekening
         ];
 
         return response()->json(['data' => $result, 'message' => 'Data Billing Rekening berhasil di ambil'], 200);

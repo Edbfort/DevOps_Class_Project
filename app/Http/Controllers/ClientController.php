@@ -5,16 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GetControllerListRequest;
 use App\Http\Requests\GetPaymentProyekRequest;
 use App\Http\Requests\InsertProyekRequest;
+use App\Http\Requests\UpdateAcceptMilestoneRequest;
 use App\Http\Requests\UpdateBillingClientRequest;
 use App\Http\Requests\UpdateClientDataRequest;
 use App\Http\Requests\UpdatePaymentProyekRequest;
-use App\Http\Services\client\GetBillingClientService;
-use App\Http\Services\client\GetControllerListService;
-use App\Http\Services\client\GetPaymentProyekService;
-use App\Http\Services\client\InsertProyekService;
-use App\Http\Services\client\UpdateBillingClientService;
-use App\Http\Services\client\UpdatePaymentProyekService;
-use App\Http\Services\Public\UpdateProfileService;
+use App\Http\Services\Client\GetBillingClientService;
+use App\Http\Services\Client\GetControllerListService;
+use App\Http\Services\Client\GetPaymentProyekService;
+use App\Http\Services\Client\InsertProyekService;
+use App\Http\Services\Client\UpdateBillingClientService;
+use App\Http\Services\Client\UpdatePaymentProyekService;
+use App\Http\Services\Public\UpdateAcceptMilestoneService;
 
 class ClientController extends Controller
 {
@@ -66,6 +67,11 @@ class ClientController extends Controller
         return $service->handle($request);
     }
     public function updatePaymentProyek(UpdatePaymentProyekRequest $request, UpdatePaymentProyekService $service)
+    {
+        return $service->handle($request);
+    }
+
+    public function updateAcceptMilestone(UpdateAcceptMilestoneRequest $request, UpdateAcceptMilestoneService $service)
     {
         return $service->handle($request);
     }

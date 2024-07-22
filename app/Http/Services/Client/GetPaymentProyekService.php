@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\client;
+namespace App\Http\Services\Client;
 
 use App\Models\Pembayaran;
 use App\Models\Proyek;
