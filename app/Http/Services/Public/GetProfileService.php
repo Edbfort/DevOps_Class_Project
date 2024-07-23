@@ -67,6 +67,8 @@ class GetProfileService
 
         $result['data_pengguna'] = $data;
 
+        $result['data_pengguna']['spesialisasi'] = json_decode($result['data_pengguna']['spesialisasi'], true);
+
         $result['spesialisasi'] = Spesialisasi::select('nama')->get()->toArray();
 
         $result['status_boleh_edit'] = isset($data['id_status_pengguna']);

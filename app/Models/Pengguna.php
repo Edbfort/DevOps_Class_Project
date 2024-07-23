@@ -43,7 +43,7 @@ class Pengguna extends Model
         'website',
         'tag_line',
         'spesialisasi',
-        'sosial_media',
+        'media_sosial',
         'fee',
         'id_status_pengguna',
         'waktu_buat',

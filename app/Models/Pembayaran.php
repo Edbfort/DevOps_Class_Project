@@ -11,7 +11,6 @@ class Pembayaran extends Model
 
     protected $table = 'pembayaran';
 
-
     protected $fillable = [
         'id_user',
         'nominal',

@@ -26,13 +26,14 @@ class UpdateTerbayarMilestoneService
         $milestone = Milestone::where([
             'id' => $request->id_milestone,
             'id_proyek' => $request->id_proyek,
-            'status' => 1
+            'status' => 3
         ])
             ->first();
 
+//        $batchPembayaran = BatchPembayaran
+
         $milestone->update([
-            'info_perkembangan' => $request->info_perkembangan,
-            'status' => 2,
+            'status' => 4,
             'waktu_ubah' => new DateTime(),
         ]);
 
