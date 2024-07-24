@@ -40,15 +40,14 @@ class UpdatePaymentProyekService
             ->get()->toArray()[0];
 
         $proyek->update([
-            'controller_fee' => floor((int)$data['anggaran'] * (int)$data['controller_fee'] / 100),
+            'controller_fee' => (int)$data['controller_fee'],
             'team_fee' => (int)$data['team_fee'],
-            'anggaran' => floor(((int)$data['anggaran'] * (int)$data['controller_fee'] / 100) + (int)$data['team_fee']),
             'waktu_ubah' => new DateTime(),
         ]);
 
         $pembayaran = Pembayaran::create([
             'id_user' => $id,
-            'nominal' => $proyek->anggaran,
+            'nominal' => floor(((int)$data['anggaran'] * (int)$data['controller_fee'] / 100) + (int)$data['team_fee']),
             'id_tipe_pembayaran' => 1,
             'waktu_buat' => new DateTime(),
             'waktu_ubah' => new DateTime(),

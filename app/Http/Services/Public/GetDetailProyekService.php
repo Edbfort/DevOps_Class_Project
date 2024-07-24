@@ -19,6 +19,8 @@ class GetDetailProyekService
             'spesialisasi',
             'lokasi_dokumen',
             'anggaran',
+            'controller_fee',
+            'team_fee',
             'tanggal_tegat'
         ])
             ->where('id', $id)->first();
@@ -34,7 +36,9 @@ class GetDetailProyekService
         }
 
         $result['proyek'] = $proyek->toArray();
-        unset($result['proyek']['id_controller']);
+        $result['proyek']['anggaran'] = floor(((int)$result['proyek']['anggaran'] * (int)$result['proyek']['controller_fee'] / 100) + (int)$result['proyek']['team_fee']);
+
+        unset($result['proyek']['id_controller'],);
 
         if ($userRoles->nama_role == 'controller' && $proyek->id_team == null) {
             $result['lamaran_proyek'] = LamaranProyek::select([
