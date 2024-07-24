@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BatchTagProfil extends Model
+class BatchPembayaran extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,7 @@ class BatchTagProfil extends Model
      *
      * @var string
      */
-    protected $table = 'batch_tag_profil';
-
-    /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id';
+    protected $table = 'batch_pembayaran';
 
     /**
      * The attributes that are mass assignable.
@@ -29,8 +22,10 @@ class BatchTagProfil extends Model
      * @var array
      */
     protected $fillable = [
-        'id_data_product_owner',
-        'nama_tag',
+        'id_milstone',
+        'id_pembayaran',
+        'waktu_buat',
+        'waktu_ubah',
     ];
 
     /**
@@ -39,12 +34,4 @@ class BatchTagProfil extends Model
      * @var bool
      */
     public $timestamps = false;
-
-    /**
-     * Define a relationship with the DataProductOwner.php model.
-     */
-    public function dataProductOwner()
-    {
-        return $this->belongsTo(DataProductOwner::class, 'id_data_product_owner', 'id');
-    }
 }

@@ -11,8 +11,10 @@ use App\Http\Requests\GetMilestoneRequest;
 use App\Http\Requests\GetProyekListRequest;
 use App\Http\Requests\GetTeamRequest;
 use App\Http\Requests\InsertAnggotaKeProyekRequest;
+use App\Http\Requests\UpdateAcceptMilestoneRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\UpdateSelesaiMilestoneRequest;
+use App\Http\Requests\UpdateTerbayarMilestoneRequest;
 use App\Http\Services\CreativeHubTeam\GetMemberService;
 use App\Http\Services\Public\CreateOrUpdateBillingRekeningService;
 use App\Http\Services\Public\GetBillingRekeningService;
@@ -25,6 +27,7 @@ use App\Http\Services\Public\GetTeamService;
 use App\Http\Services\Public\InsertAnggotaKeProyekService;
 use App\Http\Services\Public\UpdateProfileService;
 use App\Http\Services\Public\UpdateSelesaiMilestoneService;
+use App\Http\Services\Public\UpdateTerbayarMilestoneService;
 
 class PublicController extends Controller
 {
@@ -120,12 +123,17 @@ class PublicController extends Controller
         return $service->handle($request);
     }
 
-    public function updateSelesaiMilestone(UpdateSelesaiMilestoneRequest $request, UpdateSelesaiMilestoneService $service, $id)
+    public function updateSelesaiMilestone(UpdateSelesaiMilestoneRequest $request, UpdateSelesaiMilestoneService $service)
     {
         return $service->handle($request);
     }
 
-    public function updateAcceptMilestone(UpdateAcceptMilestoneRequest $request, UpdateSelesaiMilestoneService $service, $id)
+    public function updateAcceptMilestone(UpdateAcceptMilestoneRequest $request, UpdateSelesaiMilestoneService $service)
+    {
+        return $service->handle($request);
+    }
+
+    public function updateTerbayarMilestone(UpdateTerbayarMilestoneRequest $request, UpdateTerbayarMilestoneService $service)
     {
         return $service->handle($request);
     }
