@@ -17,7 +17,7 @@ class GetProyekListService
             'ucl.nama as client_nama',
             'uco.nama as controller_nama',
             'ut.nama as team_nama',
-            'proyek.id_status_proyek as proyek_status_proyek',
+            'proyek.id_status_proyek as proyek_id_status_proyek',
             'sp.nama as status_proyek_nama',
             'proyek.perkembangan as proyek_perkembangan',
             'proyek.tanggal_tegat as proyek_tanggal_tegat',
@@ -47,12 +47,12 @@ class GetProyekListService
 
             if ($userRoles->nama_role != 'controller') {
                 $where = array_merge($where, [
-                    'proyek.status = 2'
+                    'proyek.id_status_proyek' => 2
                 ]);
 
                 if ($userRoles->nama_role == 'creative-hub-team') {
                     $where = array_merge($where, [
-                        'db.status = 1'
+                        'db.status' => 1
                     ]);
                 }
             }
@@ -135,8 +135,22 @@ class GetProyekListService
 
         $proyek = $proyekQuery->get();
 
+        if (is_null($proyek)) {
+            $proyek = [];
+        } else {
+            $proyek = $proyek->toArray();
+            $proyek = array_map(function ($item) {
+                if (is_null($item["spesialisasi"])) {
+                    $item["spesialisasi"] = [];
+                } else {
+                    $item["spesialisasi"] = json_decode($item["spesialisasi"], true);
+                }
+                return $item;
+            }, $proyek);
+        }
+
         $result = [
-            'proyek' => $proyek->toArray(),
+            'proyek' => $proyek,
             'filter_spesialisasi' => FilterSpesialisasi::select('nama')->get()->toArray(),
         ];
 

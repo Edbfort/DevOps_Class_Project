@@ -55,6 +55,12 @@ class UpdateTerbayarMilestoneService
             'waktu_ubah' => new \DateTime(),
         ]);
 
+        //Buang saat ada payment asli
+        $pembayaran->update([
+            'tanggal_pembayaran' => new DateTime(),
+            'waktu_ubah' => new DateTime(),
+        ]);
+
         $milestone->update([
             'status' => 4,
             'waktu_ubah' => new DateTime(),

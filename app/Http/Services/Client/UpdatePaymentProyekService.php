@@ -56,11 +56,13 @@ class UpdatePaymentProyekService
         //Buang saat ada payment asli
         $pembayaran->update([
             'tanggal_pembayaran' => new DateTime(),
+            'waktu_ubah' => new DateTime(),
         ]);
 
         $proyek->update([
             'status_lunas' => 1,
             'id_status_proyek' => 4,
+            'waktu_ubah' => new DateTime(),
         ]);
 
         return response()->json(['message' => 'Payment berhasil dilakukan'], 200);
