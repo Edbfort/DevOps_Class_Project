@@ -14,7 +14,7 @@ class Bank extends Model
      *
      * @var string
      */
-    protected $table = 'Bank';
+    protected $table = 'bank';
 
     /**
      * The primary key for the model.

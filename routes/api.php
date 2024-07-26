@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::get('/kota', [KotaController::class, 'getKota'])->name('kota');
+//Route::get('/kota', [KotaController::class, 'getKota'])->name('kota');
 Route::get('/send-email', [EmailController::class, 'sendEmail']);
 Route::get('/send-sms', [SmsController::class, 'sendSms']);
 
