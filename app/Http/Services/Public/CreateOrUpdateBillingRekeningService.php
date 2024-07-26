@@ -27,7 +27,7 @@ class CreateOrUpdateBillingRekeningService
         ])->first();
 
         $pengguna->update([
-            'is_status_pengguna' => 4,
+            'id_status_pengguna' => 4,
             'waktu_ubah' => new \DateTime()
         ]);
 
