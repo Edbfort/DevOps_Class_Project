@@ -24,7 +24,7 @@ class CreateOrUpdateBillingRekeningService
 
         $pengguna = Pengguna::where([
             'id_user' => Auth::id()
-        ])->first;
+        ])->first();
 
         $pengguna->update([
             'is_status_pengguna' => 4,
