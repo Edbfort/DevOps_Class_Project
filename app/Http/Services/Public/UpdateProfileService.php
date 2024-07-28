@@ -87,6 +87,9 @@ class UpdateProfileService
                 if ($statusPengguna == 1 || $statusPengguna == 3) {
                     $statusPengguna = (int)$statusPengguna + 1;
                 }
+                if($userRoles->nama_role == 'creative-hub-admin') {
+                    $statusPengguna = 4;
+                }
                 $pengguna->update(['id_status_pengguna' => $statusPengguna]);
             }
         }
