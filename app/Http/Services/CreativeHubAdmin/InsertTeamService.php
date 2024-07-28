@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\CreativeHubAdmin;
+namespace App\Http\Services\creativeHubAdmin;
 
 use App\Models\Pengguna;
 use App\Models\TransaksiPembuatanTeam;
