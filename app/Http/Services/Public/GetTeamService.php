@@ -22,7 +22,7 @@ class GetTeamService
         ];
 
         if ($id == Auth::id()) {
-            $select = array_merge($select, ['email', 'temp_password', 'status_ganti_password']);
+            $select = array_merge($select, ['email', 'temp_password', 'status_ganti_password', 'pengguna.id_status_pengguna']);
         }
 
         $result = TransaksiPembuatanTeam::select($select)

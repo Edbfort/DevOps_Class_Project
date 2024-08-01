@@ -39,10 +39,10 @@ class InsertProyekRequest extends FormRequest
         return [
             'judul_proyek' => 'required|string|max:128',
             'deskripsi_proyek' => 'required|string',
-            'spesialisasi' => 'required|array',
+            'spesialisasi' => 'required',
             'anggaran' => 'required|integer',
             'tanggal_tegat' => 'required|date',
-            'lokasi_dokumen' => 'nullable|string|max:128'
+            'file_dokumen' => 'nullable|max:5000|mimes:jpeg,jpg,png,doc,docx,pdf,xls,xlsx,txt'
         ];
     }
 

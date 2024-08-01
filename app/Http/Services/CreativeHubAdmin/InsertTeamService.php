@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\creativeHubAdmin;
+namespace App\Http\Services\CreativeHubAdmin;
 
 use App\Models\Pengguna;
 use App\Models\TransaksiPembuatanTeam;
@@ -9,6 +9,8 @@ use App\Models\UserRoles;
 use App\Repositories\PenggunaRepository;
 use App\Repositories\TransaksiPembuatanAkunReposity;
 use App\Repositories\UserRepository;
+use DateTime;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -20,8 +22,8 @@ class InsertTeamService
 
     public function __construct
     (
-        PenggunaRepository $penggunaRepository,
-        UserRepository $userRepository,
+        PenggunaRepository             $penggunaRepository,
+        UserRepository                 $userRepository,
         TransaksiPembuatanAkunReposity $transaksiPembuatanAkunRepository,
     )
     {
@@ -55,8 +57,8 @@ class InsertTeamService
             $pengguna = new Pengguna();
             $pengguna->id_user = $user->id;
             $pengguna->id_status_pengguna = 1;
-            $pengguna->waktu_buat = new \DateTime();
-            $pengguna->waktu_ubah = new \DateTime();
+            $pengguna->waktu_buat = new DateTime();
+            $pengguna->waktu_ubah = new DateTime();
             $pengguna->save();
 
             $userRoles = new UserRoles();
@@ -66,7 +68,7 @@ class InsertTeamService
 
             DB::commit();
             return response()->json(['message' => 'Akun Berhasil Di Buat'], 200);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             return response()->json(['errors' => 'Terjadi Kesalahan'], 500);
         }
