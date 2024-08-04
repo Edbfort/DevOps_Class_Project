@@ -71,6 +71,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('/proyek/milestone/bayar', [PublicController::class, 'updateTerbayarMilestone']);
     Route::get('/proyek/{id}', [PublicController::class, 'getDetailProyek']);
     Route::get('/design-brief', [PublicController::class, 'getDesignBrief']);
+    Route::post('/design-brief', [ControllerController::class, 'updateDesignBrief']);
 
     // Client Routes
     Route::group([
@@ -87,7 +88,6 @@ Route::middleware('jwt.auth')->group(function () {
     Route::group([
         'prefix' => 'controller'
     ], function ($router) {
-        Route::post('/design-brief', [ControllerController::class, 'updateDesignBrief']);
         Route::get('/tambah-milestone', [ControllerController::class, 'getBuatMilestone']);
         Route::post('/tambah-milestone', [ControllerController::class, 'insertBuatMilestone']);
     });

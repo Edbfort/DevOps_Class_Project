@@ -21,6 +21,10 @@ class InsertProyekService
             if (!$lokasiDokumen) {
                 return response()->json(['errors' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
             }
+
+            if (!$lokasiDokumen['status']) {
+                return response()->json(['errors' => 'Terjadi kesalahan saat menyimpan data mohon hubungi IT Support Kami'], 500);
+            }
         }
 
         // Create the Proyek record
@@ -29,9 +33,9 @@ class InsertProyekService
             'judul_proyek' => $request->judul_proyek,
             'deskripsi_proyek' => $request->deskripsi_proyek,
             'spesialisasi' => $request->spesialisasi,
-            'anggaran' => $request->anggaran,
+            'anggaran' =>  $request->anggaran,
             'tanggal_tegat' => $request->tanggal_tegat,
-            'lokasi_dokumen' => $lokasiDokumen,
+            'lokasi_dokumen' => $lokasiDokumen['fileName'],
             'waktu_buat' => new DateTime(),
             'waktu_ubah' => new DateTime(),
         ]);

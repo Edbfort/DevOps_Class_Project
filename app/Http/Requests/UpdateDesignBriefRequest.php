@@ -45,7 +45,7 @@ class UpdateDesignBriefRequest extends FormRequest
         return [
             'id_proyek' => 'required|string',
             'link_meeting' => 'required|string',
-            'file_dokumen' => 'nullable|max:5000|mimes:jpeg,jpg,png,doc,docx,pdf,xls,xlsx,txt'
+            'file_dokumen' => 'nullable|max:5000|mimes:jpeg,jpg,png,doc,docx,pdf,xls,xlsx'
         ];
     }
 
