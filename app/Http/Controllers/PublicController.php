@@ -23,6 +23,7 @@ use App\Http\Services\Public\GetDetailProyekService;
 use App\Http\Services\Public\GetMilestoneService;
 use App\Http\Services\Public\GetProfileService;
 use App\Http\Services\Public\GetProyekListService;
+use App\Http\Services\Public\GetSpesialisasiService;
 use App\Http\Services\Public\GetTeamService;
 use App\Http\Services\Public\InsertAnggotaKeProyekService;
 use App\Http\Services\Public\UpdateProfileService;
@@ -136,5 +137,10 @@ class PublicController extends Controller
     public function updateTerbayarMilestone(UpdateTerbayarMilestoneRequest $request, UpdateTerbayarMilestoneService $service)
     {
         return $service->handle($request);
+    }
+
+    public function getSpesialisasi(GetSpesialisasiService $service)
+    {
+        return $service->handle();
     }
 }
