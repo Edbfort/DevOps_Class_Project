@@ -28,7 +28,7 @@ class InsertProyekService
         }
 
         // Create the Proyek record
-        Proyek::create([
+        $proyek = Proyek::create([
             'id_client' => Auth::id(),
             'judul_proyek' => $request->judul_proyek,
             'deskripsi_proyek' => $request->deskripsi_proyek,
@@ -40,6 +40,6 @@ class InsertProyekService
             'waktu_ubah' => new DateTime(),
         ]);
 
-        return response()->json(['message' => 'Project berhasil di insert'], 200);
+        return response()->json(['data' => $proyek->id, 'message' => 'Project berhasil di insert'], 200);
     }
 }
