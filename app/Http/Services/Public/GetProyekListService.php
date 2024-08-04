@@ -39,23 +39,15 @@ class GetProyekListService
                 'uco.lokasi as controller_lokasi',
                 'proyek.deskripsi_proyek as proyek_deskripsi_proyek'
             ]);
+
+            $where = array_merge($where, [
+                'proyek.id_status_proyek' => 1
+            ]);
         } else {
             $select = array_merge($select, [
                 'db.link_meeting',
                 'db.lokasi_dokumen'
             ]);
-
-            if ($userRoles->nama_role != 'controller') {
-                $where = array_merge($where, [
-                    'proyek.id_status_proyek' => 2
-                ]);
-
-                if ($userRoles->nama_role == 'creative-hub-team') {
-                    $where = array_merge($where, [
-                        'db.status' => 1
-                    ]);
-                }
-            }
         }
 
         $proyekQuery = Proyek::query();
@@ -113,7 +105,7 @@ class GetProyekListService
                     }
                 }
 
-                $parameterAnggaran = substr($parameterAnggaran, 0, strlen($parameterAnggaran) - 2)  . ' )';
+                $parameterAnggaran = substr($parameterAnggaran, 0, strlen($parameterAnggaran) - 2) . ' )';
 
                 $proyekQuery->whereRaw($parameterAnggaran);
             }
@@ -127,7 +119,7 @@ class GetProyekListService
                     $parameterSpesialisasi = $parameterSpesialisasi . " proyek.spesialisasi LIKE '%" . $spesialisasi . "%' OR";
                 }
 
-                $parameterSpesialisasi = substr($parameterSpesialisasi, 0, strlen($parameterSpesialisasi) - 2)  . ' )';
+                $parameterSpesialisasi = substr($parameterSpesialisasi, 0, strlen($parameterSpesialisasi) - 2) . ' )';
 
                 $proyekQuery->whereRaw($parameterSpesialisasi);
             }
@@ -136,7 +128,8 @@ class GetProyekListService
         $proyek = $proyekQuery->get();
 
         if (is_null($proyek)) {
-            $proyek = [];
+            $proyek['setup'] = [];
+            $proyek['ongoing'] = [];
         } else {
             $proyek = $proyek->toArray();
             $proyek = array_map(function ($item) {
@@ -147,10 +140,24 @@ class GetProyekListService
                 }
                 return $item;
             }, $proyek);
+
+            $proyekTmp = [];
+            $proyekTmp['setup'] = [];
+            $proyekTmp['ongoing'] = [];
+            foreach ($proyek as $item) {
+                if (!in_array($item["proyek_id_status_proyek"], [5, 6])) {
+                    $proyekTmp['setup'][] = $item;
+                } else {
+                    $proyekTmp['ongoing'][] = $item;
+                }
+            }
+            $proyek = $proyekTmp;
+            unset($proyekTmp);
         }
 
         $result = [
-            'proyek' => $proyek,
+            'setup' => $proyek['setup'],
+            'ongoing' => $proyek['ongoing'],
             'filter_spesialisasi' => FilterSpesialisasi::select('nama')->get()->toArray(),
         ];
 
