@@ -22,7 +22,8 @@ class GetProyekListService
             'proyek.perkembangan as proyek_perkembangan',
             'proyek.tanggal_tegat as proyek_tanggal_tegat',
             'proyek.anggaran as proyek_anggaran',
-            'pco.fee as controller_fee'
+            'pco.fee as controller_fee',
+            'proyek.spesialisasi as proyek_spesialisasi'
         ];
 
         $where = [];
@@ -36,8 +37,7 @@ class GetProyekListService
         if ($userRoles->nama_role == 'creative-hub-team' && !$request->has('id_user')) {
             $select = array_merge($select, [
                 'uco.lokasi as controller_lokasi',
-                'proyek.deskripsi_proyek as proyek_deskripsi_proyek',
-                'proyek.spesialisasi as proyek_spesialisasi'
+                'proyek.deskripsi_proyek as proyek_deskripsi_proyek'
             ]);
         } else {
             $select = array_merge($select, [
@@ -140,10 +140,10 @@ class GetProyekListService
         } else {
             $proyek = $proyek->toArray();
             $proyek = array_map(function ($item) {
-                if (is_null($item["spesialisasi"])) {
-                    $item["spesialisasi"] = [];
+                if (is_null($item["proyek_spesialisasi"])) {
+                    $item["proyek_spesialisasi"] = [];
                 } else {
-                    $item["spesialisasi"] = json_decode($item["spesialisasi"], true);
+                    $item["proyek_spesialisasi"] = json_decode($item["proyek_spesialisasi"], true);
                 }
                 return $item;
             }, $proyek);
