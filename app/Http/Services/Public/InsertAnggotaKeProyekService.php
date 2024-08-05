@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Public;
 
+use App\Http\Utility\MailerUtility;
 use App\Models\Pengguna;
 use App\Models\Proyek;
 use App\Repositories\UserRolesRepository;
@@ -28,8 +29,10 @@ class InsertAnggotaKeProyekService
         } elseif ($userRoles->nama_role == 'client') {
             $pengguna = Pengguna::select([
                 'pengguna.id_user',
-                'pengguna.id_status_pengguna'
+                'pengguna.id_status_pengguna',
+                'u.email'
             ])
+                ->join('users as u', 'u.id', '=', 'pengguna.id_user')
                 ->join('user_roles as ur', 'ur.id', '=', 'pengguna.id_user')
                 ->where([
                     'pengguna.id_user' => $request->id_user,
@@ -44,12 +47,31 @@ class InsertAnggotaKeProyekService
 
             $roleUser = 'Controller';
 
+            MailerUtility::sendEmail(
+                [
+                    [
+                        //'Email' => $pengguna['email']
+                        'Email' => 'william@mikroskil.ac.id',
+                        'Name' => "Passenger 1"
+                    ]
+                ],
+                'Anda diterima ke project "' . $proyek->judul_proyek . '"',
+                'Selamat anda diterima ke proyek "' . $proyek->judul_proyek . '"',
+                ''
+            );
+
         } elseif ($userRoles->nama_role == 'controller') {
             $pengguna = Pengguna::select([
                 'pengguna.id_user',
-                'pengguna.id_status_pengguna'
+                'pengguna.id_status_pengguna',
+                'u.email'
             ])
-                ->where('pengguna.id_user', $request->id_user)
+                ->join('users as u', 'u.id', '=', 'pengguna.id_user')
+                ->join('user_roles as ur', 'ur.id', '=', 'pengguna.id_user')
+                ->where([
+                    'pengguna.id_user' => $request->id_user,
+                    'id_role' => 4
+                ])
                 ->get()->first()->toArray();
 
             $proyek->update([
@@ -58,6 +80,18 @@ class InsertAnggotaKeProyekService
             ]);
 
             $roleUser = 'Team';
+
+            MailerUtility::sendEmail(
+                [
+                    [
+//                    'Email' => $pengguna['email']
+                        'Email' => 'william@mikroskil.ac.id'
+                    ]
+                ],
+                'Anda diterima ke project "' . $proyek->judul_proyek . '"',
+                'Selamat anda diterima ke proyek "' . $proyek->judul_proyek . '"',
+                ''
+            );
         }
 
         return response()->json(['message' => 'Menambah ' . $roleUser . ' berhasil dilakukan'], 200);

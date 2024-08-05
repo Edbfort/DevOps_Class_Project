@@ -11,7 +11,7 @@ class EmailController extends Controller
     {
         $mj = new Client(env('MAILJET_APIKEY'), env('MAILJET_SECRETKEY'), true, ['version' => 'v3']);
         $body = [
-            'FromEmail' => "vivoglobal011@gmail.com",
+            'FromEmail' => env('MAILJET_FROM_ADDRESS'),
             'FromName' => "Kolab aja",
             'Recipients' => [
                 [

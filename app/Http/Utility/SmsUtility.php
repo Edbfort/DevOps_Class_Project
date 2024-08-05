@@ -13,9 +13,11 @@ class SmsUtility
         $this->client = new Client();
     }
 
-    public function sendSms($nomorTelepon, $text)
+    public static function sendSms($nomorTelepon, $text)
     {
-        $response = $this->client->request('POST', 'https://rest.nexmo.com/sms/json', [
+        $client = new Client();
+
+        $response = $client->request('POST', 'https://rest.nexmo.com/sms/json', [
             'form_params' => [
                 'api_key' => env('VONAGE_KEY'),
                 'api_secret' => env('VONAGE_SECRET'),
