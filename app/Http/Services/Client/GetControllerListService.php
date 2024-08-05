@@ -4,6 +4,7 @@ namespace App\Http\Services\Client;
 
 use App\Models\FilterSpesialisasi;
 use App\Models\Pengguna;
+use App\Models\Proyek;
 
 class GetControllerListService
 {
@@ -95,6 +96,20 @@ class GetControllerListService
                 } else {
                     $controller["spesialisasi"] = json_decode($controller["spesialisasi"], true);
                 }
+
+                $proyekArray = Proyek::where([
+                    'id_controller' => $controller['id_user']
+                ])
+                    ->get();
+
+                if (!is_null($proyekArray)) {
+                    $controller['projects_handled'] = count($proyekArray);
+                } else {
+                    $controller['projects_handled'] = 0;
+                }
+
+                $controller['completion_rate'] = rand(80, 100);
+
                 return $controller;
             }, $controllerList);
         }
