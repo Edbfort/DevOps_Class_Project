@@ -24,7 +24,8 @@ class GetControllerListService
             ->join('users as cu', 'cu.id', '=', 'pengguna.id_user')
             ->join('user_roles as ur', 'cu.id', '=', 'ur.id_user')
             ->where([
-                'ur.id_role' => 2
+                'ur.id_role' => 2,
+                'id_status_pengguna' => 4
             ]);
 
         if ($request->has('keyword')) {
@@ -97,18 +98,29 @@ class GetControllerListService
                     $controller["spesialisasi"] = json_decode($controller["spesialisasi"], true);
                 }
 
-                $proyekArray = Proyek::where([
+                $proyekQuery = Proyek::where([
                     'id_controller' => $controller['id_user']
-                ])
-                    ->get();
+                ]);
 
-                if (!is_null($proyekArray)) {
-                    $controller['projects_handled'] = count($proyekArray);
+                if (!is_null($proyekQuery->get())) {
+                    $controller['projects_handled'] = count($proyekQuery->get());
                 } else {
                     $controller['projects_handled'] = 0;
                 }
 
-                $controller['completion_rate'] = rand(80, 100);
+                $proyekQuery->where([
+                    'id_status_proyek' => 6
+                ]);
+
+                if (!is_null($proyekQuery->get())) {
+                    if (count($proyekQuery->get()) != 0) {
+                        $controller['completion_rate'] = floor(count($proyekQuery->get()) / $controller['projects_handled'] * 100);
+                    } else {
+                        $controller['completion_rate'] = 0;
+                    }
+                } else {
+                    $controller['completion_rate'] = 0;
+                }
 
                 return $controller;
             }, $controllerList);

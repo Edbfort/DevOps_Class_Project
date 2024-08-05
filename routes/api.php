@@ -6,7 +6,6 @@ use App\Http\Controllers\ControllerController;
 use App\Http\Controllers\CreativeHubAdminController;
 use App\Http\Controllers\CreativeHubTeamController;
 use App\Http\Controllers\EmailController;
-use App\Http\Controllers\KotaController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\SmsController;
 use Illuminate\Support\Facades\Route;
@@ -43,36 +42,46 @@ Route::group([
 });
 
 Route::middleware('jwt.auth')->group(function () {
+    Route::group([
+        'prefix' => 'profile'
+    ], function ($router) {
+        Route::patch('/', [PublicController::class, 'updateProfile']);
+        Route::get('/{id}', [PublicController::class, 'getProfile']);
+    });
 
-    // Profile routes
-//    Route::get('/get-profile-admin/{id}', [ProfileController::class, 'getProfileAdmin']);
-//    Route::get('/get-profile-team/{id}', [ProfileController::class, 'getProfileTeam']);
-//    Route::get('/get-data-product-owner', [ProfileController::class, 'getDataProductOwner']);
-//    Route::get('/get-all-data-product-owner', [ProfileController::class, 'getAllDataProductOwner']);
-//    Route::post('/update-profile-admin/{id}', [ProfileController::class, 'updateProfileAdmin']);
-//    Route::post('/update-profile-team/{id}', [ProfileController::class, 'updateProfileTeam']);
-//
-//    // Account routes
-//    Route::post('/insert-ch-team/{id}', [AccountController::class, 'insertUserTeam']);
-//    Route::post('/activate-team/{id}', [AccountController::class, 'activationUserTeam']);
-//    Route::get('/get-ch-team/{id}', [AccountController::class, 'getUserTeam']);
+    Route::group([
+        'prefix' => 'rekening'
+    ], function ($router) {
+        Route::get('/', [PublicController::class, 'getRekening']);
+        Route::post('/', [PublicController::class, 'createOrUpdateRekening']);
+    });
 
-    Route::get('/profile/{id}', [PublicController::class, 'getProfile']);
-    Route::patch('/profile', [PublicController::class, 'updateProfile']);
-    Route::get('/rekening', [PublicController::class, 'getRekening']);
-    Route::post('/rekening', [PublicController::class, 'createOrUpdateRekening']);
-    Route::get('/team/member/{id}', [PublicController::class, 'getMember']);
-    Route::get('/team/{id}', [PublicController::class, 'getTeam']);
-    Route::get('/proyek', [PublicController::class, 'getProyekList']);
-    Route::post('/proyek/tambah-anggota', [PublicController::class, 'insertAnggotaKeProyek']);
-    Route::get('/proyek/milestone', [PublicController::class, 'getMilestone']);
-    Route::get('/proyek/milestone/selesai', [PublicController::class, 'updateSelesaiMilestone']);
-    Route::get('/proyek/milestone/accept', [PublicController::class, 'updateAcceptMilestone']);
-    Route::get('/proyek/milestone/bayar', [PublicController::class, 'updateTerbayarMilestone']);
-    Route::get('/proyek/{id}', [PublicController::class, 'getDetailProyek']);
-    Route::get('/design-brief', [PublicController::class, 'getDesignBrief']);
-    Route::post('/design-brief', [PublicController::class, 'updateDesignBrief']);
-    Route::post('/design-brief/accept', [PublicController::class, 'updateAcceptDesignBrief']);
+    Route::group([
+        'prefix' => 'team'
+    ], function ($router) {
+        Route::get('/member/{id}', [PublicController::class, 'getMember']);
+        Route::get('/{id}', [PublicController::class, 'getTeam']);
+    });
+
+    Route::group([
+        'prefix' => 'proyek'
+    ], function ($router) {
+        Route::get('/', [PublicController::class, 'getProyekList']);
+        Route::post('/tambah-anggota', [PublicController::class, 'insertAnggotaKeProyek']);
+        Route::get('/milestone', [PublicController::class, 'getMilestone']);
+        Route::get('/milestone/selesai', [PublicController::class, 'updateSelesaiMilestone']);
+        Route::get('/milestone/accept', [PublicController::class, 'updateAcceptMilestone']);
+        Route::get('/milestone/bayar', [PublicController::class, 'updateTerbayarMilestone']);
+        Route::get('/{id}', [PublicController::class, 'getDetailProyek']);
+    });
+
+    Route::group([
+        'prefix' => 'design-brief'
+    ], function ($router) {
+        Route::get('/', [PublicController::class, 'getDesignBrief']);
+        Route::post('/', [PublicController::class, 'updateDesignBrief']);
+        Route::post('/accept', [PublicController::class, 'updateAcceptDesignBrief']);
+    });
 
     // Client Routes
     Route::group([

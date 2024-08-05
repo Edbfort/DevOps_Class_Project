@@ -90,6 +90,12 @@ class UpdateProfileService
                 }
 
                 $pengguna->update(['id_status_pengguna' => $statusPengguna]);
+
+                if ($userRoles->nama_role == 'creative-hub-team') {
+                    $transaksiPembuatanTeam->update([
+                        'status_ganti_password' => 1
+                    ]);
+                }
             }
         }
 

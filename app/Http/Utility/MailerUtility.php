@@ -17,8 +17,8 @@ class MailerUtility
     public function sendEmail($recipients, $subject, $textPart, $htmlPart)
     {
         $body = [
-            'FromEmail' => 'vivoglobal011@gmail.com',
-            'FromName' => 'Kolab aja',
+            'FromEmail' => env('MAILJET_FROM_ADDRESS'),
+            'FromName' => env('MAILJET_FROM_NAME'),
             'Recipients' => $recipients,
             'Subject' => $subject,
             'Text-part' => $textPart,
