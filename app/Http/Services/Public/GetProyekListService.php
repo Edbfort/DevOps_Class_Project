@@ -23,7 +23,8 @@ class GetProyekListService
             'proyek.tanggal_tegat as proyek_tanggal_tegat',
             'proyek.anggaran as proyek_anggaran',
             'pco.fee as controller_fee',
-            'proyek.spesialisasi as proyek_spesialisasi'
+            'proyek.spesialisasi as proyek_spesialisasi',
+            'proyek.lokasi_dokumen as proyek_lokasi_dokumen'
         ];
 
         $where = [];
@@ -46,7 +47,7 @@ class GetProyekListService
         } else {
             $select = array_merge($select, [
                 'db.link_meeting',
-                'db.lokasi_dokumen'
+                'db.lokasi_dokumen as design_brief_lokasi_dokumen'
             ]);
         }
 
@@ -138,6 +139,15 @@ class GetProyekListService
                 } else {
                     $item["proyek_spesialisasi"] = json_decode($item["proyek_spesialisasi"], true);
                 }
+
+                if (!is_null($item["proyek_lokasi_dokumen"])) {
+                    $item['proyek_lokasi_dokumen'] = 'upload/dokumen/proyek/' . $item['proyek_lokasi_dokumen'];
+                }
+
+                if (!is_null($item["design_brief_lokasi_dokumen"])) {
+                    $item['design_brief_lokasi_dokumen'] = 'upload/dokumen/designBrief/' . $item['design_brief_lokasi_dokumen'];
+                }
+
                 return $item;
             }, $proyek);
 

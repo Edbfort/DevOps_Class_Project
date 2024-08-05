@@ -27,12 +27,12 @@ class InsertAnggotaKeProyekService
             return response()->json(['message' => 'Data tidak di temukan'], 404);
         } elseif ($userRoles->nama_role == 'client') {
             $pengguna = Pengguna::select([
-                'id_user',
-                'id_status_pengguna'
+                'pengguna.id_user',
+                'pengguna.id_status_pengguna'
             ])
                 ->join('user_roles as ur', 'ur.id', '=', 'pengguna.id_user')
                 ->where([
-                    'id_user' => $proyek->id_user,
+                    'pengguna.id_user' => $request->id_user,
                     'id_role' => 2
                 ])
                 ->get()->first()->toArray();
@@ -46,10 +46,10 @@ class InsertAnggotaKeProyekService
 
         } elseif ($userRoles->nama_role == 'controller') {
             $pengguna = Pengguna::select([
-                'id_user',
-                'id_status_pengguna'
+                'pengguna.id_user',
+                'pengguna.id_status_pengguna'
             ])
-                ->where('id_user', $proyek->id_user)
+                ->where('pengguna.id_user', $request->id_user)
                 ->get()->first()->toArray();
 
             $proyek->update([

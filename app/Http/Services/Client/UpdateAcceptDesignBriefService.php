@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Client;
 
+use App\Models\DesignBreif;
 use App\Models\Proyek;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +23,17 @@ class UpdateAcceptDesignBriefService
             return response()->json(['message' => 'Gagal accpet design brief'], 422);
         }
 
-        $proyek->update([
-            'id_status_proyek' => 3,
+        $designBrief = DesignBreif::where([
+            'id_controller' => Auth::id(),
+            'id_proyek' => $request->id_proyek
+        ])->first();
+
+        if (!$designBrief) {
+            return response()->json(['message' => 'Gagal accpet design brief'], 422);
+        }
+
+        $designBrief->update([
+            'status' => 1,
             'waktu_ubah' => new DateTime(),
         ]);
 

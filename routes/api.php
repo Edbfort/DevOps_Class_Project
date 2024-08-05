@@ -72,6 +72,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('/proyek/{id}', [PublicController::class, 'getDetailProyek']);
     Route::get('/design-brief', [PublicController::class, 'getDesignBrief']);
     Route::post('/design-brief', [ControllerController::class, 'updateDesignBrief']);
+    Route::post('/design-brief/accept', [PublicController::class, 'updateAcceptDesignBrief']);
 
     // Client Routes
     Route::group([

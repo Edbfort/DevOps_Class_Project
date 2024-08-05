@@ -19,6 +19,7 @@ class GetDesignBriefService
                 ' OR p.id_team = ' . Auth::id() . ')');
 
         $designBrief = $query->get()->toArray();
+        $designBrief['lokasi_dokumen'] = 'upload/dokumen/designBrief/' . $designBrief['lokasi_dokumen'];
 
         return response()->json(['data' => $designBrief, 'message' => 'Design Brief berhasil di ambil'], 200);
     }

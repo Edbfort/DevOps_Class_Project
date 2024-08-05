@@ -35,8 +35,8 @@ class UpdateDesignBriefService
                         );
                     } else {
                         $lokasiDokumen = UploadFileUtility::upload(
-                            $request->file('file_dokumen'),
-                            public_path('upload/dokumen/designBrief')
+                            file: $request->file('file_dokumen'),
+                            destinationPath: 'upload/dokumen/designBrief'
                         );
                     }
 
@@ -85,6 +85,11 @@ class UpdateDesignBriefService
                     return response()->json(['message' => 'Design Brief tidak dapat di update'], 422);
                 }
             }
+
+            $proyek->update([
+                'id_status_proyek' => 2,
+                'waktu_ubah' => new DateTime()
+            ]);
         } else {
             return response()->json(['message' => 'Proyek tidak ditemukan'], 404);
         }
