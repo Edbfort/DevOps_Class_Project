@@ -45,13 +45,13 @@ class UpdateProfileService
         if ($userRoles) {
             if ($userRoles->nama_role == 'creative-hub-team') {
                 $transaksiPembuatanTeam = TransaksiPembuatanTeam::where('id_user', $id)->first();
+                $cha = User::where('id', $transaksiPembuatanTeam->id_cha)->first();
+                $parameter['lokasi'] = $cha->lokasi;
+
                 if ($transaksiPembuatanTeam->status_ganti_password) {
                     unset($parameter['password']);
-                    $cha = User::where('id', $transaksiPembuatanTeam->id_cha)->first();
-                    $parameter['lokasi'] = $cha->lokasi;
+                    $validasi['fee'] = 'required';
                 }
-
-                $validasi['fee'] = 'required';
             } else {
                 unset($parameter['password']);
             }
@@ -82,8 +82,10 @@ class UpdateProfileService
 
         if (!is_null($result['email']) || !is_null($result['nomor_telepon'])) {
             if ($userRoles->nama_role == 'creative-hub-team' && !empty($parameter['password'])) {
+                $transaksiPembuatanTeam = TransaksiPembuatanTeam::where('id_user', $id)->first();
                 $transaksiPembuatanTeam->update([
-                    'status_ganti_password' => 1
+                    'status_ganti_password' => 1,
+                    'waktu_ubah' => new DateTime()
                 ]);
             }
 

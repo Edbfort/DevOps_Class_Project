@@ -25,6 +25,9 @@ class TransaksiPembuatanTeam extends Model
         'id_user',
         'id_cha',
         'temp_password',
+        'status_ganti_password',
+        'waktu_buat	',
+        'waktu_ubah'
     ];
 
     /**
