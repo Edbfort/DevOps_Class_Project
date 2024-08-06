@@ -13,7 +13,7 @@ class SmsUtility
         $this->client = new Client();
     }
 
-    public static function sendSms($nomorTelepon, $text)
+    public static function sendSms(string $nomorTelepon, string $text)
     {
         $client = new Client();
 

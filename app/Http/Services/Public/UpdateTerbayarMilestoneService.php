@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Public;
 
+use App\Http\Utility\SmsUtility;
 use App\Models\BatchPembayaran;
 use App\Models\Milestone;
 use App\Models\Pembayaran;
@@ -66,6 +67,13 @@ class UpdateTerbayarMilestoneService
             'waktu_ubah' => new DateTime(),
         ]);
 
-        return response()->json(['message' => 'Milestone berhasil diganti ke terbayar'], 200);
+        $response = null;
+//        $response = SmsUtility::sendSms(
+//            '6289604884108',
+//            'Selamat, milestone "' . $milestone->topik . '" dari proyek "' .
+//            $proyek->judul_proyek . '", billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
+//        );
+
+        return response()->json(['data' => $response, 'message' => 'Milestone berhasil diganti ke terbayar'], 200);
     }
 }

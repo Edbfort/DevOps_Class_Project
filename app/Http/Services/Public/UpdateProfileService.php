@@ -81,6 +81,12 @@ class UpdateProfileService
             ->first()->toArray();
 
         if (!is_null($result['email']) || !is_null($result['nomor_telepon'])) {
+            if ($userRoles->nama_role == 'creative-hub-team' && !empty($parameter['password'])) {
+                $transaksiPembuatanTeam->update([
+                    'status_ganti_password' => 1
+                ]);
+            }
+
             $validator = Validator::make($result, $validasi);
             if (!$validator->fails()) {
                 $statusPengguna = $result['id_status_pengguna'];
@@ -89,12 +95,6 @@ class UpdateProfileService
                 }
 
                 $pengguna->update(['id_status_pengguna' => $statusPengguna]);
-
-                if ($userRoles->nama_role == 'creative-hub-team') {
-                    $transaksiPembuatanTeam->update([
-                        'status_ganti_password' => 1
-                    ]);
-                }
             }
         }
 

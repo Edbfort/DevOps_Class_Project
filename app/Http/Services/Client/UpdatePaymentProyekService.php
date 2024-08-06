@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Client;
 
+use App\Http\Utility\SmsUtility;
 use App\Models\Pembayaran;
 use App\Models\Proyek;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,13 @@ class UpdatePaymentProyekService
             'waktu_ubah' => new DateTime(),
         ]);
 
-        return response()->json(['message' => 'Payment berhasil dilakukan'], 200);
+        $response = null;
+//        $response = SmsUtility::sendSms(
+//            '6289604884108',
+//            'Kamu telah lunas membayar pembuatan proyek "' .
+//            $proyek->judul_proyek . '" dengan nominal Rp.' . $pembayaran->nominal
+//        );
+
+        return response()->json(['data' => $response,'message' => 'Payment berhasil dilakukan'], 200);
     }
 }
