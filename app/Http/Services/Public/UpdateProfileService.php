@@ -47,8 +47,8 @@ class UpdateProfileService
                 $transaksiPembuatanTeam = TransaksiPembuatanTeam::where('id_user', $id)->first();
                 if ($transaksiPembuatanTeam->status_ganti_password) {
                     unset($parameter['password']);
-                    $cha = Pengguna::where('id_user', $transaksiPembuatanTeam->id_cha)->first();
-                    $parameter['alamat'] = $cha->alamat;
+                    $cha = User::where('id', $transaksiPembuatanTeam->id_cha)->first();
+                    $parameter['lokasi'] = $cha->lokasi;
                 }
 
                 $validasi['fee'] = 'required';
@@ -59,9 +59,8 @@ class UpdateProfileService
             if ($userRoles->nama_role != 'controller') {
                 if ($userRoles->nama_role != 'creative-hub-team') {
                     unset($parameter['fee']);
+                    $validasi['alamat'] = 'required';
                 }
-
-                $validasi['alamat'] = 'required';
             } else {
                 $validasi['fee'] = 'required';
             }

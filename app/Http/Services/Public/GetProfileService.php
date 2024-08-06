@@ -67,14 +67,13 @@ class GetProfileService
             ]);
 
             if ($userRoles->nama_role == 'creative-hub-team') {
-                $data['temp_password'] = TransaksiPembuatanTeam::where('id_user', $id)
-                    ->first()
-                    ->temp_password;
-
-                $data['creative_hub_admin'] = TransaksiPembuatanTeam::select('users.nama as nama')->where('id_user', $id)
+                $transaksiPembuatanTeam =TransaksiPembuatanTeam::where('id_user', $id)
                     ->join('users', 'transaksi_pembuatan_team.id_cha', '=', 'users.id')
-                    ->first()
-                    ->nama;
+                    ->first();
+
+                $data['temp_password'] = $transaksiPembuatanTeam->temp_password;
+                $data['creative_hub_admin'] = $transaksiPembuatanTeam->nama;
+                $data['status_ganti_password'] = $transaksiPembuatanTeam->status_ganti_password;
             }
         }
 

@@ -38,7 +38,7 @@ class InsertBuatMilestoneService
             'topik' => $request->topik,
             'deskripsi' => $request->deskripsi,
             'tautan' => $request->tautan,
-            'persentase' => abs($request->persentase),
+            'persentase' => (int)abs($request->persentase),
             'tanggal_tegat' => $request->tanggal_tegat,
             'status' => 0,
             'waktu_buat' => new \DateTime(),
