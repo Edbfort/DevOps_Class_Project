@@ -14,6 +14,7 @@ class GetProyekListService
         $select = [
             'proyek.id as proyek_id',
             'proyek.judul_proyek as proyek_judul_proyek',
+            'proyek.deskripsi_proyek as proyek_deskripsi_proyek',
             'ucl.nama as client_nama',
             'uco.nama as controller_nama',
             'ut.nama as team_nama',

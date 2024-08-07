@@ -42,8 +42,8 @@ class GetProyekListRequest extends FormRequest
         return [
             'id_user' => 'int|nullable',
             'keyword' => 'string|nullable',
-            'anggaran' => 'string|nullable',
-            'spesialisasi' => 'string|nullable'
+            'anggaran' => 'nullable',
+            'spesialisasi' => 'nullable'
         ];
     }
 

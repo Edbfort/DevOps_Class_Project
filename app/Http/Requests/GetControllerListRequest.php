@@ -36,7 +36,9 @@ class GetControllerListRequest extends FormRequest
     public function rules()
     {
         return [
-            // Define your validation rules here
+            'keyword' => 'string|nullable',
+            'fee' => 'nullable',
+            'spesialisasi' => 'nullable'
         ];
     }
 }
