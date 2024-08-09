@@ -145,13 +145,17 @@ class GetProyekListService
                     $item["proyek_spesialisasi"] = json_decode($item["proyek_spesialisasi"], true);
                 }
 
-                if (!is_null($item["proyek_lokasi_dokumen"])) {
-                    $item['proyek_lokasi_dokumen'] = 'upload/dokumen/proyek/' . $item['proyek_lokasi_dokumen'];
-                }
+                try {
+                    if (!is_null($item["proyek_lokasi_dokumen"])) {
+                        $item['proyek_lokasi_dokumen'] = 'upload/dokumen/proyek/' . $item['proyek_lokasi_dokumen'];
+                    }
+                } catch (\Exception $e) {}
 
-                if (!is_null($item["design_brief_lokasi_dokumen"])) {
-                    $item['design_brief_lokasi_dokumen'] = 'upload/dokumen/designBrief/' . $item['design_brief_lokasi_dokumen'];
-                }
+                try {
+                    if (!is_null($item["design_brief_lokasi_dokumen"])) {
+                        $item['design_brief_lokasi_dokumen'] = 'upload/dokumen/designBrief/' . $item['design_brief_lokasi_dokumen'];
+                    }
+                } catch (\Exception $e) {}
 
                 return $item;
             }, $proyek);
