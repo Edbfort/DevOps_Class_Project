@@ -106,6 +106,8 @@ Route::middleware('jwt.auth')->group(function () {
         'prefix' => 'creative-hub-team'
     ], function ($router) {
         Route::get('/member', [CreativeHubTeamController::class, 'getMember']);
+        Route::post('/member', [CreativeHubTeamController::class, 'insertMember']);
+        Route::patch('/member', [CreativeHubTeamController::class, 'updateMember']);
     });
 
     Route::group([
