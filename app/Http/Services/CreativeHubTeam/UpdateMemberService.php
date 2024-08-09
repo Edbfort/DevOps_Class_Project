@@ -19,8 +19,6 @@ class UpdateMemberService
 
         $parameter = $request->validated();
         
-        $parameter['id'] = $request->validated('id_member');
-
         $memberTeam = MemberTeam::where('id',  $request->validated('id_member'));
 
         unset($parameter['id_member']);
