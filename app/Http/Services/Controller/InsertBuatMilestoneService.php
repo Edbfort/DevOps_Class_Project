@@ -22,7 +22,7 @@ class InsertBuatMilestoneService
 
         $milestoneArray = Milestone::where([
             'id_proyek' => $request->id_proyek,
-        ])->all();
+        ])->get()->all();
 
         $persentase = 0;
         foreach ($milestoneArray as $milestone) {
@@ -61,6 +61,6 @@ class InsertBuatMilestoneService
             ]);
         }
 
-        return response()->json(['data' => $proyek, 'message' => 'Data berhasil di ambil'], 200);
+        return response()->json(['data' => $proyek, 'message' => 'Data berhasil ditambah'], 200);
     }
 }

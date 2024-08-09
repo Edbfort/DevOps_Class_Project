@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/spesialisasi', [PublicController::class, 'getSpesialisasi']);
 Route::get('/send-email', [EmailController::class, 'sendEmail']);
-Route::get('/send-sms', [SmsController::class, 'sendSms']);
+Route::get('/send-sms', [\App\Http\Utility\SmsUtility::class, 'sendSms']);
 
 
 Route::group([
