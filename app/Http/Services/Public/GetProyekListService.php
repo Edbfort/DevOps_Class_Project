@@ -68,6 +68,10 @@ class GetProyekListService
 
             $proyekQuery->whereRaw($request->id_user . ' IN (proyek.id_client, proyek.id_controller, proyek.id_team)');
         } else {
+            if ($userRoles->nama_role == 'creative-hub-team') {
+                $proyekQuery->whereRaw('proyek.id_controller IS NOT NULL AND proyek.id_team IS NULL');
+            }
+
             if ($request->has('keyword')) {
                 $proyekQuery->whereRaw(
                     "(ucl.nama like '%" . $request->keyword .
