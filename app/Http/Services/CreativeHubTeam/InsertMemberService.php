@@ -10,8 +10,7 @@ class InsertMemberService
 {
     /**
      * Summary of handle
-     * @param InsertMemberRequest $service
-     * @param int $id
+     * @param InsertMemberRequest $request
      */
     public function handle(InsertMemberRequest $request)
     {

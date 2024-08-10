@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GetMemberRequest;
+use App\Http\Requests\InsertLamaranProyekRequest;
 use App\Http\Requests\InsertMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
 use App\Http\Services\CreativeHubTeam\GetMemberService;
+use App\Http\Services\CreativeHubTeam\InsertLamaranProyekService;
 use App\Http\Services\CreativeHubTeam\InsertMemberService;
 use App\Http\Services\CreativeHubTeam\UpdateMemberService;
 
@@ -46,4 +48,17 @@ class CreativeHubTeamController extends Controller
     {
     return $service->handle($request);
     }
+
+    /**
+     * Handle incoming request
+     *
+     * @param InsertLamaranProyekRequest $request
+     * @param InsertLamaranProyekService $service
+     */
+    public function insertLamaranProyek(InsertLamaranProyekRequest $request, InsertLamaranProyekService $service)
+    {
+    return $service->handle($request);
+    }
+
+    
 }
