@@ -39,7 +39,7 @@ class GetControllerListService
         }
 
         if ($request->has('fee')) {
-            $feeArray = json_decode($request->fee);
+            $feeArray = $request->fee;
 
             $operatorArray = [
                 'lte' => '<=',
@@ -72,7 +72,7 @@ class GetControllerListService
         }
 
         if ($request->has('spesialisasi')) {
-            $spesialisasiArray = json_decode($request->spesialisasi, true);
+            $spesialisasiArray = $request->spesialisasi;
 
             $parameterSpesialisasi = '(';
 

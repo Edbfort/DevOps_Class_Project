@@ -37,8 +37,8 @@ class GetControllerListRequest extends FormRequest
     {
         return [
             'keyword' => 'string|nullable',
-            'fee' => 'nullable',
-            'spesialisasi' => 'nullable'
+            'fee' => 'array|nullable',
+            'spesialisasi' => 'array|nullable'
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Client;
+namespace App\Http\Services\Public;
 
 use App\Models\DesignBreif;
 use App\Models\Proyek;
@@ -37,6 +37,11 @@ class UpdateAcceptDesignBriefService
             'waktu_ubah' => new DateTime(),
         ]);
 
+        //Karna setelah accept design brief ke payment
+        $proyek->update([
+            'id_status_proyek' => 3,
+            'waktu_ubah' => new DateTime(),
+        ]);
         return response()->json(['message' => 'Accept design brief berhasil dilakukan'], 200);
     }
 }
