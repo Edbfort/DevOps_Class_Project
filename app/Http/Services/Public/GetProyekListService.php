@@ -85,7 +85,7 @@ class GetProyekListService
             }
 
             if ($request->has('anggaran')) {
-                $anggaranArray = json_decode($request->anggaran);
+                $anggaranArray = $request->anggaran;
 
                 $operatorArray = [
                     'lte' => '<=',
@@ -117,7 +117,7 @@ class GetProyekListService
             }
 
             if ($request->has('spesialisasi')) {
-                $spesialisasiArray = json_decode($request->spesialisasi, true);
+                $spesialisasiArray = $request->spesialisasi;
 
                 $parameterSpesialisasi = '(';
 

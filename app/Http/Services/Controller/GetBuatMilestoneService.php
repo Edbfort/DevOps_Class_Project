@@ -20,7 +20,7 @@ class GetBuatMilestoneService
         ])
             ->join('users as ut', 'ut.id', '=', 'proyek.id_team')
             ->where([
-                'id' => $request->id_proyek,
+                'proyek.id' => $request->id_proyek,
                 'id_controller' => Auth::id(),
                 'id_status_proyek' => 4
             ])
@@ -32,7 +32,7 @@ class GetBuatMilestoneService
 
         $milestoneArray = Milestone::where([
             'id_proyek' => $request->id_proyek,
-        ])->all();
+        ])->get()->toArray();
 
         $persentase = 0;
         foreach ($milestoneArray as $milestone) {

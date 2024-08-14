@@ -6,6 +6,7 @@ use App\Models\Milestone;
 use App\Models\Proyek;
 use App\Repositories\UserRolesRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GetMilestoneService
 {
@@ -48,14 +49,16 @@ class GetMilestoneService
             'milestone.deskripsi as milestone_deskripsi',
             'milestone.persentase as milestone_persentase',
             'milestone.tanggal_tegat as milestone_tanggal_tegat',
-            'FLOOR(pro.team_fee * milestone.persentase / 100) as payment',
-            'milestone.status as milestone_status'
+            DB::raw('FLOOR(proyek.team_fee * milestone.persentase / 100) as payment'),
+            'milestone.status as milestone_status',
+            'milestone.info_perkembangan as milestone_info_perkembangan',
+            'milestone.tautan as milestone_tautan'
         ])
-            ->join('proyek as pro', 'pro.id', '=', 'milestone.id_proyek')
+            ->join('proyek', 'proyek.id', '=', 'milestone.id_proyek')
             ->where([
                 'id_proyek' => $request->id_proyek
             ])
-            ->orderBy('tanggal_tegat')
+            ->orderBy('milestone.tanggal_tegat')
             ->get();
 
         $proyek['milestone'] = $milestoneArray;

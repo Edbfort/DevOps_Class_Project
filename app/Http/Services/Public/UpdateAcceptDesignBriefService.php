@@ -24,7 +24,7 @@ class UpdateAcceptDesignBriefService
         }
 
         $designBrief = DesignBreif::where([
-            'id_controller' => Auth::id(),
+            'id_controller' => $proyek->id_controller,
             'id_proyek' => $request->id_proyek
         ])->first();
 
