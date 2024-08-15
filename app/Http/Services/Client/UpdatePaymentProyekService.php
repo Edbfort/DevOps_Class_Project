@@ -67,11 +67,11 @@ class UpdatePaymentProyekService
         ]);
 
         $response = null;
-//        $response = SmsUtility::sendSms(
-//            '6289604884108',
-//            'Kamu telah lunas membayar pembuatan proyek "' .
-//            $proyek->judul_proyek . '" dengan nominal Rp.' . $pembayaran->nominal
-//        );
+        $response = SmsUtility::sendSms(
+            '6289604884108',
+            'Kamu telah lunas membayar pembuatan proyek "' .
+            $proyek->judul_proyek . '" dengan nominal Rp.' . $pembayaran->nominal
+        );
 
         return response()->json(['data' => $response,'message' => 'Payment berhasil dilakukan'], 200);
     }

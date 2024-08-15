@@ -76,7 +76,7 @@ class UpdateTerbayarMilestoneService
         $response = SmsUtility::sendSms(
             '6289604884108',
             'Selamat, milestone "' . $milestone->topik . '" dari proyek "' .
-            $proyek->judul_proyek . '", billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
+            $proyek->judul_proyek . '" sudah selesai, billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
         );
 
         $milestone = Milestone::query();
@@ -88,8 +88,29 @@ class UpdateTerbayarMilestoneService
             ->first();
 
         if (empty($milestone)) {
+            $pembayaran = Pembayaran::create([
+                'id_user' => $proyek->id_controller,
+                'nominal' => (int)((int)$proyek->controller_fee * $proyek->anggaran),
+                'id_tipe_pembayaran' => 2,
+                'waktu_buat' => new DateTime(),
+                'waktu_ubah' => new DateTime(),
+            ]);
+
+            //Buang saat ada payment asli
+            $pembayaran->update([
+                'tanggal_pembayaran' => new DateTime(),
+                'waktu_ubah' => new DateTime(),
+            ]);
+
+            $response = null;
+            $response = SmsUtility::sendSms(
+                '6289604884108',
+                'Selamat, proyek "' . $proyek->judul_proyek .
+                '" sudah selesai, billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
+            );
+
             $proyek->update([
-                'id_status_proyek' => 5,
+                'id_status_proyek' => 6,
                 'waktu_ubah' => new DateTime(),
             ]);
         } else {
