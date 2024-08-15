@@ -3,6 +3,7 @@
 namespace App\Http\Services\Public;
 
 use App\Models\FilterSpesialisasi;
+use App\Models\LamaranProyek;
 use App\Models\Proyek;
 use App\Repositories\UserRolesRepository;
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,21 @@ class GetProyekListService
         } else {
             if ($userRoles->nama_role == 'creative-hub-team') {
                 $proyekQuery->whereRaw('proyek.id_controller IS NOT NULL AND proyek.id_team IS NULL');
+
+                $lamaranProyek = LamaranProyek::select(['id_proyek as id'])->where(['id_team' => Auth::id()])->get();
+
+                if (!is_null($lamaranProyek)) {
+                    $lamaranProyek = $lamaranProyek->toArray();
+                    $notIn = '';
+                    foreach ($lamaranProyek as $item) {
+                        if (empty($notIn)) {
+                            $notIn = $item['id'];
+                            continue;
+                        }
+                        $notIn = $notIn . ", " . $item['id'];
+                    }
+                    $proyekQuery->whereRaw('proyek.id NOT IN (' . $notIn . ')');
+                }
             }
 
             if ($request->has('keyword')) {

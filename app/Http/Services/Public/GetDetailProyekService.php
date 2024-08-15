@@ -73,7 +73,9 @@ class GetDetailProyekService
 
         $result['proyek'] = $proyek->toArray();
         $result['proyek']['lokasi_dokumen'] = 'upload/dokumen/proyek/' . $result['proyek']['lokasi_dokumen'];
-        $result['proyek']['anggaran'] = floor(((int)$result['proyek']['anggaran'] * (int)$result['proyek']['controller_fee'] / 100) + (int)$result['proyek']['team_fee']);
+        if (!(is_null($result['proyek']['controller_fee']) || is_null($result['proyek']['controller_fee']))) {
+            $result['proyek']['anggaran'] = floor(((int)$result['proyek']['anggaran'] * (int)$result['proyek']['controller_fee'] / 100) + (int)$result['proyek']['team_fee']);
+        }
 
         unset($result['proyek']['id_controller'],);
 
