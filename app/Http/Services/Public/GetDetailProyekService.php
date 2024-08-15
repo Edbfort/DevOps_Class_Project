@@ -33,7 +33,17 @@ class GetDetailProyekService
             return response()->json(['message' => 'Data tidak di temukan'], 404);
         } elseif ($userRoles->nama_role != 'controller' && $userRoles->nama_role != 'creative-hub-admin') {
             if (!is_null($proyek->id_controller)) {
-                $result['controller'] = Pengguna::select(['id_user', 'spesialisasi'])->where('id_user', $proyek->id_controller)->get()->toArray();
+                $result['controller'] = Pengguna::join(
+                    'users', 'users.id', '=', 'pengguna.id_user'
+                )
+                    ->select([
+                        'id_user',
+                        'spesialisasi',
+                        'users.nama as nama_controller',
+                        'users.lokasi'
+                    ])
+                    ->where('id_user', $proyek->id_controller)
+                    ->first()->toArray();
 
                 $proyekQuery = Proyek::where([
                     'id_controller' => $result['controller']['id_user']

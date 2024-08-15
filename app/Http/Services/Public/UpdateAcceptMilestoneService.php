@@ -15,8 +15,8 @@ class UpdateAcceptMilestoneService
 
         $proyek = Proyek::where([
             'id' => $request->id_proyek,
-            'id_team' => $id,
-            'id_status_proyek' => 4
+            'id_client' => $id,
+            'id_status_proyek' => 5
         ])->first();
 
         if (!$proyek) {

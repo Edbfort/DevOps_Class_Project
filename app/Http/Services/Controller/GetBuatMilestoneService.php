@@ -36,7 +36,7 @@ class GetBuatMilestoneService
 
         $persentase = 0;
         foreach ($milestoneArray as $milestone) {
-            $persentase = $persentase + (int)$milestone->persentase;
+            $persentase = $persentase + (int)$milestone["persentase"];
         }
 
         $proyek['milestone_persentase'] = $persentase;

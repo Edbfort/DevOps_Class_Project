@@ -28,6 +28,7 @@ class Milestone extends Model
         'tautan',
         'persentase',
         'tanggal_tegat',
+        'info_perkembangan',
         'status',
         'waktu_buat',
         'waktu_ubah',

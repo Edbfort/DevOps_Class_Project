@@ -18,8 +18,8 @@ class UpdateTerbayarMilestoneService
 
         $proyek = Proyek::where([
             'id' => $request->id_proyek,
-            'id_team' => $id,
-            'id_status_proyek' => 4
+            'id_controller' => $id,
+            'id_status_proyek' => 5
         ])->first();
 
         if (!$proyek) {
@@ -45,15 +45,20 @@ class UpdateTerbayarMilestoneService
             'id_user' => $proyek->id_team,
             'nominal' => (int)((int)$proyek->team_fee * (int)$milestone->persentase / 100),
             'id_tipe_pembayaran' => 2,
-            'waktu_buat' => new \DateTime(),
-            'waktu_ubah' => new \DateTime(),
+            'waktu_buat' => new DateTime(),
+            'waktu_ubah' => new DateTime(),
         ]);
 
         $batchPembayaran = BatchPembayaran::create([
             'id_milestone' => $request->id_milestone,
             'id_pembayaran' => $pembayaran->id,
-            'waktu_buat' => new \DateTime(),
-            'waktu_ubah' => new \DateTime(),
+            'waktu_buat' => new DateTime(),
+            'waktu_ubah' => new DateTime(),
+        ]);
+
+        $proyek->update([
+            'perkembangan' => (int)$proyek->perkembangan + (int)$milestone->persentase,
+            'waktu_ubah' => new DateTime(),
         ]);
 
         //Buang saat ada payment asli
@@ -68,11 +73,31 @@ class UpdateTerbayarMilestoneService
         ]);
 
         $response = null;
-//        $response = SmsUtility::sendSms(
-//            '6289604884108',
-//            'Selamat, milestone "' . $milestone->topik . '" dari proyek "' .
-//            $proyek->judul_proyek . '", billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
-//        );
+        $response = SmsUtility::sendSms(
+            '6289604884108',
+            'Selamat, milestone "' . $milestone->topik . '" dari proyek "' .
+            $proyek->judul_proyek . '", billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
+        );
+
+        $milestone = Milestone::query();
+        $milestone->where([
+            'id_proyek' => $request->id_proyek,
+            'status' => 0
+        ])
+            ->orderBy('tanggal_tegat')
+            ->first();
+
+        if (empty($milestone)) {
+            $proyek->update([
+                'id_status_proyek' => 5,
+                'waktu_ubah' => new DateTime(),
+            ]);
+        } else {
+            $milestone->update([
+                'status' => 1,
+                'waktu_ubah' => new DateTime(),
+            ]);
+        }
 
         return response()->json(['data' => $response, 'message' => 'Milestone berhasil diganti ke terbayar'], 200);
     }

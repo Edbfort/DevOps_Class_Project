@@ -30,6 +30,7 @@ use App\Http\Services\Public\GetSpesialisasiService;
 use App\Http\Services\Public\GetTeamService;
 use App\Http\Services\Public\InsertAnggotaKeProyekService;
 use App\Http\Services\Public\UpdateAcceptDesignBriefService;
+use App\Http\Services\Public\UpdateAcceptMilestoneService;
 use App\Http\Services\Public\UpdateProfileService;
 use App\Http\Services\Public\UpdateSelesaiMilestoneService;
 use App\Http\Services\Public\UpdateTerbayarMilestoneService;
@@ -133,7 +134,7 @@ class PublicController extends Controller
         return $service->handle($request);
     }
 
-    public function updateAcceptMilestone(UpdateAcceptMilestoneRequest $request, UpdateSelesaiMilestoneService $service)
+    public function updateAcceptMilestone(UpdateAcceptMilestoneRequest $request, UpdateAcceptMilestoneService $service)
     {
         return $service->handle($request);
     }

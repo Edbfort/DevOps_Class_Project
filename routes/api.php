@@ -69,9 +69,9 @@ Route::middleware('jwt.auth')->group(function () {
         Route::get('/', [PublicController::class, 'getProyekList']);
         Route::post('/tambah-anggota', [PublicController::class, 'insertAnggotaKeProyek']);
         Route::get('/milestone', [PublicController::class, 'getMilestone']);
-        Route::get('/milestone/selesai', [PublicController::class, 'updateSelesaiMilestone']);
-        Route::get('/milestone/accept', [PublicController::class, 'updateAcceptMilestone']);
-        Route::get('/milestone/bayar', [PublicController::class, 'updateTerbayarMilestone']);
+        Route::post('/milestone/selesai', [PublicController::class, 'updateSelesaiMilestone']);
+        Route::post('/milestone/accept', [PublicController::class, 'updateAcceptMilestone']);
+        Route::post('/milestone/bayar', [PublicController::class, 'updateTerbayarMilestone']);
         Route::get('/{id}', [PublicController::class, 'getDetailProyek']);
     });
 

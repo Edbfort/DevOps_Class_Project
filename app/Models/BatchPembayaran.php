@@ -22,7 +22,7 @@ class BatchPembayaran extends Model
      * @var array
      */
     protected $fillable = [
-        'id_milstone',
+        'id_milestone',
         'id_pembayaran',
         'waktu_buat',
         'waktu_ubah',
