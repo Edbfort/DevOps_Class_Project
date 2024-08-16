@@ -50,15 +50,15 @@ class UpdateProfileService
 
                 if ($transaksiPembuatanTeam->status_ganti_password) {
                     unset($parameter['password']);
-                    $validasi['fee'] = 'required';
                 }
+
+                $validasi['fee'] = 'required';
             } else {
                 unset($parameter['password']);
             }
 
             if ($userRoles->nama_role != 'controller') {
                 if ($userRoles->nama_role != 'creative-hub-team') {
-                    unset($parameter['fee']);
                     $validasi['alamat'] = 'required';
                 }
             } else {
@@ -92,7 +92,7 @@ class UpdateProfileService
             $validator = Validator::make($result, $validasi);
             if (!$validator->fails()) {
                 $statusPengguna = $result['id_status_pengguna'];
-                if ($statusPengguna == 0 || $statusPengguna == 1 || $statusPengguna == 3) {
+                if ($statusPengguna == 1 || $statusPengguna == 3) {
                     $statusPengguna = (int)$statusPengguna + 1;
                 }
 

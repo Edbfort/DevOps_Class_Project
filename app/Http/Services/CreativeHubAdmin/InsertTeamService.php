@@ -56,7 +56,7 @@ class InsertTeamService
 
             $pengguna = new Pengguna();
             $pengguna->id_user = $user->id;
-            $pengguna->id_status_pengguna = 0;
+            $pengguna->id_status_pengguna = 1;
             $pengguna->waktu_buat = new DateTime();
             $pengguna->waktu_ubah = new DateTime();
             $pengguna->save();

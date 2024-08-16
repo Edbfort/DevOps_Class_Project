@@ -40,6 +40,9 @@ class GetBuatMilestoneService
         }
 
         $proyek['milestone_persentase'] = $persentase;
+        if (!(is_null($proyek['controller_fee']) || is_null($proyek['team_fee']))) {
+            $proyek['anggaran'] = floor(((int)$proyek['anggaran'] * (int)$proyek['controller_fee'] / 100) + (int)$proyek['team_fee']);
+        }
 
         return response()->json(['data' => $proyek, 'message' => 'Data berhasil di ambil'], 200);
     }
