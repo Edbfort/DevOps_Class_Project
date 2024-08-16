@@ -80,7 +80,7 @@ class GetDetailProyekService
         unset($result['proyek']['id_controller'],);
 
         if ($userRoles->nama_role == 'controller' && $proyek->id_team == null) {
-            $result['lamaran_proyek'] = LamaranProyek::select([
+            $lamaran_proyek = LamaranProyek::select([
                 'ut.id as team_id',
                 'ut.nama as team_nama',
                 'ucha.id as cha_id',
@@ -92,6 +92,35 @@ class GetDetailProyekService
                 ->join('transaksi_pembuatan_team as tpt', 'tpt.id_user', '=', 'ut.id')
                 ->join('users as ucha', 'ucha.id', '=', 'tpt.id_cha')
                 ->where(['id_proyek' => $id, 'lamaran_proyek.status' => 0])->get()->toArray();
+
+            $result['lamaran_proyek'] = [];
+            foreach ($lamaran_proyek as $item) {
+                $proyekQuery = Proyek::where([
+                    'id_team' => $item['team_id']
+                ]);
+
+                if (!is_null($proyekQuery->get())) {
+                    $item['projects_handled'] = count($proyekQuery->get());
+                } else {
+                    $item['projects_handled'] = 0;
+                }
+
+                $proyekQuery->where([
+                    'id_status_proyek' => 6
+                ]);
+
+                if (!is_null($proyekQuery->get())) {
+                    if (count($proyekQuery->get()) != 0) {
+                        $item['completion_rate'] = floor(count($proyekQuery->get()) / $item['projects_handled'] * 100);
+                    } else {
+                        $item['completion_rate'] = 0;
+                    }
+                } else {
+                    $item['completion_rate'] = 0;
+                }
+
+                $result['lamaran_proyek'][] = $item;
+            }
         }
 
         return response()->json(['data' => $result, 'message' => 'Data berhasil di ambil'], 200);

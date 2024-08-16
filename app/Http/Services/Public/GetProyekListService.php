@@ -72,10 +72,9 @@ class GetProyekListService
             if ($userRoles->nama_role == 'creative-hub-team') {
                 $proyekQuery->whereRaw('proyek.id_controller IS NOT NULL AND proyek.id_team IS NULL');
 
-                $lamaranProyek = LamaranProyek::select(['id_proyek as id'])->where(['id_team' => Auth::id()])->get();
+                $lamaranProyek = LamaranProyek::select(['id_proyek as id'])->where(['id_team' => Auth::id()])->get()->toArray();
 
-                if (!is_null($lamaranProyek)) {
-                    $lamaranProyek = $lamaranProyek->toArray();
+                if (!empty($lamaranProyek)) {
                     $notIn = '';
                     foreach ($lamaranProyek as $item) {
                         if (empty($notIn)) {
