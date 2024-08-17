@@ -2,7 +2,6 @@
 
 namespace App\Http\Services\Public;
 
-use App\Http\Utility\SmsUtility;
 use App\Models\BatchPembayaran;
 use App\Models\Milestone;
 use App\Models\Pembayaran;
@@ -72,22 +71,24 @@ class UpdateTerbayarMilestoneService
             'waktu_ubah' => new DateTime(),
         ]);
 
-        $response = null;
-        $response = SmsUtility::sendSms(
-            '6289604884108',
-            'Selamat, milestone "' . $milestone->topik . '" dari proyek "' .
-            $proyek->judul_proyek . '" sudah selesai, billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
-        );
+        $response = [];
+//        $response[] = SmsUtility::sendSms(
+//            '6289604884108',
+//            'Selamat, milestone "' . $milestone->topik . '" dari proyek "' .
+//            $proyek->judul_proyek . '" sudah selesai, billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
+//        );
 
-        $milestone = Milestone::query();
-        $milestone->where([
+        $milestone = Milestone::where([
             'id_proyek' => $request->id_proyek,
             'status' => 0
         ])
-            ->orderBy('tanggal_tegat')
-            ->first();
+            ->orderBy('tanggal_tegat');
 
-        if (empty($milestone)) {
+        if (empty(
+        $milestone
+            ->get()
+            ->toArray()
+        )) {
             $pembayaran = Pembayaran::create([
                 'id_user' => $proyek->id_controller,
                 'nominal' => (int)((int)$proyek->controller_fee * $proyek->anggaran),
@@ -102,17 +103,16 @@ class UpdateTerbayarMilestoneService
                 'waktu_ubah' => new DateTime(),
             ]);
 
-            $response = null;
-            $response = SmsUtility::sendSms(
-                '6289604884108',
-                'Selamat, proyek "' . $proyek->judul_proyek .
-                '" sudah selesai, billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
-            );
+//            $response[] = SmsUtility::sendSms(
+//                '6289604884108',
+//                'Selamat, proyek "' . $proyek->judul_proyek .
+//                '" sudah selesai, billing anda sudah menerima sebanyak nominal Rp.' . $pembayaran->nominal
+//            );
 
             $proyek->update([
-                'id_status_proyek' => 6,
-                'waktu_ubah' => new DateTime(),
-            ]);
+                    'id_status_proyek' => 6,
+                    'waktu_ubah' => new DateTime(),
+                ]);
         } else {
             $milestone->update([
                 'status' => 1,

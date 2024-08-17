@@ -42,7 +42,7 @@ class InsertProyekRequest extends FormRequest
             'spesialisasi' => 'required',
             'anggaran' => 'required|integer',
             'tanggal_tegat' => 'required|date',
-            'file_dokumen' => 'nullable|max:5000|mimes:jpeg,jpg,png,doc,docx,pdf,xls,xlsx'
+            'file_dokumen' => 'nullable|max:20000|mimes:jpeg,jpg,png,doc,docx,pdf,xls,xlsx,zip'
         ];
     }
 
