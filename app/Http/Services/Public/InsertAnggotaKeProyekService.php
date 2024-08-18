@@ -47,17 +47,17 @@ class InsertAnggotaKeProyekService
 
             $roleUser = 'Controller';
 
-//            MailerUtility::sendEmail(
-//                [
-//                    [
-//                        //'Email' => $pengguna['email']
+            MailerUtility::sendEmail(
+                [
+                    [
+                        'Email' => $pengguna['email']
 //                        'Email' => 'william@mikroskil.ac.id',
-//                    ]
-//                ],
-//                'Anda diterima ke project "' . $proyek->judul_proyek . '"',
-//                'Selamat anda diterima ke proyek "' . $proyek->judul_proyek . '"',
-//                ''
-//            );
+                    ]
+                ],
+                'Anda diterima ke project "' . $proyek->judul_proyek . '"',
+                'Selamat anda diterima ke proyek "' . $proyek->judul_proyek . '"',
+                ''
+            );
 
         } elseif ($userRoles->nama_role == 'controller') {
             $pengguna = Pengguna::select([
@@ -80,17 +80,17 @@ class InsertAnggotaKeProyekService
 
             $roleUser = 'Team';
 
-//            MailerUtility::sendEmail(
-//                [
-//                    [
-////                    'Email' => $pengguna['email']
+            MailerUtility::sendEmail(
+                [
+                    [
+                    'Email' => $pengguna['email']
 //                        'Email' => 'william@mikroskil.ac.id'
-//                    ]
-//                ],
-//                'Anda diterima ke project "' . $proyek->judul_proyek . '"',
-//                'Selamat anda diterima ke proyek "' . $proyek->judul_proyek . '"',
-//                ''
-//            );
+                    ]
+                ],
+                'Anda diterima ke project "' . $proyek->judul_proyek . '"',
+                'Selamat anda diterima ke proyek "' . $proyek->judul_proyek . '"',
+                ''
+            );
         }
 
         return response()->json(['message' => 'Menambah ' . $roleUser . ' berhasil dilakukan'], 200);
